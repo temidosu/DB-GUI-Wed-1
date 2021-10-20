@@ -1,4 +1,4 @@
-# Construct Work S21 Repository
+# R2R Repository
 Live example: 
 # Sample docker-compose Project With MySQL DBaaS
 #### A sample project using docker-compose with Node and React.JS containers.
