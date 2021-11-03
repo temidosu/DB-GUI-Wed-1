@@ -1,8 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './accounts.css';
 import './broccoli.png';
 
-function LoginForm(){
+function LoginForm({ Login, error }){
+    const [details, setDetails] = useState({ email: "", password: ""});
+
+    const submitHandler = e =>{
+        e.preventDefault();
+
+        Login(details)
+    }
     return (
         <div>
         <div class="container" id="container">
@@ -22,7 +29,7 @@ function LoginForm(){
                 </form>
             </div>
             <div class="form-container sign-in-container">
-                <form action="#">
+                <form onSubmit={submitHandler}>
                     <h1>Sign in</h1>
                     <div class="social-container">
                         <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
@@ -30,8 +37,8 @@ function LoginForm(){
                         <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
                     </div>
                     <span>or use your account</span>
-                    <input type="email" placeholder="Email" />
-                    <input type="password" placeholder="Password" />
+                    <input type="email" name="Email" onChange ={e => setDetails({...details, email: e.target.value})} value={details.email}/>
+                    <input type="password" name="Password" onChange ={e => setDetails({...details, password: e.target.value})} value={details.password}/>
                     <a href="#">Forgot your password?</a>
                     <button>Sign In</button>
                 </form>

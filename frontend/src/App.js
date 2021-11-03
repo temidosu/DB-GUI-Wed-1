@@ -9,14 +9,25 @@ function App() {
     password: "123"
   }
 
-  const [user, setUser] = useState({name: "", email: ""});
+  const [user, setUser] = useState({email: ""});
   const [error, setError] = useState("");
 
   const Login = details => {
+    console.log(details)
+
+    if (details.email == admin.email && details.password == admin.password){
+      console.log("Logged in")
+      setUser({
+        email: details.email
+      })
+    } else{
+      console.log("Wrong Password")
+    }
 
   }
 
   const Logout = () => {
+    setUser({ name: "", email: ""})
 
   }
 
@@ -26,10 +37,10 @@ function App() {
       {(user.email !== "") ? (
         <div className="welcome">
           <h2>Welcome, <span>{user.name}</span></h2>
-          <button>Logout</button>
+          <button onClick={Logout}>Logout</button>
         </div>
       ): (
-        <LoginForm/>
+        <LoginForm Login={Login} error={error}/>
       )}
     </div>
   );
