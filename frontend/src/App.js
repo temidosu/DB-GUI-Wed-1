@@ -1,23 +1,36 @@
 import logo from './logo.svg';
 import './App.css';
+import React, { useState } from 'react';
+import LoginForm from './Accounts/LoginForm';
 
 function App() {
+  const admin = {
+    email: "admin@gmail.com",
+    password: "123"
+  }
+
+  const [user, setUser] = useState({name: "", email: ""});
+  const [error, setError] = useState("");
+
+  const Login = details => {
+
+  }
+
+  const Logout = () => {
+
+  }
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {(user.email !== "") ? (
+        <div className="welcome">
+          <h2>Welcome, <span>{user.name}</span></h2>
+          <button>Logout</button>
+        </div>
+      ): (
+        <LoginForm/>
+      )}
     </div>
   );
 }
