@@ -18,7 +18,10 @@ export const CompactRecipeCard = props => <>
 			{/* TODO: Cap this at an arbitrary maximum (ie 5) so the card isn't flooded with ingredients */}
 			<li className="list-group-item"></li>
 			{
-				props.ingredients.map((x, i) => <li className="list-group-item" key={i}>{x.number}</li>)
+				props.ingredients.map((x, i) => <li className="list-group-item" key={i}>
+					{x.recipeName}
+					
+				</li>)
 			}
 		</ul>
 

@@ -8,7 +8,7 @@ export const CompactRecipeCardList = props => <>
 			!props.userSavedRecipes.length && <li className="bg-secondary rounded-top list-group-item">No saved recipes!</li>
 		}
 		{
-			props.userSavedRecipes.map((x, i) => <li className="list-group-item pl-0 pr-0 " key={i}>{x.number}
+			props.userSavedRecipes.map((x, i) => <li className="list-group-item pl-0 pr-0 " key={i}>
 				<div>
 					<CompactRecipeCard card={x.props}></CompactRecipeCard>
 				</div>
