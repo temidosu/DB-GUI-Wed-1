@@ -10,6 +10,13 @@ export class ProfilePage extends React.Component {
 	render() {
 		<div id="Profile Page">
 			<h1>{this.state.name}</h1>
+
+			{/* Dynamically create RecipeCards */}
+			
+			
+			{/* Calendar for ingredients */}
 		</div>
+
+
 	}
 }
