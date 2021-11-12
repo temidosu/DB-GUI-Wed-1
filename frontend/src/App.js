@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import React, { useState } from 'react';
 import LoginForm from './Accounts/LoginForm';
+import RegisterForm from './Accounts/RegisterForm';
 
 function App() {
   const admin = {
@@ -31,7 +32,7 @@ function App() {
 
   }
 
-
+ 
   return (
     <div className="App">
       {(user.email !== "") ? (

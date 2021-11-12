@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import RegisterForm from './RegisterForm';
+
 import './accounts.css';
 import './broccoli.png';
 
@@ -53,7 +55,7 @@ function LoginForm({ Login, error }){
                     <div class="overlay-panel overlay-right">
                         <h1>Hello</h1>
                         <p>Enter details</p>
-                        <button class="ghost" id="signUp">Sign Up</button>
+                        <button class="ghost" id="signUp" onClick={RegisterForm}>Sign Up</button>
                         
                     </div>
                 </div>
