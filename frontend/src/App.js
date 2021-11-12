@@ -1,9 +1,9 @@
 import './App.css';
-import { Pr } from './application';
+import { ProfilePage } from './ProfilePage';
 export function App() {
   return (
     <>
-      <ProductDetails />
+      <ProfilePage />
     </>
   );
 }
