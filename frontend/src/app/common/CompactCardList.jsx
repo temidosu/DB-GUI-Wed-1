@@ -1,14 +1,25 @@
 import React from 'react';
 import { CompactRecipeCard } from './CompactRecipeCard';
 
+
+function isSavedorCreated(isSaved) {
+	// const [savedRecipe, setRecipe] = useState(true);
+	if (isSaved === true) {
+		return "No recipes saved!"
+	}
+	else {
+		return "No recipes created!"
+	}
+}
+
 export const CompactRecipeCardList = props => <>
 	<ul className="list-group">
-		<li className="list-group-item border-0"><h3 className="d-inline">Saved Recipies</h3> <h3 className="text-secondary d-inline">({props.userSavedRecipes.length})</h3></li>
+		<li className="list-group-item border-0"></li>
 		{
-			!props.userSavedRecipes.length && <li className="bg-secondary rounded-top list-group-item">No saved recipes!</li>
+			<li className="bg-secondary rounded-top list-group-item">{this.isSavedorCreated(this.isSaved)}</li>
 		}
 		{
-			props.userSavedRecipes.map((x, i) => <li className="list-group-item pl-0 pr-0 " key={i}>
+			props.savedRecipes.map((x, i) => <li className="list-group-item pl-0 pr-0 " key={i}>
 				<div>
 					<CompactRecipeCard card={x.props}></CompactRecipeCard>
 				</div>
