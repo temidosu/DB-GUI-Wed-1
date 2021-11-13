@@ -1,7 +1,8 @@
 import React from "react";
-import { RecipeCard } from './CompactRecipeCard';
-import { User } from '../models/User';
-import { CompactRecipeCardList } from './CompactCardList';
+import { User } from '../../models/User';
+import { CompactRecipeCardList } from '../common/CompactCardList';
+
+
 
 export class ProfilePage extends React.Component {
 	state = {
