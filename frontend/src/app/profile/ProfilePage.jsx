@@ -28,7 +28,7 @@ export class ProfilePage extends React.Component {
 
 	render() {
 		return <>
-			<div id="Profile Page">
+			<div id="Profile Page" class="container">
 				<h1>{this.state.user.firstName} {this.state.user.lastName}</h1>
 
 				{/* Dynamically create RecipeCards */}
