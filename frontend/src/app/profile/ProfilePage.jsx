@@ -25,10 +25,6 @@ export class ProfilePage extends React.Component {
 		this.setState({ ingredients });
 	}
 
-	checkSaved() {
-		var isSaved = false;
-		this.setState({ isSaved });
-	}
 
 	render() {
 		return <>
@@ -37,15 +33,25 @@ export class ProfilePage extends React.Component {
 
 				{/* Dynamically create RecipeCards */}
 				<h2>Saved Recipes</h2>
-				<CompactRecipeCardList {() => this.setState({ savedRecipe: true }))} savedRecipes={this.state.user.savedRecipes}></CompactRecipeCardList>
+				{
+					this.state.user.savedRecipes.length > 0 && <CompactRecipeCardList savedRecipes={this.state.user.savedRecipes}></CompactRecipeCardList>
+				}
+				{
+					<p>No Saved Recipes</p>
+				}
 
 
-			<h2>Created Recipes</h2>
-			{this.checkSaved()}
-			<CompactRecipeCardList savedRecipes={this.state.user.createdRecipes}></CompactRecipeCardList>
+				<h2>Created Recipes</h2>
+				{
+					this.state.user.savedRecipes.createdRecipes > 0 && <CompactRecipeCardList savedRecipes={this.state.user.createdRecipes}></CompactRecipeCardList>
+				}
+				{
+					<p>No Created Recipes</p>
+				}
 
-			{/* Calendar for ingredients */}
-		</div>
+
+
+			</div>
 		</>;
 	}
 }
