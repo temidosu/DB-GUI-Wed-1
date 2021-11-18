@@ -1,31 +1,33 @@
 import React from "react";
 
 export const CompactRecipeCard = props => <>
-	<div id="CompactRecipeCard">
-		<h2>{this.props.recipeName}</h2>
-		<img src={this.props.imageURL}></img>
-		<p>{this.props.creator}</p>
+    <div id="CompactRecipeCard">
+        <li className="list-group mb-0"></li>
+        {
+            //  !props.createdRecipes.length && <li className= "list-group-item">No recipe created yet!</li>
+        }
+        {
+            //works but this is incomplete
+            <li className="card rounded container mb-4 list-group p-0">
+                
+                <div className="card-header">
+                    {/* [1, 2, 3, 4, 5].map(x => (<i key={x} className={(x > props.card.rating ? 'empty-star' : 'full-star')}></i>)) */}
+                </div>
+                <div className="card-body">
+                    <div className="row mt-1 mb-1 ms-1">
+                        <h2 className="h4">{props.card.recipeName}</h2>
+                        <img src = {props.card.imageURL}></img>
+                        <div className="text-muted h5">{props.card.instructions}</div>
+						
+                        {/* Add ingredients and creator*/}
+                    </div>
+                    <div className="row mt-1 mb-1 ms-1">
+                        <div className="text-muted"><p class="h4">"{props.card.description}"</p></div>
+                    </div>
+                    <div>
 
-		<span className="stars">
-			{
-				[1, 2, 3, 4, 5].map(x => (<i key={x} className={(x > props.rating ? 'empty-star' : 'full-star')}></i>))
-			}
-		</span>
-		
-
-		<ul className="list-group">
-
-			{/* TODO: Cap this at an arbitrary maximum (ie 5) so the card isn't flooded with ingredients */}
-			<li className="list-group-item"></li>
-			{
-				props.ingredients.map((x, i) => <li className="list-group-item" key={i}>
-					{x.recipeName}
-					
-				</li>)
-			}
-		</ul>
-
-		<p>{this.props.description}</p>
-
-	</div>
+                    </div>
+                </div>
+            </li>
+        }</div>
 </>;

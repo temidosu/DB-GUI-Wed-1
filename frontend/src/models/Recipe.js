@@ -1,5 +1,5 @@
 export class Recipe {
-	constructor(id, recipeName, imageURL, rating, instructions, ingredients, creatorName) {
+	constructor(id, recipeName, imageURL, rating, instructions, ingredients, description, creatorID) {
 		this.id = id;
 		this.recipeName = recipeName;
 		this.imageURL = imageURL;
@@ -7,6 +7,6 @@ export class Recipe {
 		this.instructions = instructions;
 		this.ingredients = ingredients;
 		this.description = description;
-		this.creator = creatorName;
+		this.creatorID = creatorID;
 	}
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import { User } from '../../models/User';
 import { CompactRecipeCardList } from '../common/CompactCardList';
-
+import { CreateRecipe } from "../recipe/createRecipe";
 
 
 export class ProfilePage extends React.Component {
@@ -14,10 +14,16 @@ export class ProfilePage extends React.Component {
 			[], /* savedRecipes */
 			[], /* createdRecipes */
 			[], /* ingredients */
-			[] /* Planner */
+			//[] /* Planner */
 		),
 		savedRecipe: false
 	};
+
+	addRecipe(recipe) {
+		var recipes = this.state.user.createdRecipes;
+        recipes.push(recipe);
+        this.setState({ recipes });
+	}
 
 	addIngredient(ingredient) {
 		var ingredients = this.state.user.ingredients;
@@ -35,17 +41,20 @@ export class ProfilePage extends React.Component {
 			<div id="Profile Page">
 				<h1>{this.state.user.firstName} {this.state.user.lastName}</h1>
 
+				<CreateRecipe onRecipeAdded = {recipe => this.addRecipe(recipe)} />
 				{/* Dynamically create RecipeCards */}
 				<h2>Saved Recipes</h2>
-				<CompactRecipeCardList {() => this.setState({ savedRecipe: true }))} savedRecipes={this.state.user.savedRecipes}></CompactRecipeCardList>
-
-
+				
+	
+				
 			<h2>Created Recipes</h2>
-			{this.checkSaved()}
-			<CompactRecipeCardList savedRecipes={this.state.user.createdRecipes}></CompactRecipeCardList>
+			
+			<CompactRecipeCardList userCreatedRecipes={this.state.user.createdRecipes}></CompactRecipeCardList>
 
 			{/* Calendar for ingredients */}
+
+		
 		</div>
-		</>;
+		</>
 	}
 }
