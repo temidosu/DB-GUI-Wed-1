@@ -6,6 +6,8 @@ import { CreateRecipe } from "../recipe/createRecipe";
 
 export class ProfilePage extends React.Component {
 	state = {
+
+		// This will get set by profilepage's parent later
 		user: new User(
 			1,
 			"John",
@@ -31,10 +33,6 @@ export class ProfilePage extends React.Component {
 		this.setState({ ingredients });
 	}
 
-	checkSaved() {
-		var isSaved = false;
-		this.setState({ isSaved });
-	}
 
 	render() {
 		return <>
