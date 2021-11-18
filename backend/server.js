@@ -38,13 +38,14 @@ app.listen(config.port, config.host, (e) => {
   logger.info(`${config.name} running on ${config.host}:${config.port}`);
 });
 
-
+// Get all users
 router.get('/users', function (req, res) {
   con.query("SELECT * FROM users", function (err, result, fields) {
       if (err) throw err;
       res.end(JSON.stringify(result)); // Result in JSON format
   });
 });
+// Add a new user
 router.post('/users', async (req, res) => {
   var userName = req.body.userName
   var userPass = req.body.userPass
@@ -59,6 +60,7 @@ router.post('/users', async (req, res) => {
       res.end(JSON.stringify(result)); // Result in JSON format
   });
 });
+// Get a user with a specific ID
 router.get('/users/:userID', function (req, res) {
 var userID = req.param('userID')
 con.query("SELECT * FROM users WHERE userID = ?", userID, function (err, result, fields) {
@@ -66,6 +68,7 @@ con.query("SELECT * FROM users WHERE userID = ?", userID, function (err, result,
   res.end(JSON.stringify(result)); // Result in JSON format
 });
 });
+// Delete a user from the database
 router.delete('/users/:userID', async (req, res) => {
   var userID = req.body.userID
   
@@ -76,13 +79,14 @@ router.delete('/users/:userID', async (req, res) => {
 });
 
 
-
+// Get all recipes
 router.get('/recipes', function (req, res) {
   con.query("SELECT * FROM recipes", function (err, result, fields) {
       if (err) throw err;
       res.end(JSON.stringify(result)); // Result in JSON format
   });
 });
+// Add a new recipe
 router.post('/recipes', async (req, res) => {
   var recipe = req.body.recipe
   var recipeName = req.body.recipeName
@@ -99,6 +103,7 @@ router.post('/recipes', async (req, res) => {
       res.end(JSON.stringify(result)); // Result in JSON format
   });
 });
+// Get a recipe with a specific recipeID
 router.get('/recipes/recipeID', function (req, res) {
 var recipeID = req.param('recipeID')
 con.query("SELECT * FROM recipes WHERE recipeID = ?", recipeID, function (err, result, fields) {
@@ -106,6 +111,7 @@ con.query("SELECT * FROM recipes WHERE recipeID = ?", recipeID, function (err, r
   res.end(JSON.stringify(result)); // Result in JSON format
 });
 });
+// Delete a recipe with a specific recipeID
 router.delete('/recipes/recipeID', async (req, res) => {
   var recipeID = req.body.recipeID
   
@@ -114,6 +120,7 @@ router.delete('/recipes/recipeID', async (req, res) => {
       res.end(JSON.stringify(result)); 
   });
 });
+// Get a recipe from a specific user
 router.get('/recipes/userID', function (req, res) {
 var userID = req.param('userID')
 con.query("SELECT * FROM recipes WHERE userID = ?", userID, function (err, result, fields) {
@@ -121,6 +128,7 @@ con.query("SELECT * FROM recipes WHERE userID = ?", userID, function (err, resul
   res.end(JSON.stringify(result)); // Result in JSON format
 });
 });
+/// Add a recipe under a userID
 router.post('/recipes/:userID', async (req, res) => {
   var recipe = req.body.recipe
   var recipeName = req.body.recipeName
