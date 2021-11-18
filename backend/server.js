@@ -51,11 +51,12 @@ router.post('/users', async (req, res) => {
   var userPass = req.body.userPass
   var userBio = req.body.userBio
   var userEmail = req.body.userEmail
+  var userPhoto = req.body.userPhoto
   var favRecipe = req.body.favRecipe
   var history = req.body.history
   
-  con.query("INSERT INTO users (userName, userPass, userBio, userEmail, favRecipe, history) VALUES (?, ?, ?, ?, ?, ?)", 
-  [userName, userPass, userBio, userEmail, favRecipe, history], function (err, result, fields) {
+  con.query("INSERT INTO users (userName, userPass, userBio, userEmail, userPhoto, favRecipe, history) VALUES (?, ?, ?, ?, ?, ?, ?)", 
+  [userName, userPass, userBio, userEmail, userPhoto, favRecipe, history], function (err, result, fields) {
       if (err) throw err;
       res.end(JSON.stringify(result)); // Result in JSON format
   });
@@ -92,13 +93,14 @@ router.post('/recipes', async (req, res) => {
   var recipeName = req.body.recipeName
   var ingredientList = req.body.ingredientList
   var recipeCreator = req.body.recipeCreator
+  var recipePhoto = req.body.recipiePhoto
   var recipeDesc = req.body.recipeDesc
   var recipeIndc = req.body.recipeIndc
   var hyperlink = req.body.hyperlink
   var userID = req.body.userID
   
-  con.query("INSERT INTO recipes (recipe, recipeName, ingredientList, recipeCreator, recipeDesc, recipeIndc, hyperlink, userID) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", 
-      [recipe, recipeName, ingredientList, recipeCreator, recipeDesc, recipeIndc, hyperlink, userID], function (err, result, fields) {
+  con.query("INSERT INTO recipes (recipe, recipeName, ingredientList, recipeCreator, recipePhoto, recipeDesc, recipeIndc, hyperlink, userID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", 
+      [recipe, recipeName, ingredientList, recipeCreator, recipePhoto, recipeDesc, recipeIndc, hyperlink, userID], function (err, result, fields) {
       if (err) throw err;
       res.end(JSON.stringify(result)); // Result in JSON format
   });
@@ -134,13 +136,14 @@ router.post('/recipes/:userID', async (req, res) => {
   var recipeName = req.body.recipeName
   var ingredientList = req.body.ingredientList
   var recipeCreator = req.body.recipeCreator
+  var recipePhoto = req.body.recipePhoto
   var recipeDesc = req.body.recipeDesc
   var recipeIndc = req.body.recipeIndc
   var hyperlink = req.body.hyperlink
   var userID = req.param('userID')
   
-  con.query("INSERT INTO recipes (recipe, recipeName, ingredientList, recipeCreator, recipeDesc, recipeIndc, hyperlink, userID) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", 
-      [recipe, recipeName, ingredientList, recipeCreator, recipeDesc, recipeIndc, hyperlink, userID], function (err, result, fields) {
+  con.query("INSERT INTO recipes (recipe, recipeName, ingredientList, recipeCreator, recipePhoto, recipeDesc, recipeIndc, hyperlink, userID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", 
+      [recipe, recipeName, ingredientList, recipeCreator, recipePhoto, recipeDesc, recipeIndc, hyperlink, userID], function (err, result, fields) {
       if (err) throw err;
       res.end(JSON.stringify(result)); // Result in JSON format
   });
