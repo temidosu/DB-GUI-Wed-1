@@ -37,3 +37,103 @@ app.listen(config.port, config.host, (e) => {
   }
   logger.info(`${config.name} running on ${config.host}:${config.port}`);
 });
+
+
+router.get('/users', function (req, res) {
+  con.query("SELECT * FROM users", function (err, result, fields) {
+      if (err) throw err;
+      res.end(JSON.stringify(result)); // Result in JSON format
+  });
+});
+router.post('/users', async (req, res) => {
+  var userName = req.body.userName
+  var userPass = req.body.userPass
+  var userBio = req.body.userBio
+  var userEmail = req.body.userEmail
+  var favRecipe = req.body.favRecipe
+  var history = req.body.history
+  
+  con.query("INSERT INTO users (userName, userPass, userBio, userEmail, favRecipe, history) VALUES (?, ?, ?, ?, ?, ?)", 
+  [userName, userPass, userBio, userEmail, favRecipe, history], function (err, result, fields) {
+      if (err) throw err;
+      res.end(JSON.stringify(result)); // Result in JSON format
+  });
+});
+router.get('/users/:userID', function (req, res) {
+var userID = req.param('userID')
+con.query("SELECT * FROM users WHERE userID = ?", userID, function (err, result, fields) {
+  if (err) throw err;
+  res.end(JSON.stringify(result)); // Result in JSON format
+});
+});
+router.delete('/users/:userID', async (req, res) => {
+  var userID = req.body.userID
+  
+  con.query("DELETE FROM users WHERE userID = ? ", userID,function (err, result, fields) {
+      if (err) throw err;
+      res.end(JSON.stringify(result)); 
+  });
+});
+
+
+
+router.get('/recipes', function (req, res) {
+  con.query("SELECT * FROM recipes", function (err, result, fields) {
+      if (err) throw err;
+      res.end(JSON.stringify(result)); // Result in JSON format
+  });
+});
+router.post('/recipes', async (req, res) => {
+  var recipe = req.body.recipe
+  var recipeName = req.body.recipeName
+  var ingredientList = req.body.ingredientList
+  var recipeCreator = req.body.recipeCreator
+  var recipeDesc = req.body.recipeDesc
+  var recipeIndc = req.body.recipeIndc
+  var hyperlink = req.body.hyperlink
+  var userID = req.body.userID
+  
+  con.query("INSERT INTO recipes (recipe, recipeName, ingredientList, recipeCreator, recipeDesc, recipeIndc, hyperlink, userID) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", 
+      [recipe, recipeName, ingredientList, recipeCreator, recipeDesc, recipeIndc, hyperlink, userID], function (err, result, fields) {
+      if (err) throw err;
+      res.end(JSON.stringify(result)); // Result in JSON format
+  });
+});
+router.get('/recipes/recipeID', function (req, res) {
+var recipeID = req.param('recipeID')
+con.query("SELECT * FROM recipes WHERE recipeID = ?", recipeID, function (err, result, fields) {
+  if (err) throw err;
+  res.end(JSON.stringify(result)); // Result in JSON format
+});
+});
+router.delete('/recipes/recipeID', async (req, res) => {
+  var recipeID = req.body.recipeID
+  
+  con.query("DELETE FROM recipes WHERE recipeID = ? ", recipeID,function (err, result, fields) {
+      if (err) throw err;
+      res.end(JSON.stringify(result)); 
+  });
+});
+router.get('/recipes/userID', function (req, res) {
+var userID = req.param('userID')
+con.query("SELECT * FROM recipes WHERE userID = ?", userID, function (err, result, fields) {
+  if (err) throw err;
+  res.end(JSON.stringify(result)); // Result in JSON format
+});
+});
+router.post('/recipes/:userID', async (req, res) => {
+  var recipe = req.body.recipe
+  var recipeName = req.body.recipeName
+  var ingredientList = req.body.ingredientList
+  var recipeCreator = req.body.recipeCreator
+  var recipeDesc = req.body.recipeDesc
+  var recipeIndc = req.body.recipeIndc
+  var hyperlink = req.body.hyperlink
+  var userID = req.param('userID')
+  
+  con.query("INSERT INTO recipes (recipe, recipeName, ingredientList, recipeCreator, recipeDesc, recipeIndc, hyperlink, userID) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", 
+      [recipe, recipeName, ingredientList, recipeCreator, recipeDesc, recipeIndc, hyperlink, userID], function (err, result, fields) {
+      if (err) throw err;
+      res.end(JSON.stringify(result)); // Result in JSON format
+  });
+});
