@@ -159,3 +159,13 @@ router.get('/recipes/userID/recipeID', function (req, res) {
 		res.end(JSON.stringify(result)); // Result in JSON format
 	});
 });
+//Delete a recipe from a specific user
+router.delete('/recipes/userID/recipeID', function (req, res) {
+  var userID = req.body.userID
+  var recipeID = req.body.recipeID
+
+  con.query("DELETE FROM recipes WHERE userID = ? AND recipeID = ? ", [userID, recipeID],function (err, result, fields) {
+      if (err) throw err;
+      res.end(JSON.stringify(result)); 
+  });
+});
