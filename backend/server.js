@@ -148,3 +148,14 @@ router.post('/recipes/:userID', async (req, res) => {
       res.end(JSON.stringify(result)); // Result in JSON format
   });
 });
+
+// New Shit
+// Get a recipe from a specific user with a specific recipe ID
+router.get('/recipes/userID/recipeID', function (req, res) {
+	var userID = req.param('userID')
+    var recipeID = req.param('recipeID')
+	con.query("SELECT * FROM recipes WHERE userID = ? AND recipeID = ?", [userID, recipeID], function (err, result, fields) {
+		if (err) throw err;
+		res.end(JSON.stringify(result)); // Result in JSON format
+	});
+});
