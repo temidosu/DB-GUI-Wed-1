@@ -346,6 +346,126 @@ router.get('/recipes/userID/recipeID', function (req, res) {
 		res.end(JSON.stringify(result)); // Result in JSON format
 	});
 });
+// Update a user's recipe
+router.put('/recipes/userID/recipeID/updateRecipe', async (req, res) => {
+  var userID = req.params('userID')
+  var recipeID = req.param('recipeID')
+  var recipeNew = req.param('postIDNew')
+
+  con.query("UPDATE recipes SET recipe = ? WHERE userID = ? AND recipeID = ?", 
+  [recipeNew, userID, recipeID],function (err, result, fields) {
+      if (err) throw err;
+      res.end(JSON.stringify(result)); // Result in JSON format
+  });
+});
+// Update a user's recipe's name
+router.put('/recipes/userID/recipeID/updateRecipeName', async (req, res) => {
+  var userID = req.params('userID')
+  var recipeID = req.param('recipeID')
+  var recipeNameNew = req.param('recipeNameNew')
+
+  con.query("UPDATE recipes SET recipeName = ? WHERE userID = ? AND recipeID = ?", 
+  [recipeNameNew, userID, recipeID],function (err, result, fields) {
+      if (err) throw err;
+      res.end(JSON.stringify(result)); // Result in JSON format
+  });
+});
+// Update a user's recipe's ingredient list
+router.put('/recipes/userID/recipeID/updateIngredientList', async (req, res) => {
+  var userID = req.params('userID')
+  var recipeID = req.param('recipeID')
+  var ingredientListNew = req.param('ingredientListNew')
+
+  con.query("UPDATE recipes SET ingredientList = ? WHERE userID = ? AND recipeID = ?", 
+  [ingredientListNew, userID, recipeID],function (err, result, fields) {
+      if (err) throw err;
+      res.end(JSON.stringify(result)); // Result in JSON format
+  });
+});
+// Update a user's recipe's creator name
+router.put('/recipes/userID/recipeID/updateRecipeCreator', async (req, res) => {
+  var userID = req.params('userID')
+  var recipeID = req.param('recipeID')
+  var recipeCreatorNew = req.param('recipeCreatorNew')
+
+  con.query("UPDATE recipes SET recipeCreator = ? WHERE userID = ? AND recipeID = ?", 
+  [recipeCreatorNew, userID, recipeID],function (err, result, fields) {
+      if (err) throw err;
+      res.end(JSON.stringify(result)); // Result in JSON format
+  });
+});
+// Update a user's recipe's photo
+router.put('/recipes/userID/recipeID/updateRecipePhoto', async (req, res) => {
+  var userID = req.params('userID')
+  var recipeID = req.param('recipeID')
+  var recipePhotoNew = req.param('recipePhotoNew')
+
+  con.query("UPDATE recipes SET recipePhoto = ? WHERE userID = ? AND recipeID = ?", 
+  [recipePhotoNew, userID, recipeID],function (err, result, fields) {
+      if (err) throw err;
+      res.end(JSON.stringify(result)); // Result in JSON format
+  });
+});
+// Update a user's recipe's description
+router.put('/recipes/userID/recipeID/updateRecipeDesc', async (req, res) => {
+  var userID = req.params('userID')
+  var recipeID = req.param('recipeID')
+  var recipeDescNew = req.param('recipeDescNew')
+
+  con.query("UPDATE recipes SET recipeDesc = ? WHERE userID = ? AND recipeID = ?", 
+  [recipeDescNew, userID, recipeID],function (err, result, fields) {
+      if (err) throw err;
+      res.end(JSON.stringify(result)); // Result in JSON format
+  });
+});
+// Update a user's recipe's indc
+router.put('/recipes/userID/recipeID/updateRecipeIndc', async (req, res) => {
+  var userID = req.params('userID')
+  var recipeID = req.param('recipeID')
+  var recipeIndcNew = req.param('recipeIndcNew')
+
+  con.query("UPDATE recipes SET recipeIndc = ? WHERE userID = ? AND recipeID = ?", 
+  [recipeIndcNew, userID, recipeID],function (err, result, fields) {
+      if (err) throw err;
+      res.end(JSON.stringify(result)); // Result in JSON format
+  });
+});
+// Update a user's recipe's hyperlink
+router.put('/recipes/userID/recipeID/updateHyperlink', async (req, res) => {
+  var userID = req.params('userID')
+  var recipeID = req.param('recipeID')
+  var hyperlinkNew = req.param('hyperlinkNew')
+
+  con.query("UPDATE recipes SET hyperlink = ? WHERE userID = ? AND recipeID = ?", 
+  [hyperlinkNew, userID, recipeID],function (err, result, fields) {
+      if (err) throw err;
+      res.end(JSON.stringify(result)); // Result in JSON format
+  });
+});
+// Update a user's recipe's video title
+router.put('/recipes/userID/recipeID/updateVideoTitle', async (req, res) => {
+  var userID = req.params('userID')
+  var recipeID = req.param('recipeID')
+  var videoTitleNew = req.param('videoTitleNew')
+
+  con.query("UPDATE recipes SET videoTitle = ? WHERE userID = ? AND recipeID = ?", 
+  [videoTitleNew, userID, recipeID],function (err, result, fields) {
+      if (err) throw err;
+      res.end(JSON.stringify(result)); // Result in JSON format
+  });
+});
+// Update a user's recipe's post ID
+router.put('/recipes/userID/recipeID/updatePostID', async (req, res) => {
+  var userID = req.params('userID')
+  var recipeID = req.param('recipeID')
+  var postIDNew = req.param('postIDNew')
+
+  con.query("UPDATE recipes SET postID = ? WHERE userID = ? AND recipeID = ?", 
+  [postIDNew, userID, recipeID],function (err, result, fields) {
+      if (err) throw err;
+      res.end(JSON.stringify(result)); // Result in JSON format
+  });
+});
 //Delete a recipe from a specific user
 router.delete('/recipes/userID/recipeID', function (req, res) {
   var userID = req.body.userID
