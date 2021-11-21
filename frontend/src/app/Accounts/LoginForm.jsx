@@ -1,12 +1,10 @@
-import React, { useState } from 'react'
-import RegisterForm from './RegisterForm';
-import { Redirect } from 'react-router-dom';
+import React from 'react';
+import { Navigate } from 'react-router-dom';
+import './accounts.css';
 import AccountRepository from '../Api/accountRepository';
 
-import './accounts.css';
-import './broccoli.png';
-
 export class LoginForm extends React.Component {
+
     state = {
         username: "",
         password: "",
@@ -14,7 +12,7 @@ export class LoginForm extends React.Component {
         jwtValue: "",
     }
 
-    accountRepository = new AccountRepository();
+    //accountRepository = new AccountRepository();
 
     async login(event) {
         // Authenticate user
@@ -49,77 +47,55 @@ export class LoginForm extends React.Component {
         }
     }
 
-
-    render(){
+    render() {
         if (sessionStorage.getItem("isAuthenticated") === "true") {
-            return <Redirect to="/" />;
+            return <Navigate to="/" />;
         }
-        return(
-        <div>
-        <div class="container" id="container">
-            <div class="form-container sign-up-container">
-                <form action="#">
-                    <h1>Create Account</h1>
-                    <div class="social-container">
-                        <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-                        <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+        return (
+            <>
+                <form id="account-form" className="col-sm-9 col-md-7 col-lg-4 mt-5 mx-auto border-0" onSubmit={ e => this.login(e) }>
+                    <div className="text-center"> </div><br></br>
+                    <h1 className="text-center">Sign In</h1>
+                    <p>{ this.state.jwtValue }</p>
+                    { this.state.invalidCred &&
+                        <p className="alert alert-danger">
+                            Invalid username or password
+                        </p> }
+                    <div className="form-label-group">
+                        <label htmlFor="username">Username</label>
+                        <input
+                            type="text"
+                            id="username"
+                            className="form-control"
+                            value={ this.state.username }
+                            onChange={ e => this.setState({ username: e.target.value }) }/>
                     </div>
-                    <span>or use your email for registration</span>
-                    <input type="text" placeholder="Name" />
-                    <input type="email" placeholder="Email" />
-                    <input type="password" placeholder="Password" />
-                    <button>Sign Up</button>
-                </form>
-            </div>
-            <div class="form-container sign-in-container">
-                <form >
-                    <h1>Sign in</h1>
-                    <div class="social-container">
-                        <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-                        <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+                    <div className="form-label-group mt-3">
+                        <label htmlFor="password">Password</label>
+                        <input
+                            type="password"
+                            id="password"
+                            className="form-control"
+                            value={ this.state.password }
+                            onChange={ e => this.setState({ password: e.target.value }) }/>
                     </div>
-                    <span>or use your account</span>
-                    <input 
-                        type="email" 
-                        name="Email" 
-                        value={ this.state.username }
-                        onChange={ e => this.setState({ username: e.target.value }) }/>
-                    <input 
-                        type="password" 
-                        name="Password" 
-                        value={ this.state.password }
-                        onChange={ e => this.setState({ password: e.target.value }) }/>
-                    <a href="#">Forgot your password?</a>
-                    <button>Sign In</button>
-                </form>
-            </div>
-            <div class="overlay-container">
-                <div class="overlay">
-                    <div class="overlay-panel overlay-left">
-                        <h1>Welcome Back!</h1>
-                        <p>To keep connected with us please login with your personal info</p>
-                        <button class="ghost" id="signIn">Sign In</button>
+
+                    <div id="login-button-container" className="text-center">
+                        <button
+                            type="submit"
+                            className="btn btn-info"
+                            onClick={ e => this.login(e) }>
+                            Login
+                        </button>
                     </div>
-                    <div class="overlay-panel overlay-right">
-                        <h1>Hello</h1>
-                        <p>Enter details</p>
+
+                    <div id="register-button-container" className="text-center">
+                        <span>Need an account? </span>
                         <a href="/register">Register here</a>
-                        
                     </div>
-                </div>
-            </div>
-        </div>
-        
-        
-        <div>
-        <img src = "C:\Users\Isaac\Downloads\broccoli.png" alt="something lul"/>
-        </div>
-        </div>
-        )
-        
+                </form>
+            </>
+        );
     }
 }
-
-export default LoginForm
+export default LoginForm;
