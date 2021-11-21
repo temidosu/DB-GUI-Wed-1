@@ -1,23 +1,18 @@
 import React from "react";
-import { Route, Routes, BrowserRouter } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Register } from './Accounts/Register';
-import { LoginForm } from './Accounts/LoginForm'
-//import { Home } from "./Home";
+import { LoginForm } from './Accounts/LoginForm';
+import { Home } from './Home/Home';
 
 
 export default function Routing({ appProps }) {
     return (
-      <BrowserRouter>
+      <Router>
         <Routes>
-          <Route path="/" exact component={LoginForm} appProps={appProps} />
-          
-          <Route
-            path="/register"
-            exact
-            component={Register}
-            appProps={appProps}
-          />
+          <Route path="/" exact element={<Home/>} />
+          <Route path="/login" exact element={<LoginForm/>} />
+          <Route path="/register" exact element={<Register/>} />
         </Routes>
-      </BrowserRouter>
+      </Router>
     );
   }

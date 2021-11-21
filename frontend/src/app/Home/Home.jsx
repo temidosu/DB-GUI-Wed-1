@@ -64,12 +64,16 @@ export class Home extends React.Component {
 
 
 <div>
-<form id="form" role="search">
-  <input type="search" id="query" name="q"
-   placeholder="Search..."
-   aria-label="Search through site content"/>
-  <button>Search</button>
-</form>
+<div class="searchBox">
+
+<input class="searchInput"type="text" name="" placeholder="Search"/>
+<button class="searchButton" href="#">
+    <i class="material-icons">
+        search
+    </i>
+</button>
+</div>
+
 </div>
     </>;
   }
