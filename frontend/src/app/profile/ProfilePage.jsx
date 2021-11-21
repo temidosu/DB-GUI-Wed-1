@@ -3,7 +3,6 @@ import { User } from '../../models/User';
 import { CompactRecipeCardList } from '../common/CompactCardList';
 import { CreateRecipe } from "../recipe/createRecipe";
 
-
 export class ProfilePage extends React.Component {
 	state = {
 
@@ -36,6 +35,7 @@ export class ProfilePage extends React.Component {
 
 	render() {
 		return <>
+		
 			<div id="Profile Page">
 				<h1>{this.state.user.firstName} {this.state.user.lastName}</h1>
 
@@ -51,8 +51,8 @@ export class ProfilePage extends React.Component {
 
 			{/* Calendar for ingredients */}
 
-		
 		</div>
+
 		</>
 	}
 }

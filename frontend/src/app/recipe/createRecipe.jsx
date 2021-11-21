@@ -13,7 +13,8 @@ export class CreateRecipe extends React.Component {
             rating: '',
             instructions: '',
             ingredients: [],
-            description: ''
+            description: '',
+            showRecipe: false
     };
 
     //how do you get the creator/user?
@@ -28,13 +29,37 @@ export class CreateRecipe extends React.Component {
             instructions: '',
             ingredients: [],
             description: '',
+            showRecipe: false
         });
     }
 
-    //***************ingredients don't add to the set*********************
+    removeIngredient(ing) {
+        this.setState({ showFlavor: false }); 
+        this.setState({ingredients: this.state.ingredients.filter(function(ingredient) { 
+            return ingredient !== ing 
+        })});
+    }
+
+    handleCheck(ingredient) {
+        return this.state.ingredients.some(ing => ing === ingredient);
+    }
+
+    addIngredient(ingredient) {
+
+        this.setState({ showFlavor: true }); 
+        
+        if (!this.handleCheck(ingredient)) {
+        this.state.ingredients.push(ingredient);
+        }
+        else {
+            this.removeIngredient(ingredient);
+        }
+    }
+    
+    Data = ['Mustard', 'Ketchup', 'Relish', 'Milk', 'Eggs', 'Chocolate', 'Sugar'];
+
     render() {
         return <>
-        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"></link>
             <form className = "card">
                 <div className = "card-header rounded bg-danger text-light p-3 font-weight-bold h4 mt-0">Create your own recipe!</div>
                 <div className = "card-body m-2">
@@ -52,12 +77,14 @@ export class CreateRecipe extends React.Component {
                         </div>
 
                         <div className="col-6 ms-1 mb-3">
-                            <label htmlFor="ingredients">Required Ingredients:</label><br></br>
-                            <select className="selectpicker form-control" id="ingredients" multiple>
-                                <option value = "Mustard">Mustard</option>
-                                <option value = "Ketchup">Ketchup</option>
-                                <option value = "Relish">Relish</option>
-                            </select>
+                        <label htmlFor="ingredients">Ingredients</label>
+                        <select name = "ingredients" className = "selectpicker form-control" multiple data-selected-text-format="count > 3" title = "Select Ingredients" onChange={event => this.addIngredient(event.target.value)}>
+                         {this.Data.map((data, i) =>
+                          <option key={i} value={data}>{data}</option>
+                                 )};
+                                </select>Ingredients selected: 
+                                {this.state.ingredients.map((ing, i) =>
+                                <span key = {i}> {ing}, </span>)}
                         </div>
 
                     </div>
