@@ -21,12 +21,12 @@ export class Home extends React.Component {
 
     <li><a href="#">Home</a></li>
 
-    <li><a href="#">Recipe Creator <i class="icon-chevron-down"></i></a>
+    <li><a href="/createRecipe">Recipe Creator <i class="icon-chevron-down"></i></a>
       
 
         <ul>
 
-            <li><a href="#">Examples</a></li>
+            <li><a href="/createRecipe">Examples</a></li>
 
             <li><a href="#">Yours</a></li>
 
