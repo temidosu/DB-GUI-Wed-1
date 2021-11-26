@@ -1,6 +1,9 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import './Homestyle.css'
+import { CompactRecipeCard  } from '../common/CompactRecipeCard';
+import { recipes } from '../../DummyData/recipeData';
+
 
 //import { HomeRepository } from '../Api/homeRepository';
 
@@ -15,9 +18,10 @@ export class Home extends React.Component {
 
     render () {
       return <>
+       {sessionStorage.getItem("isAuthenticated") !== "true" &&
+          (<Navigate to="/login"/>)}
         <nav>
             <ul>
-                <li><a href="#">Home</a></li>
                 <li><a href="/createRecipe">Recipe Creator <i class="icon-chevron-down"></i></a>   
                     <ul>
                         <li><a href="/createRecipe">Examples</a></li>
@@ -35,7 +39,9 @@ export class Home extends React.Component {
                         <li><a href="#">Account Settings</a></li>
                     </ul>
                 </li>
+                <li><a href="/recipeSchedule">Recipe Scheduler</a></li>
                 <li><a href="#">Contact</a></li>
+
 
             </ul>
         </nav>
@@ -50,6 +56,16 @@ export class Home extends React.Component {
                 </button>
             </div>
         </div>
+        <section className ='recipelist'>
+            
+            {recipes.map((card) => {
+                const { recipeName, instructions, desciption, imageURL} = card;
+                return <CompactRecipeCard card = {card}></CompactRecipeCard>
+            })}
+            
+        </section>
+        
+
     </>;
   }
 

@@ -20,11 +20,11 @@ export const CompactRecipeCard = props => <>
                         <img src = {props.card.imageURL}></img>
                         <div className="text-muted h5">{props.card.instructions}</div>
 
-						<div className = "h4">
+						<div >
 						{
 						props.card.ingredients.map((currentIng, i) => <li key={i}>
 						<div>
-							<p className = "h4">{currentIng}</p>
+							<p >{currentIng}</p>
 						</div>
 						</li>)
 						}
