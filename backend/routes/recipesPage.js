@@ -15,15 +15,6 @@ res.send('HELLO WORLD!');
 //Connect to MySQL
 var mysql = require('mysql');
 
-//Connect to MySQL
-var con = mysql.createConnection({
-  host: "mockprojectdb-mysql-1",
-  port: 3306,
-  user: "frederickWang",
-  password: "password",
-  database: "r2rdb"
-});
-
 //Open Connection
 con.connect(function(err) {
 	  if (err) throw err;
@@ -113,7 +104,7 @@ router.put('/recipes/:recipeID/updateRecipeCreator', async (req, res) => {
         res.end(JSON.stringify(result)); // Result in JSON format
     });
 });
-router.put('/recipes/recipeID/updatePhotoName', async (req, res) => {
+router.put('/recipes/:recipeID/updatePhotoName', async (req, res) => {
     var recipeID = req.param('recipeID')
     var recipePhotoNew = req.param('recipePhotoNew')
 
@@ -123,7 +114,7 @@ router.put('/recipes/recipeID/updatePhotoName', async (req, res) => {
         res.end(JSON.stringify(result)); // Result in JSON format
     });
 });
-router.put('/recipes/recipeID/updateRecipeDesc', async (req, res) => {
+router.put('/recipes/:recipeID/updateRecipeDesc', async (req, res) => {
     var recipeID = req.param('recipeID')
     var recipeDescNew = req.param('recipeDescNew')
 

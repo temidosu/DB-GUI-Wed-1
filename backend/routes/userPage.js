@@ -13,15 +13,6 @@ res.send('HELLO WORLD!');
 //Connect to MySQL
 var mysql = require('mysql');
 
-//Connect to MySQL
-var con = mysql.createConnection({
-  host: "mockprojectdb-mysql-1",
-  port: 3306,
-  user: "frederickWang",
-  password: "password",
-  database: "r2rdb"
-});
-
 //Open Connection
 con.connect(function(err) {
 	  if (err) throw err;
