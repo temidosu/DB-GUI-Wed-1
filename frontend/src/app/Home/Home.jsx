@@ -3,6 +3,7 @@ import { Navigate } from 'react-router-dom';
 import './Homestyle.css'
 import { CompactRecipeCard  } from '../common/CompactRecipeCard';
 import { recipes } from '../../DummyData/recipeData';
+import { Search } from '../Search/Search';
 
 
 //import { HomeRepository } from '../Api/homeRepository';
@@ -47,23 +48,8 @@ export class Home extends React.Component {
         </nav>
 
         <div>
-            <div class="searchBox">
-                <input class="searchInput"type="text" name="" placeholder="Search"/>
-                <button class="searchButton" href="#">
-                    <i class="material-icons">
-                        search
-                    </i>
-                </button>
-            </div>
+            <Search/>
         </div>
-        <section className ='recipelist'>
-            
-            {recipes.map((card) => {
-                const { recipeName, instructions, desciption, imageURL} = card;
-                return <CompactRecipeCard card = {card}></CompactRecipeCard>
-            })}
-            
-        </section>
         
 
     </>;
