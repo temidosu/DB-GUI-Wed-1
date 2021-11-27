@@ -19,6 +19,9 @@ export const CompactRecipeCard = props => <>
 						
                         <img src = {props.card.imageURL}></img>
                         <div className="text-muted h5">{props.card.instructions}</div>
+                        <div>
+                        <h4>Author: {props.card.author}</h4>
+                        </div>
 
 						<div >
 						{
