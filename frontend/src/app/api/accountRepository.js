@@ -34,7 +34,7 @@ export class AccountRepository {
 		});
 	}
 
-	createRecipe(recipe){
+	createRecipe(recipe) {
 		return new Promise((resolve, reject) => {
 			axios.post(hostname + '/recipes', recipe)
 				.then(response => {
@@ -43,6 +43,19 @@ export class AccountRepository {
 				.catch(err => {
 					error(err);
 					resolve(undefined);
+				});
+		});
+	}
+
+	getUser(userID) {
+		return new Promise((resolve, reject) => {
+			axios.post(hostname + `/users/${userID}`)
+				.then(response => {
+					resolve(response);
+				})
+				.catch(err => {
+					error(err);
+					resolve(err);
 				});
 		});
 	}
