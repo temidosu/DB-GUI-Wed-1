@@ -2,6 +2,8 @@ import React from "react";
 import { User } from '../../models/User';
 import { CompactRecipeCardList } from '../common/CompactCardList';
 import { CreateRecipe } from "../recipe/createRecipe";
+// import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+// import { Link } from 'react-router-dom';
 
 export class ProfilePage extends React.Component {
 	state = {
@@ -23,8 +25,8 @@ export class ProfilePage extends React.Component {
 
 	addRecipe(recipe) {
 		var recipes = this.state.user.createdRecipes;
-        recipes.push(recipe);
-        this.setState({ recipes });
+		recipes.push(recipe);
+		this.setState({ recipes });
 	}
 
 	addIngredient(ingredient) {
@@ -36,12 +38,37 @@ export class ProfilePage extends React.Component {
 
 	render() {
 		return <>
-		
-			<div id="Profile Page">
-				<h1>{this.state.user.firstName} {this.state.user.lastName}</h1>
 
-				<CreateRecipe onRecipeAdded = {recipe => this.addRecipe(recipe)} />
+			<div id="Profile Page">
+				<nav className="container-fluid">
+					<ul>
+						<li><a href="#">Home</a></li>
+						<li><a href="/createRecipe">Recipe Creator <i class="icon-chevron-down"></i></a>
+							<ul>
+								<li><a href="/createRecipe">Examples</a></li>
+								<li><a href="#">Yours</a></li>
+							</ul>
+						</li>
+						<li><a href="#">Anouncement Board <i class="icon-chevron-down"></i></a>
+							<ul>
+								<li><a href="#">Updates</a></li>
+							</ul>
+						</li>
+						<li><a href="#">My Profile <i class="icon-chevron-down"></i> </a>
+							<ul>
+								<li><a href="#">Recipes</a></li>
+								<li><a href="#">Account Settings</a></li>
+							</ul>
+						</li>
+						<li><a href="#">Contact</a></li>
+
+					</ul>
+				</nav>
+
+
+				<CreateRecipe onRecipeAdded={recipe => this.addRecipe(recipe)} class="d-block" />
 				{/* Dynamically create RecipeCards */}
+<<<<<<< HEAD
 				{/*<h2>Saved Recipes</h2>*/}
 				
 	
@@ -49,10 +76,19 @@ export class ProfilePage extends React.Component {
 			<h2>Created Recipes</h2>
 			
 			<CompactRecipeCardList userCreatedRecipes={this.state.user.createdRecipes}></CompactRecipeCardList>
+=======
+				<h2>Saved Recipes</h2>
+>>>>>>> b81a322ee05143b24378bdc6b2fe88251449d2ba
 
-			{/* Calendar for ingredients */}
 
-		</div>
+
+				<h2>Created Recipes</h2>
+
+				<CompactRecipeCardList userCreatedRecipes={this.state.user.createdRecipes}></CompactRecipeCardList>
+
+				{/* Calendar for ingredients */}
+
+			</div>
 
 		</>
 	}
