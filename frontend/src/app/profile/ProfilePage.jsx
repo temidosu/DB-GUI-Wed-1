@@ -4,8 +4,11 @@ import { CompactRecipeCardList } from '../common/CompactCardList';
 import { CreateRecipe } from "../recipe/createRecipe";
 // import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 // import { Link } from 'react-router-dom';
+import { AccountRepository } from '../api/accountRepository';
 
 export class ProfilePage extends React.Component {
+
+	accountRepository = new AccountRepository();
 	state = {
 
 		// This will get set by profilepage's parent later
@@ -25,7 +28,10 @@ export class ProfilePage extends React.Component {
 
 	addRecipe(recipe) {
 		var recipes = this.state.user.createdRecipes;
-		recipes.push(recipe);
+		this.accountRepository.createRecipe(recipe)
+			.then(recipe => recipes.push(recipe));
+
+		// recipes.push(recipe);
 		this.setState({ recipes });
 	}
 

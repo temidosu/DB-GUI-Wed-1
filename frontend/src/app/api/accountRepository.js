@@ -34,6 +34,19 @@ export class AccountRepository {
 		});
 	}
 
+	createRecipe(recipe){
+		return new Promise((resolve, reject) => {
+			axios.post(hostname + '/recipes', recipe)
+				.then(response => {
+					resolve(response.data);
+				})
+				.catch(err => {
+					error(err);
+					resolve(undefined);
+				});
+		});
+	}
+
 }
 
 export default AccountRepository;

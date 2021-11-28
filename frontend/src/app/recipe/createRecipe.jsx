@@ -52,13 +52,10 @@ export class CreateRecipe extends React.Component {
 		}
 
 		return isValid;
-
-
 	}
 
 	//how do you get the creator/user?
 	onCreate() {
-
 		if (this.handleValidation()) {
 			this.props.onRecipeAdded(this.state); /* Add to this user's 'saved'/'created' recipes */
 			this.setState({
@@ -102,7 +99,6 @@ export class CreateRecipe extends React.Component {
 			this.removeIngredient(ingredient);
 		}
 	}
-
 	Data = ['Mustard', 'Ketchup', 'Relish', 'Butter', 'Baking Soda', 'Pickles', 'Onions', 'Milk', 'Eggs', 'Chocolate', 'Sugar'];
 
 	render() {
