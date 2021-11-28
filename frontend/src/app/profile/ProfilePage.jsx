@@ -15,6 +15,7 @@ export class ProfilePage extends React.Component {
 			[], /* savedRecipes */
 			[], /* createdRecipes */
 			[], /* ingredients */
+			'' /* Profile Picture */
 			//[] /* Planner */
 		),
 		savedRecipe: false
@@ -41,7 +42,7 @@ export class ProfilePage extends React.Component {
 
 				<CreateRecipe onRecipeAdded = {recipe => this.addRecipe(recipe)} />
 				{/* Dynamically create RecipeCards */}
-				<h2>Saved Recipes</h2>
+				{/*<h2>Saved Recipes</h2>*/}
 				
 	
 				

@@ -15,6 +15,7 @@ export const CompactRecipeCard = props => <>
                 </div>
                 <div className="card-body">
                     <div className="row mt-1 mb-1 ms-1">
+					<a className = "float-end" href="/editRecipe">Edit</a>
                         <h2 className="h4">{props.card.recipeName}</h2>
 						
                         <img src = {props.card.imageURL}></img>

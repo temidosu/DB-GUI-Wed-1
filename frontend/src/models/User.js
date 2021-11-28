@@ -1,5 +1,5 @@
 export class User {
-	constructor(id, firstName, lastName, email, savedRecipes, createdRecipes, ingredients) {
+	constructor(id, firstName, lastName, email, savedRecipes, createdRecipes, ingredients, image) {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -7,6 +7,7 @@ export class User {
 		this.savedRecipes = savedRecipes;
 		this.createdRecipes = createdRecipes;
 		this.ingredients = ingredients;
+		this.image = image;
 	//	this.planner = planner;
 	}
 }
