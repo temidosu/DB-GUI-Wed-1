@@ -170,5 +170,4 @@ export class CreateRecipe extends React.Component {
 	componentDidMount() {
 		this.setState({creatorID : this.props.match.params.creatorID});
 	}
-
 }

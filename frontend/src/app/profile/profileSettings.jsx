@@ -13,24 +13,30 @@ export class ProfileSettings extends React.Component {
 			[], /* savedRecipes */
 			[], /* createdRecipes */
 			[], /* ingredients */
-            '', /* Profile Picture */
+			'', /* Profile Picture */
 			//[] /* Planner */
 		),
 	};
 
 	render() {
 		return <>
-		
+
 			<div id="Profile Page">
 				<h1>{this.state.user.firstName} {this.state.user.lastName}</h1>
-                <img src = {this.state.user.image}></img>
-                <h2>Account information: </h2>
-                <h4>{this.state.user.email}</h4>
+				<img src={this.state.user.profilePic}></img>
 
-		
-			{/* Account info/edit button */}
+				<h2>Account information: </h2>
+				<h4>{this.state.user.email}</h4>
+				<h4>Saved Recipes: {this.state.user.savedRecipes}</h4>
+				<h4>Saved Recipes: {this.state.user.savedRecipes}</h4>
+				
+				<h4>{
+					
+				}
+				</h4>
 
-		</div>
+				{/* Account info/edit button */}
+			</div>
 
 		</>
 	}
