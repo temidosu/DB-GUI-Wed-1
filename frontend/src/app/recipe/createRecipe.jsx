@@ -14,6 +14,7 @@ export class CreateRecipe extends React.Component {
 		instructions: '',
 		ingredients: [],
 		description: '',
+		creatorID: '',
 		showRecipe: false,
 		valid: 2
 	};
@@ -66,6 +67,7 @@ export class CreateRecipe extends React.Component {
 				instructions: '',
 				ingredients: [],
 				description: '',
+				creatorID: '',
 				showRecipe: false,
 				valid: 1
 			});
@@ -162,6 +164,11 @@ export class CreateRecipe extends React.Component {
 				</div>
 			</form>
 		</>;
+	}
+
+	// CreatorID for new recipe should be passed in through props
+	componentDidMount() {
+		this.setState({creatorID : this.props.match.params.creatorID});
 	}
 
 }
