@@ -68,17 +68,13 @@ export class ProfilePage extends React.Component {
 
 				<CreateRecipe onRecipeAdded={recipe => this.addRecipe(recipe)} class="d-block" />
 				{/* Dynamically create RecipeCards */}
-<<<<<<< HEAD
 				{/*<h2>Saved Recipes</h2>*/}
-				
-	
-				
-			<h2>Created Recipes</h2>
-			
-			<CompactRecipeCardList userCreatedRecipes={this.state.user.createdRecipes}></CompactRecipeCardList>
-=======
-				<h2>Saved Recipes</h2>
->>>>>>> b81a322ee05143b24378bdc6b2fe88251449d2ba
+
+
+
+				<h2>Created Recipes</h2>
+
+				<CompactRecipeCardList userCreatedRecipes={this.state.user.createdRecipes}></CompactRecipeCardList>
 
 
 
