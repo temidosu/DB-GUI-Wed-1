@@ -215,6 +215,6 @@ router.delete('/recipes/:userID/:recipeID', function (req, res) {
 	});
 });
 
-//PORT ENVIRONMENT VARIABLE originalPort = 8080
-const port = process.env.PORT || 8080;
+//PORT ENVIRONMENT VARIABLE originalPort = 8000
+const port = process.env.PORT || 8000;
 app.listen(port, () => console.log(`Listening on port ${port}..`));

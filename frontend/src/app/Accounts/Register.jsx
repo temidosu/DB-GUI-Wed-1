@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import './accounts.css';
 import { AccountRepository } from '../api/accountRepository';
@@ -20,9 +21,9 @@ export const Register = () => {
 
 	//const accountRepository = new AccountRepository();
 
-	function register(event) {
-		event.preventDefault();
-		event.stopPropagation();
+	function register() {
+		// event.preventDefault();
+		// event.stopPropagation();
 
 		if (!(firstName && lastName && email && username && password)) {
 			return;
@@ -35,7 +36,7 @@ export const Register = () => {
 			password
 		};
 
-		//accountRepository.register(account);
+		AccountRepository.register(account);
 		setComplete(true);
 	}
 
@@ -141,11 +142,9 @@ export const Register = () => {
 				</div>
 
 				<div id="login-button-container" className="text-center">
-					<button
-						type="submit"
-						className="btn btn-info">
-						Submit
-					</button>
+
+					<Link className="btn btn-info" to={`\login`} onClick={() => this.register()}>Submit</Link>
+
 				</div>
 			</form>
 		</>

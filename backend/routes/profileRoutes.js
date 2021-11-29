@@ -8,9 +8,9 @@ router.get('/api/users/:userId', async (req, res) => {
 	con.getConnection(res, (response) => {
 		if (response.message == 'fail') return;
 		response.conn.query(`SELECT * FROM users where userID = "${req.params.userId}"`,
-		function (err, result, fields) {
-			res.send(result);
-		});
+			function (err, result, fields) {
+				res.send(result);
+			});
 	});
 });
 

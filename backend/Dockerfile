@@ -9,5 +9,5 @@ FROM node:14
 # Set the working directory within docker image
 WORKDIR /usr/src/app
 
-# expose port 8080
-EXPOSE 8080
+# expose port 5000
+EXPOSE 5000

@@ -10,17 +10,30 @@ function error(err) {
 export class AccountRepository {
 
 	getProfiles() {
-        return new Promise((resolve, reject) => {
-            axios.get(hostname + '/api/users')
-                .then(response => {
-                    resolve(response.data);
-                })
-                .catch(err => {
-                    console.error(err);
-                    reject(err);
-                });
-        })
-    }
+		return new Promise((resolve, reject) => {
+			axios.get(hostname + '/api/users')
+				.then(response => {
+					resolve(response.data);
+				})
+				.catch(err => {
+					console.error(err);
+					reject(err);
+				});
+		})
+	}
+
+	getRecipes() {
+		return new Promise((resolve, reject) => {
+			axios.get(hostname + '/recipes')
+				.then(response => {
+					resolve(response.data);
+				})
+				.catch(err => {
+					console.error(err);
+					reject(err);
+				});
+		})
+	}
 
 
 	login(username, password) {
