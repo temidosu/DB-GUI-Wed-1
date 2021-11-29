@@ -1,15 +1,46 @@
 // REGISTER  ROUTES
-app.use('/LogIn', router);
-
+//app.use('/LogIn', router);
+var con = require('../connection')
+var express = require('express');
+var router = express.Router();
 //LogIn
 
-//GET
-// /SignUp/users				gets username and password associated with the username entered
-router.get('/users', function (req, res) {
-  var userNameEntered = req.param('userName');
 
-  con.query("SELECT userName, userPass FROM users WHERE userName = ?", userNameEntered, function (err, result, fields) {
-      if (err) throw err;
-      res.end(JSON.stringify(result)); // Result in JSON format
-  });
+router.get('/api/users/:userId', async (req, res) => {
+	con.getConnection(res, (response) => {
+		if (response.message == 'fail') return;
+		response.conn.query(`SELECT * FROM users where userID = "${req.params.userId}"`,
+		function (err, result, fields) {
+			res.send(result);
+		});
+	});
 });
+
+
+router.get('/api/users', async (req, res) => {
+	con.getConnection(res, (response) => {
+		if (response.message == 'fail') return;
+		response.conn.query("SELECT * FROM users", function (err, result, fields) {
+			res.send(JSON.stringify(result));
+		});
+	});
+});
+
+router.post('/api/login', (req, res) => {
+	con.getConnection(res, (response) => {
+		if (response.message == 'fail') return;
+		response.conn.query(`SELECT * FROM users where userName = "${req.body.username}"`,
+		function (err, result, fields) {
+      console.log(result[0])
+			if (result[0].userPass == req.body.password) {
+				res.send({status: true, account: result[0]});
+			} else {
+				res.send({ status: false });
+			}
+		});
+	});
+});
+
+
+
+module.exports = router;

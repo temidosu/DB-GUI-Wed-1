@@ -1,11 +1,9 @@
 require('dotenv').config()
 const express = require('express');
 const bodyParser = require('body-parser');
-const mysql = require('mysql');
 const cors = require('cors');
-const { log, ExpressAPILogMiddleware } = require('@rama41222/node-logger');
-// const mysqlConnect = require('./db');
-const routes = require('./routes');
+//const routes = require('./routes');
+var app = express();
 
 // set up some configs for express.
 const config = {
@@ -14,27 +12,28 @@ const config = {
   host: '0.0.0.0',
 };
 
-// create the express.js object
-const app = express();
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
-// create a logger object.  Using logger is preferable to simply writing to the console.
-const logger = log({ console: true, file: false, label: config.name });
 
-// specify middleware to use
+let loginEnd = require('./routes/login')
+
 app.use(bodyParser.json());
-app.use(cors({
-  origin: '*'
+app.use(bodyParser.urlencoded({
+	extended: true
 }));
-app.use(ExpressAPILogMiddleware(logger, { request: true }));
+app.use(cors());
 
-//include routes
-routes(app, logger);
 
-// connecting the express object to listen on a particular port as defined in the config object.
-app.listen(config.port, config.host, (e) => {
-  if (e) {
-    throw new Error('Internal Server Error');
-  }
-  logger.info(`${config.name} running on ${config.host}:${config.port}`);
+app.use(function(req, res, next) {
+	// do logging
+	res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Credentials", "true");
+    res.header("Access-Control-Allow-Headers", "Origin,Content-Type, Authorization, x-id, Content-Length, X-Requested-With");
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+    next();
 });
 

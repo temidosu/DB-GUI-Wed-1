@@ -1,3 +1,18 @@
+.recipelist {
+    display: grid;
+    box-sizing: border-box;
+    width: 90vw;
+    max-width: 600px;
+    margin: 5rem auto;
+    grid-template-columns: repeat(3, 1fr)
+
+}
+
+.article {
+    padding: 1rem 2rem;
+    border-radius: 1rem;
+}
+
 nav ul {
     width: 100%;
     margin: 0;

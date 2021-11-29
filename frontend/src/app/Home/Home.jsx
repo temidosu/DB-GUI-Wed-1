@@ -1,6 +1,9 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import './Homestyle.css'
+import { CompactRecipeCard  } from '../common/CompactRecipeCard';
+import { recipes } from '../../DummyData/recipeData';
+
 
 //import { HomeRepository } from '../Api/homeRepository';
 

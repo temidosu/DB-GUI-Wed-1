@@ -12,7 +12,13 @@ export class LoginForm extends React.Component {
 		jwtValue: "",
 	}
 
-	//accountRepository = new AccountRepository();
+	accountRepository = new AccountRepository();
+
+
+	async testLOL(event){
+		const response = await this.accountRepository.getProfiles();
+		console.log(response)
+	}
 
 	async login(event) {
 		// Authenticate user
