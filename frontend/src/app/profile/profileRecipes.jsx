@@ -5,6 +5,11 @@ import { CreateRecipe } from "../recipe/createRecipe";
 import { recipes } from '../../data/recipes';
 
 export class ProfileRecipes extends React.Component {
+
+    //accountRepository
+    //Login form - const response
+    //sessionStorage.getItem - store this
+    //
 	state = {
 
 		// This will get set by profilepage's parent later

@@ -1,6 +1,7 @@
 import React from "react";
 import { User } from '../../models/User';
 import { Recipe } from '../../models/Recipe';
+import { data } from "jquery";
 
 export class CreateRecipe extends React.Component {
 
@@ -14,7 +15,8 @@ export class CreateRecipe extends React.Component {
             description: '',
             creatorID: '',
             showRecipe: false,
-            valid: 2
+            valid: 2,
+            otherIngredient: ''
     };
 
     handleValidation() {
@@ -70,7 +72,8 @@ export class CreateRecipe extends React.Component {
             description: '',
             creatorID: '',
             showRecipe: false,
-            valid: 1
+            valid: 1,
+            otherIngredient: ''
         });
     }
     else {
@@ -102,13 +105,22 @@ export class CreateRecipe extends React.Component {
             this.removeIngredient(ingredient);
         }
     }
+
+    addOtherIngredient(ing) {
+
+        if (!this.handleCheck(ing)) {
+            this.state.ingredients.push(ing);
+            }
+
+            this.setState({otherIngredient: ''})
+
+    }
     
     //get ingredients list from the DB
     Data = ['Mustard', 'Ketchup', 'Relish', 'Butter', 'Baking Soda', 'Pickles', 'Onions', 'Milk', 'Eggs', 'Chocolate', 'Sugar'];
 
     render() {
         return <>
-            <br></br>
             <form className = "card">
                 <div className = "card-header rounded bg-danger text-light p-3 font-weight-bold h4 mt-0">Create your own recipe!</div>
                 <div className = "card-body m-2">
@@ -135,7 +147,13 @@ export class CreateRecipe extends React.Component {
                                 {this.state.ingredients.map((ing, i) =>
                                 <span key = {i}> {ing}, </span>)}
                         </div>
-
+                        {/*Add/post otherIngredient to the database*/}
+                        <div className="col-6 ms-1 mb-3">
+                            <label htmlFor="otherIngredient">Add an ingredient not listed: (optional)</label>
+                            <input type="text" name="otherIngredient" id="otherIngredient" className = "form-control" value = {this.state.otherIngredient} onChange={event => this.setState({otherIngredient: event.target.value})} />
+                            <button onClick={() => this.addOtherIngredient(this.state.otherIngredient)} type="button" className = " mt-2 btn-sm btn-secondary bg-primary">Add</button>
+                        </div>
+                       
                     </div>
                     <div className="row">
                         <div className="col-12 ms-1 mb-3">
