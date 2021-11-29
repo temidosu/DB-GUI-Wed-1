@@ -1,6 +1,6 @@
 export const recipes = [
     {
-        id: 1,
+        recipeID: 1,
         recipeName: "Eggs Benedict",
         instructions: "Cook the Eggs, and heat the bread",
         description: "Very easy to make",
@@ -9,7 +9,7 @@ export const recipes = [
         author: "Bob Smith"
     },
     {
-        id: 2,
+        recipeID: 2,
         recipeName: "Peanut Butter and Jelly Sandwich",
         instructions: "Just spread on bread",
         description: "Very easy to make",
@@ -18,7 +18,7 @@ export const recipes = [
         author: "Jake Bob"
     },
     {
-        id: 3,
+        recipeID: 3,
         recipeName: "Eggs Benedict",
         instructions: "Cook the Eggs, and heat the bread",
         description: "Very easy to make",

@@ -1,0 +1,14 @@
+
+.button {
+    display:flex;
+height:20px;
+width:120px;
+justify-content:center;
+align-items:center;
+  }
+
+
+input[type="radio"]{
+    display: none
+}
+
