@@ -15,10 +15,9 @@ export class Search extends React.Component {
     data: recipes,
     filteredData : [],
     wordEntered : '',
-    filterType: {
-      authorFilter: false,
-      recipeFilter: false
-    }
+    placeholder: 'Enter Recipe Name',
+    authorFilter: false,
+    recipeFilter: true
 
   }
   
@@ -26,7 +25,12 @@ export class Search extends React.Component {
       const searchWord = event.target.value;
       this.setState({wordEntered : searchWord})
       const newFilter = this.state.data.filter((value) => {
-        return value.recipeName.toLowerCase().includes(searchWord.toLowerCase());
+       if(this.state.recipeFilter === true){
+          return value.recipeName.toLowerCase().includes(searchWord.toLowerCase());
+       }
+      else{
+          return value.author.toLowerCase().includes(searchWord.toLowerCase());
+      }
       });
   
       if (searchWord === "") {
@@ -37,6 +41,14 @@ export class Search extends React.Component {
     };
 
   changeFilter = (event) => {
+      const searchFilter = event.target.value;
+      console.log("working")
+      if (searchFilter == "authorFilter"){
+        this.setState({authorFilter: true, recipeFilter: false, placeholder: 'Enter Author Name'})
+      }
+      else{
+        this.setState({authorFilter: false, recipeFilter: true, placeholder: 'Enter Recipe Name'})
+      }
 
 
   }
@@ -85,7 +97,7 @@ render () {
         <div className="searchInputs">
           <input
             type="text"
-            placeholder={"Enter Recipe Name"}
+            placeholder={this.state.placeholder}
             value={this.state.wordEntered}
             onChange={(e)=>this.handleFilter(e)}
           />
@@ -99,9 +111,13 @@ render () {
         </div>
         <div>
           <label for="membership">Search Type:</label>
-            <select name="membership" id="membership">
-              <option value="authorFilter" >Recipe</option>
-              <option value="recipeFilter">Author</option>
+            <select name="membership" id="membership" onChange={(e)=>this.changeFilter(e)}>
+              <option 
+                value="recipeFilter" 
+                >Recipe</option>
+              <option 
+                value="authorFilter"
+                >Author</option>
             </select>
         </div>
         {this.filterRender()}

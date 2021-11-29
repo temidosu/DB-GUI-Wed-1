@@ -19,7 +19,15 @@ export const CompactRecipeCard = props => <>
 					<a className = "float-end "href="/editRecipe">Edit</a>
                         <h2 className="h4 card-title">{props.card.recipeName}</h2>
 						
+<<<<<<< HEAD
                         <div className="text-muted h5 card-text">{props.card.instructions}</div>
+=======
+                        <img src = {props.card.imageURL}></img>
+                        <div className="text-muted h5">{props.card.instructions}</div>
+                        <div>
+                        <h4>Author: {props.card.author}</h4>
+                        </div>
+>>>>>>> 0528873 (finished adding search by name and author on front end, api not connected, updted compact recipecard)
 
 						<div className = "h4">
 						<div>Ingredients: </div>
