@@ -4,7 +4,7 @@ import { CompactRecipeCardList } from '../common/CompactCardList';
 import { CreateRecipe } from "../recipe/createRecipe";
 // import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 // import { Link } from 'react-router-dom';
-import { AccountRepository } from '../Api/accountRepository';
+import { AccountRepository } from '../api/accountRepository';
 
 export class ProfilePage extends React.Component {
 
