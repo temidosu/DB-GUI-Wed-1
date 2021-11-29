@@ -1,15 +1,21 @@
 import React from "react";
+import {Link} from 'react-router-dom'
+
+
+
 
 
 export class CompactRecipeCard extends React.Component {
+    
+setRecipeID(event){
+    sessionStorage.setItem("recipeID", this.props.card.recipeID);
+    console.log(sessionStorage.getItem("recipeID"))
+}
 
-    setRecipeID(event){
-        sessionStorage.setItem("recipeID", this.props.card.recipeID);
-        console.log(sessionStorage.getItem("recipeID"))
-    }
 
     render() {
         return <>
+
 
     <div id="CompactRecipeCard">
         <li className="list-group mb-0"></li>
@@ -65,5 +71,5 @@ export class CompactRecipeCard extends React.Component {
 </>
 
     }
-
 }
+
