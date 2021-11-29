@@ -6,17 +6,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(bodyParser.raw());
 
-app.get('/', (req, res) => {
-res.send('HELLO WORLD!');
-});
-
 //Connect to MySQL
 var mysql = require('mysql');
 
 //Open Connection
-con.connect(function(err) {
+/*config.connect(function(err) {
 	  if (err) throw err;
-});
+});*/
 
 // create router
 var router = express.Router();
@@ -107,6 +103,4 @@ router.delete('/users/:userID', async (req, res) => {
     });
 });
 
-//PORT ENVIRONMENT VARIABLE originalPort = 8080
-const port = process.env.PORT || 8080;
-app.listen(port, () => console.log(`Listening on port ${port}..`));
+module.exports = router;

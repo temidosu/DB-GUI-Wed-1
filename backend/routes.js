@@ -7,11 +7,13 @@ const initRoutes = require('./routes/initRoutes');
 const projectsRoutes = require('./routes/projectsRoutes');
 const reviewsRoutes = require('./routes/reviewsRoutes');
 const typeRoutes = require('./routes/typeRoutes');
+const userPage = require('./routes/userPage');
 
 module.exports = function routes(app, logger) {
   app.use("/api/",initRoutes);
   app.use("/api/",projectsRoutes);
   app.use("/api/",reviewsRoutes);
+  app.use("/api/",userPage);
   //app.use("/api/",typeRoutes);
 
   // GET /
