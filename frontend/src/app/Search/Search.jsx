@@ -1,83 +1,114 @@
-import React from 'react';
-import { Redirect } from 'react-router-dom';
-import './search.css';
+import React, { useState } from "react";
+import { Navigate } from 'react-router-dom';
+import './Search.css';
+import { CompactRecipeCard  } from '../common/CompactRecipeCard';
+import { recipes } from '../../DummyData/recipeData';
+import SearchIcon from "@material-ui/icons/Search";
+import CloseIcon from "@material-ui/icons/Close";
+import { data } from "jquery";
 
 
-export class Search extends React.Component {
+export class Search extends React.Component { 
 
   // searchRepo = new SearchRepository();
-
-    state = {
-      input: '',
-      category: 0,
-      filter: 0,
-      articles: []
+  state = {
+    data: recipes,
+    filteredData : [],
+    wordEntered : '',
+    filterType: {
+      authorFilter: false,
+      recipeFilter: false
     }
 
-    applySearch() {
-      if(this.state.input !== '' || this.state.category !== '' || this.state.filter !== ''){
-      let param = {input: this.state.input, category: this.state.category, filter: this.state.filter}
-      this.searchRepo.search(param)
-        .then(arr => {
-            console.log(arr)
-            this.setState({
-                articles: arr
-            });
-        })
+  }
+  
+   handleFilter = (event) => {
+      const searchWord = event.target.value;
+      this.setState({wordEntered : searchWord})
+      const newFilter = this.state.data.filter((value) => {
+        return value.recipeName.toLowerCase().includes(searchWord.toLowerCase());
+      });
+  
+      if (searchWord === "") {
+        this.setState({filteredData: recipes})
+      } else {
+        this.setState({filteredData: newFilter})
+      }
+    };
+
+  changeFilter = (event) => {
+
+
+  }
+
+    clearInput = () => {
+      this.setState({filteredData: []})
+      this.setState({wordEntered : []})
+    };
+
+    filterRender = () => {
+      if (this.state.filteredData !== 0 && this.state.wordEntered !== ''){
+        return <>
+          <div className="dataResult">
+            {this.state.filteredData.map((card) => {
+                const { recipeName, instructions, desciption, imageURL} = card;
+                return <CompactRecipeCard card = {card}></CompactRecipeCard>
+            })}
+          </div>
+        </>
+      }
+      else if (this.state.filteredData == 0 && this.state.wordEntered !== ''){
+          return <>
+            <h3>No Matches!</h3>
+          </>
+      }
+      else{
+        return <>
+          <div className="dataResult">
+            {this.state.data.map((card) => {
+                const { recipeName, instructions, desciption, imageURL} = card;
+                return <CompactRecipeCard card = {card}></CompactRecipeCard>
+            })}
+          </div>
+        </>
+
       }
     }
 
-    render () {
-      return <>
+render () {
+
+    return <>
       {sessionStorage.getItem("isAuthenticated") !== "true" &&
-        (<Redirect to="/login"/>)}
-
-        <div className="container-fluid" style={{paddingRight: '10vw', paddingLeft: '10vw'}}>
-           
-      </div>
-    </>;
-  }
-
-  displayArticles() {
-    const list = [];
-    this.state.articles.map((article, i) =>
-      list.push(
-        <div>
-        </div>
-      ))
-
-
-     return list;
-  }
-
-  carousel() {
-      return <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
-            <div class="carousel-inner">
-                <img src={require('../Images/logoHead.png')} alt="" width="100" height="100"/>
-                <div class="carousel-item active">
-                    <img src={require('../Images/carouselOne.png')} class="d-block w-100" alt="..."/>
-                </div>
-                <div class="carousel-item">
-                    <img src={require('../Images/carouselTwo.png')} class="d-block w-100" alt="..."/>
-                </div>
-                <div class="carousel-item">
-                    <img src={require('../Images/carouselThree.png')} class="d-block w-100" alt="..."/>
-                </div>
-                <div class="carousel-item">
-                    <img src={require('../Images/carouselFour.png')} class="d-block w-100" alt="..."/>
-                </div>
-            </div>
-            <a class="carousel-control-prev" href="#carouselExampleFade" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#carouselExampleFade" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
+      (<Navigate to="/login"/>)}
+      
+      <div className="search">
+        <div className="searchInputs">
+          <input
+            type="text"
+            placeholder={"Enter Recipe Name"}
+            value={this.state.wordEntered}
+            onChange={(e)=>this.handleFilter(e)}
+          />
+          <div className="searchIcon">
+            {this.state.filteredData.length === 0 ? (
+              <SearchIcon />
+            ) : (
+              <CloseIcon id="clearBtn" onClick={(e)=>this.clearInput(e)} />
+            )}
           </div>
-   }
-
+        </div>
+        <div>
+          <label for="membership">Search Type:</label>
+            <select name="membership" id="membership">
+              <option value="authorFilter" >Recipe</option>
+              <option value="recipeFilter">Author</option>
+            </select>
+        </div>
+        {this.filterRender()}
+      </div>
+    </>
+  }
 }
+ 
 
 export default Search;

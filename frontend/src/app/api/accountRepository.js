@@ -31,7 +31,6 @@ export class AccountRepository {
 					console.log(response)
 				})
 				.catch(err => {
-					console.log("workingv2")
 					error(err);
 					resolve({ status: false });
 				});
