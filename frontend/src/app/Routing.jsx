@@ -26,6 +26,7 @@ export default function Routing({ appProps }) {
         <Route path="/profileRecipes" exact element={<ProfileRecipes/>} />
         <Route path="/editRecipe" exact element={<EditRecipe/>} />
         <Route path="/profileSettings" exact element={<ProfileSettings/>} />
+        <Route path="/viewRecipe" exact element={<ViewRecipe/>} />
 
 			</Routes>
 		</Router>
