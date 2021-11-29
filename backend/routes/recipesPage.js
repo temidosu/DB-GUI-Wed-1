@@ -215,6 +215,17 @@ router.delete('/recipes/:userID/:recipeID', function (req, res) {
 	});
 });
 
+// ADD INGREDIENT
+router.post('/view/ingredients/', function(req, res) {
+	var ingredientName = req.body.ingredientName
+	var ingredientSub = req.body.ingredientSub
+	var recipeID = req.body.recipeID
+	con.query("INSERT INTO ingredients (ingredientName, ingredientSub, recipeID) VALUES (?, ?, ?)", [ingredientName, ingredientSub, recipeID], function (err, result, fields) {
+		if (err) throw err;
+		res.end(JSON.stringify(result)); // Result in JSON format
+	});
+});
+
 //PORT ENVIRONMENT VARIABLE originalPort = 8080
 const port = process.env.PORT || 8080;
 app.listen(port, () => console.log(`Listening on port ${port}..`));

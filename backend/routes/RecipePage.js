@@ -53,3 +53,14 @@ router.get('/view/:reciName', function (req, res) {
 		res.end(JSON.stringify(result)); // Result in JSON format
 	});
 });
+
+// ADD INGREDIENT
+router.post('/view/ingredients/', function(req, res) {
+	var ingredientName = req.body.ingredientName
+	var ingredientSub = req.body.ingredientSub
+	var recipeID = req.body.recipeID
+	con.query("INSERT INTO ingredients (ingredientName, ingredientSub, recipeID) VALUES (?, ?, ?)", [ingredientName, ingredientSub, recipeID], function (err, result, fields) {
+		if (err) throw err;
+		res.end(JSON.stringify(result)); // Result in JSON format
+	});
+});
