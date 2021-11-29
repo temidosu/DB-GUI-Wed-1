@@ -1,6 +1,22 @@
 import React from "react";
+import {Link} from 'react-router-dom'
 
-export const CompactRecipeCard = props => <>
+
+
+
+
+export class CompactRecipeCard extends React.Component {
+    
+setRecipeID(event){
+    sessionStorage.setItem("recipeID", this.props.card.recipeID);
+    console.log(sessionStorage.getItem("recipeID"))
+}
+
+
+    render() {
+        return <>
+
+
     <div id="CompactRecipeCard">
         <li className="list-group mb-0"></li>
         {
@@ -15,17 +31,19 @@ export const CompactRecipeCard = props => <>
                 </div>
                 <div className="card-body">
                     <div className="row mt-1 mb-1 ms-1">
-                        <h2 className="h4">{props.card.recipeName}</h2>
+                        <h2 className="h4" >
+                            <a href="/viewRecipe" onClick={e=> this.setRecipeID(e)}> {this.props.card.recipeName}</a>
+                        </h2>
 						
-                        <img src = {props.card.imageURL}></img>
-                        <div className="text-muted h5">{props.card.instructions}</div>
+                        <img src = {this.props.card.imageURL}></img>
+                        <div className="text-muted h5">{this.props.card.instructions}</div>
                         <div>
-                        <h4>Author: {props.card.author}</h4>
+                        <h4>Author: {this.props.card.author}</h4>
                         </div>
 
 						<div >
 						{
-						props.card.ingredients.map((currentIng, i) => <li key={i}>
+						this.props.card.ingredients.map((currentIng, i) => <li key={i}>
 						<div>
 							<p >{currentIng}</p>
 						</div>
@@ -38,7 +56,7 @@ export const CompactRecipeCard = props => <>
                         {/* Add ingredients and creator*/}
                     </div>
                     <div className="row mt-1 mb-1 ms-1">
-                        <div className="text-muted"><p className="h4">"{props.card.description}"</p></div>
+                        <div className="text-muted"><p className="h4">"{this.props.card.description}"</p></div>
                     </div>
                     <div>
 
@@ -46,4 +64,8 @@ export const CompactRecipeCard = props => <>
                 </div>
             </li>
         }</div>
-</>;
+</>
+
+    }
+}
+
