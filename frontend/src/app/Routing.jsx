@@ -5,12 +5,17 @@ import { LoginForm } from './Accounts/LoginForm';
 import { Home } from './Home/Home';
 import { ViewRecipe } from './recipe/ViewRecipe';
 import { ProfilePage } from './profile/ProfilePage';
+<<<<<<< HEAD
 
 
+=======
+import { Navbar } from './common/NavBar';
+>>>>>>> abb90eadbf3a564d2e80f3bdd37de3d6fd9e13cd
 //import { RecipeSchedule } from './Calendar/RecipeSchedule'
 
 
 export default function Routing({ appProps }) {
+<<<<<<< HEAD
     return (
       <Router>
         <Routes>
@@ -23,3 +28,20 @@ export default function Routing({ appProps }) {
       </Router>
     );
   }
+=======
+	return (
+		<Router>
+
+			<Navbar></Navbar>
+
+			<Routes>
+				<Route path="/" exact element={<Home />} />
+				<Route path="/login" exact element={<LoginForm />} />
+				<Route path="/register" exact element={<Register />} />
+				<Route path="/createRecipe" exact element={<ProfilePage />} />
+
+			</Routes>
+		</Router>
+	);
+}
+>>>>>>> abb90eadbf3a564d2e80f3bdd37de3d6fd9e13cd
