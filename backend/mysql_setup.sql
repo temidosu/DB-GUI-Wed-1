@@ -8,9 +8,7 @@ CREATE TABLE users (
     userPass varchar(100), 
     userBio varchar(350), 
     userEmail varchar(50), 
-    userPhoto blob, 
-    favRecipe int, 
-    history varchar(350)
+    userPhoto blob
 );
 
 CREATE TABLE recipes (
@@ -24,6 +22,7 @@ CREATE TABLE recipes (
 	recipeIndc int,
 	hyperlink varchar(50),
 	videoTitle varchar(50),
+	flagPublicPrivate int,
 	postID int,
     userID int,
     FOREIGN KEY (userID) REFERENCES users(userID) on DELETE CASCADE on UPDATE CASCADE
@@ -63,5 +62,17 @@ CREATE TABLE plannedMeals (
 	FOREIGN KEY (userID) REFERENCES users(userID) on DELETE CASCADE on UPDATE CASCADE,
     FOREIGN KEY (recipeID) REFERENCES recipes(recipeID) on DELETE CASCADE on UPDATE CASCADE
 );
+CREATE TABLE favRecipes (
+	favRecipeID int AUTO_INCREMENT PRIMARY KEY,
+    userID int,
+    recipeID int,
+	FOREIGN KEY (userID) REFERENCES users(userID) on DELETE CASCADE on UPDATE CASCADE,
+    FOREIGN KEY (recipeID) REFERENCES recipes(recipeID) on DELETE CASCADE on UPDATE CASCADE
+);
 
-
+CREATE TABLE userIngredients (
+    userID int,
+    ingredientID int,
+	FOREIGN KEY (userID) REFERENCES users(userID) on DELETE CASCADE on UPDATE CASCADE,
+    FOREIGN KEY (ingredientID) REFERENCES ingredients(ingredientID) on DELETE CASCADE on UPDATE CASCADE
+);
