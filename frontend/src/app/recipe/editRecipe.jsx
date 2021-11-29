@@ -1,8 +1,9 @@
 import React from "react";
 import { User } from '../../models/User';
 import { Recipe } from '../../models/Recipe';
+import { recipes } from '../../data/recipes';
 
-/* Need to import the list of ingredients/how are they accessed for the select statement? */
+/* Need to import the list of ingredients */
 
 export class EditRecipe extends React.Component {
 

@@ -4,7 +4,7 @@ import { CompactRecipeCardList } from '../common/CompactCardList';
 import { CreateRecipe } from "../recipe/createRecipe";
 // import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 // import { Link } from 'react-router-dom';
-import { AccountRepository } from '../api/accountRepository';
+import { AccountRepository } from '../Api/accountRepository';
 
 export class ProfilePage extends React.Component {
 
@@ -28,10 +28,10 @@ export class ProfilePage extends React.Component {
 
 	addRecipe(recipe) {
 		var recipes = this.state.user.createdRecipes;
-		this.accountRepository.createRecipe(recipe)
-			.then(recipe => recipes.push(recipe));
+	//	this.accountRepository.createRecipe(recipe)
+		//	.then(recipe => recipes.push(recipe));
 
-		// recipes.push(recipe);
+		 recipes.push(recipe);
 		this.setState({ recipes });
 	}
 
@@ -45,43 +45,8 @@ export class ProfilePage extends React.Component {
 	render() {
 		return <>
 
-			<div id="Profile Page">
-				<nav className="container-fluid">
-					<ul>
-						<li><a href="#">Home</a></li>
-						<li><a href="/createRecipe">Recipe Creator <i class="icon-chevron-down"></i></a>
-							<ul>
-								<li><a href="/createRecipe">Examples</a></li>
-								<li><a href="#">Yours</a></li>
-							</ul>
-						</li>
-						<li><a href="#">Anouncement Board <i class="icon-chevron-down"></i></a>
-							<ul>
-								<li><a href="#">Updates</a></li>
-							</ul>
-						</li>
-						<li><a href="#">My Profile <i class="icon-chevron-down"></i> </a>
-							<ul>
-								<li><a href="#">Recipes</a></li>
-								<li><a href="#">Account Settings</a></li>
-							</ul>
-						</li>
-						<li><a href="#">Contact</a></li>
-
-					</ul>
-				</nav>
-
-
 				<CreateRecipe onRecipeAdded={recipe => this.addRecipe(recipe)} class="d-block" />
 				{/* Dynamically create RecipeCards */}
-				{/*<h2>Saved Recipes</h2>*/}
-
-
-
-				<h2>Created Recipes</h2>
-
-				<CompactRecipeCardList userCreatedRecipes={this.state.user.createdRecipes}></CompactRecipeCardList>
-
 
 
 				<h2>Created Recipes</h2>
@@ -90,7 +55,6 @@ export class ProfilePage extends React.Component {
 
 				{/* Calendar for ingredients */}
 
-			</div>
 
 		</>
 	}

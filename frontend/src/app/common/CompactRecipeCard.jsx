@@ -15,17 +15,19 @@ export const CompactRecipeCard = props => <>
                 </div>
                 <div className="card-body">
                     <div className="row mt-1 mb-1 ms-1">
-					<a className = "float-end" href="/editRecipe">Edit</a>
-                        <h2 className="h4">{props.card.recipeName}</h2>
+					<img className = "card-img-top thumbnail img-fluid" src = {props.card.imageURL} alt= "Recipe image"></img>
+					<a className = "float-end "href="/editRecipe">Edit</a>
+                        <h2 className="h4 card-title">{props.card.recipeName}</h2>
 						
-                        <img src = {props.card.imageURL}></img>
-                        <div className="text-muted h5">{props.card.instructions}</div>
+                        <div className="text-muted h5 card-text">{props.card.instructions}</div>
 
 						<div className = "h4">
+						<div>Ingredients: </div>
 						{
+							
 						props.card.ingredients.map((currentIng, i) => <li key={i}>
 						<div>
-							<p className = "h4">{currentIng}</p>
+							<p className = "h5 card-text">{currentIng}</p>
 						</div>
 						</li>)
 						}
@@ -36,7 +38,7 @@ export const CompactRecipeCard = props => <>
                         {/* Add ingredients and creator*/}
                     </div>
                     <div className="row mt-1 mb-1 ms-1">
-                        <div className="text-muted"><p className="h4">"{props.card.description}"</p></div>
+                        <div className="text-muted card-text"><p className="h4">"{props.card.description}"</p></div>
                     </div>
                     <div>
 

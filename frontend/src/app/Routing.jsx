@@ -17,8 +17,8 @@ export default function Routing({ appProps }) {
           <Route path="/login" exact element={<LoginForm/>} />
           <Route path="/register" exact element={<Register/>} />
           <Route path="/createRecipe" exact element={<ProfilePage/>} />
+          {/*3 below need to pass in user or recipe id from repository*/}
           <Route path="/profileRecipes" exact element={<ProfileRecipes/>} />
-           {/*2 below need to pass in user or recipe id from repository*/}
           <Route path="/editRecipe" exact element={<EditRecipe/>} />
           <Route path="/profileSettings" exact element={<ProfileSettings/>} />
         </Routes>

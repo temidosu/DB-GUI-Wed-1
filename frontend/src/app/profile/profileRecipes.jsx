@@ -2,6 +2,7 @@ import React from "react";
 import { User } from '../../models/User';
 import { CompactRecipeCardList } from '../common/CompactCardList';
 import { CreateRecipe } from "../recipe/createRecipe";
+import { recipes } from '../../data/recipes';
 
 export class ProfileRecipes extends React.Component {
 	state = {
@@ -22,7 +23,11 @@ export class ProfileRecipes extends React.Component {
         showRecipe: false,
         addIngredients: false,
         removeIngredients: false,
+        compareIngredients: false,
         removeIng: [],
+        savedRecipes: recipes,
+        createdRecipes: recipes,
+        selectedRecipe: []
 	};
 
     removeIngredient(ing) {
@@ -61,12 +66,33 @@ export class ProfileRecipes extends React.Component {
         this.setState({ removeIngredients: true }); 
         
     }
+    onCompare(){
+
+        this.setState({ compareIngredients: true }); 
+        
+    }
+
+    handleComparison(recipe) {
+        return this.state.createdRecipes.some(rec => rec.recipeName === recipe.recipeName);
+    }
+
+    compareIngredients(recipeIndex) {
+
+        if (recipeIndex >= 0)
+        this.setState({selectedRecipe: this.state.savedRecipes[recipeIndex].ingredients});
+
+    }
 
     onConfirm(){
 
         this.setState({ addIngredients: false }); 
         this.setState({ removeIngredients: false }); 
-        
+
+    }
+
+    onClose() {
+        this.setState({ compareIngredients: false, selectedRecipe: [] }); 
+
     }
 
     Data = ['Mustard', 'Ketchup', 'Relish', 'Butter', 'Baking Soda', 'Pickles', 'Onions', 'Milk', 'Eggs', 'Chocolate', 'Sugar'];
@@ -81,7 +107,7 @@ export class ProfileRecipes extends React.Component {
                 <h2>My Ingredients</h2>
 
                 {this.state.addIngredients === false &&
-                <button onClick={() => this.onAdd()} type="button" className = "btn-lg btn-secondary bg-success">Edit Ingredients</button>
+                <button onClick={() => this.onAdd()} type="button" className = "btn-sm btn-secondary bg-success">Add/Remove Ingredients</button>
                     }
                 {this.state.addIngredients === true && 
                 <form className = "form-control">
@@ -98,36 +124,48 @@ export class ProfileRecipes extends React.Component {
                 <button onClick={() => this.onConfirm()} type="button" className = "btn-lg btn-secondary bg-success">Confirm</button>
             </form>}
 
-            {/*this.state.removeIngredients === false &&
-            <button onClick={() => this.onRemove()} type="button" className = "btn-lg btn-secondary bg-danger">Remove Ingredients</button>
-    }
-                {this.state.removeIngredients === true &&
+            {this.state.compareIngredients === false &&
+            <button onClick={() => this.onCompare()} type="button" className = "btn-sm btn-secondary bg-info">Compare Ingredients</button>
+                 }
+                {this.state.compareIngredients === true &&
                 <form className = "form-control">
                 <div className="col-6 ms-1 mb-3">
-                        <label htmlFor="ingredients">Select the ingredients you would like to remove:</label>
-                        <select name = "ingredients" className = "selectpicker form-control" multiple onChange={event => this.removeIngredient(event.target.value)}>
-                         {this.state.user.ingredients.map((data, i) =>
-                          <option key={i} value={data}>{data}</option>
+                        <label htmlFor="recipes">Select the recipe you would like to compare your ingredients with:</label>
+                        <select name = "recipes" className = "form-select form-control" onChange={event => this.compareIngredients(event.target.value)}>
+                        <option selected>Select a recipe...</option>
+                         {this.state.savedRecipes.map((data, i) =>
+                          <option key={i} value={i}>{data.recipeName}</option>
                                  )};
-                                </select>Ingredients to remove: 
-                                {this.state.removeIng.map((ing, i) =>
-                                <span key = {i}> {ing}, </span>)}
+                                </select>
                         </div>
-                <button onClick={() => this.onConfirm()} type="button" className = "btn-lg btn-secondary bg-danger">Remove</button>
-                                </form>*/}
-                
-                            <br></br>My Ingredients: <br></br>
+
+                        <br></br>Your Ingredients: <br></br>
                                 {this.state.user.ingredients.map((ing, i) =>
                                 <span key = {i}>{ing}<br></br></span>)}
+                        <br></br>Required Ingredients for this recipe: <br></br>
+                                {this.state.selectedRecipe.map((ing, i) =>
+                                <span key = {i}>{ing}<br></br></span>)}
+                <button onClick={() => this.onClose()} type="button" className = "btn-lg btn-secondary bg-danger">Close</button>
+                                </form>
+    }
+    
+                                 <br></br>Your Ingredients: <br></br>
+                                {this.state.user.ingredients.map((ing, i) =>
+                                <span key = {i}>{ing}<br></br></span>)}
+                            
+
+                                
+
+                <h2>Created Recipes</h2>
+
+                <CompactRecipeCardList userCreatedRecipes={this.state.createdRecipes}></CompactRecipeCardList>
+
+
 
 				<h2>Saved Recipes</h2>
 
-               
-				
-	
-				
-			<h2>Created Recipes</h2>
-			
+                <CompactRecipeCardList userCreatedRecipes={this.state.savedRecipes}></CompactRecipeCardList>
+
 		
 
 			{/* Calendar for ingredients */}
