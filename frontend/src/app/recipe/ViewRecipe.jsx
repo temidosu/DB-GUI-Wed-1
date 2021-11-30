@@ -47,8 +47,10 @@ export class ViewRecipe extends React.Component {
 		const card = await this.accountRepository.getRecipe(id)
 		console.log(card[0])
 		this.setState({card: card[0]})
+
+		const userId = sessionStorage.getItem("userId")
 		
-		
+	
 	
 	}
 
