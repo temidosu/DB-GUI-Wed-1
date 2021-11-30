@@ -21,30 +21,21 @@ router.post('/register', async (req, res) => {
 
 	console.log(newUserName);
 
-	pool.query("INSERT INTO users (userName, userPass, userEmail) VALUES (?, ?, ?)", [newUserName, newUserPass, newUserEmail], function (err,
-		result, fields) {
-		if (err) throw err;
-		res.end(JSON.stringify(result)); // Result in JSON format
-	});
+	pool.query("INSERT INTO users (userName, userPass, userEmail) VALUES (?, ?, ?)", [newUserName, newUserPass, newUserEmail],
+		function (err, result, fields) {
+			if (err) throw err;
+			res.end(JSON.stringify(result)); // Result in JSON format
+		});
 });
 
 
-
-
 // Login
-router.post('/login', (req, res) => {
-	pool.getConnection(res, (response) => {
-		// if (response.message == 'fail') return;
-		response.pool.query(`SELECT * FROM users where userName = "${req.body.username}"`,
-			function (err, result, fields) {
-				console.log(result[0])
-				if (result[0].userPass == req.body.password) {
-					res.send({ status: true, account: result[0] });
-				} else {
-					res.send({ status: false });
-				}
-			});
-	});
+router.get('/login', (req, res) => {
+	pool.query(`SELECT * FROM users where userName = "${req.body.username}"`,
+		function (err, result, fields) {
+			if (err) throw err;
+			res.end(JSON.stringify(result));
+		});
 });
 
 module.exports = router;
