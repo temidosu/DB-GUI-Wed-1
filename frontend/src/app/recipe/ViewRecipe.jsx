@@ -1,5 +1,6 @@
 import React from 'react';
-import { Navigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+
 import { CompactRecipeCard } from '../common/CompactRecipeCard';
 import { CompactRecipeCardList } from '../common/CompactCardList';
 import { FaStar } from "react-icons/fa"
@@ -8,48 +9,53 @@ import { AccountRepository } from '../api/accountRepository';
 import { Recipe } from '../../models/Recipe';
 
 export class ViewRecipe extends React.Component {
+	accountRepository = new AccountRepository();
+	constructor(){
+		super();
+	
 
-	state = {
-		card: {
-			recipeID: 1,
-			recipeName: "test",
-			instructions: "",
-			description: "",
-			ingredients: [],
-			imageURL: "",
-			author: ""
-		},
-		rating: 0,
-		buttonVal: "Save"
+		this.state = {
+			card: {
+				hyperlink: "",
+				ingredientList: "",
+				postID: 0,
+				recipe: "",
+				recipeCreator: "",
+				recipeDesc: "",
+				recipeID: 0,
+				recipeIndc: "",
+				recipeName: "",
+				recipePhoto: "",
+				userID: 0,
+				videoTitle: "",
+			},
+
+			rating: 0,
+			buttonVal: "Save"
+		}
 	}
+	
 
 	returnRecipe() {
 
-		// What does this do?
-
-		// recipes.map((cardImport) => {
-		// 	if (cardImport.recipeID == sessionStorage.getItem("recipeID")) {
-		// 		return cardImport
-		// 	}
-		// 	else {
-		// 		return 10
-		// 	}
-		// })
+		
 	}
 
-	componentDidMount() {
-		// for (var key in recipes) {
-		// 	if (recipes[key].recipeID == sessionStorage.getItem("recipeID")) {
-		// 		this.setState({ card: recipes[key] })
-		// 	}
-		// }
-
-		this.AccountRepository.getRecipe(this.state.card.recipeID)
-			.then(x => this.setState({ card: x }));
+	async componentDidMount() {
+		
+		const id = sessionStorage.getItem("recipeID")
+		const card = await this.accountRepository.getRecipe(id)
+		console.log(card[0])
+		this.setState({card: card[0]})
+		
+		
+	
 	}
 
 
 	render() {
+
+
 		return <>
 			<div>
 				<h1>Review and Save Recipe!</h1>
@@ -71,28 +77,19 @@ export class ViewRecipe extends React.Component {
 										{this.state.card.recipeName}
 									</h2>
 
-									<img src={this.state.card.imageURL}></img>
-									<div className="text-muted h5">{this.state.card.instructions}</div>
+									<img src={this.state.card.hyperlink}></img>
+									<div className="text-muted h5">{this.state.card.recipeIndc}</div>
 									<div>
-										<h4>Author: {this.state.card.author}</h4>
+										<h4>Author: {this.state.card.recipeCreator}</h4>
 									</div>
 
-									<div >
-										{
-											this.state.card.ingredients.map((currentIng, i) => <li key={i}>
-												<div>
-													<p >{currentIng}</p>
-												</div>
-											</li>)
-										}
-
-									</div>
+									
 
 
 									{/* Add ingredients and creator*/}
 								</div>
 								<div className="row mt-1 mb-1 ms-1">
-									<div className="text-muted"><p className="h4">"{this.state.card.description}"</p></div>
+									<div className="text-muted"><p className="h4">"{this.state.card.recipeDesc}"</p></div>
 								</div>
 								<div>
 
@@ -121,7 +118,7 @@ export class ViewRecipe extends React.Component {
 
 			</div>
 			<div>
-				<button type="button">{this.state.value}</button>
+				<button type="button">{this.state.buttonVal}</button>
 			</div>
 
 		</>;
@@ -131,4 +128,4 @@ export class ViewRecipe extends React.Component {
 
 }
 
-export default ViewRecipe;
+export default (ViewRecipe);

@@ -91,13 +91,18 @@ export class AccountRepository {
 
 	getRecipe(recipeId) {
 		return new Promise((resolve, reject) => {
-			axios.post(hostname + `/api/recipes/${recipeId}`)
+			axios.get(hostname + `/api/recipes/${recipeId}`)
 				.then(response => {
-					resolve(response);
+					if (response.data.length > 0) {
+						resolve(response.data)
+					}
+					else {
+						resolve(undefined);
+					}
 				})
 				.catch(err => {
 					error(err);
-					resolve(err);
+					reject(err);
 				});
 		});
 	}
