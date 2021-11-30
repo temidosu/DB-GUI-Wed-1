@@ -5,7 +5,7 @@ import { CompactRecipeCard } from '../common/CompactRecipeCard';
 import SearchIcon from "@material-ui/icons/Search";
 import CloseIcon from "@material-ui/icons/Close";
 import { data } from "jquery";
-import { AccountRepository } from '../api/accountRepository';
+import { AccountRepository } from '../Api/accountRepository';
 import { Recipe } from '../../models/Recipe';
 
 

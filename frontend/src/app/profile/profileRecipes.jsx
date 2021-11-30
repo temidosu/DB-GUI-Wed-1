@@ -2,7 +2,7 @@ import React from "react";
 import { User } from '../../models/User';
 import { CompactRecipeCardList } from '../common/CompactCardList';
 import { CreateRecipe } from "../recipe/createRecipe";
-import { AccountRepository } from '../api/accountRepository';
+import { AccountRepository } from '../Api/accountRepository';
 import { Recipe } from '../../models/Recipe';
 export class ProfileRecipes extends React.Component {
 
@@ -100,6 +100,7 @@ export class ProfileRecipes extends React.Component {
 
 	}
 
+    //get ingredients list from DB
 	Data = ['Mustard', 'Ketchup', 'Relish', 'Butter', 'Baking Soda', 'Pickles', 'Onions', 'Milk', 'Eggs', 'Chocolate', 'Sugar'];
 
 	render() {
@@ -107,7 +108,6 @@ export class ProfileRecipes extends React.Component {
 
 			<div id="Profile Page">
 				<h1>{this.state.user.firstName} {this.state.user.lastName}</h1>
-				{/* Make the ingredients a list, figure out how to remove ingredients */}
 
                 <h3>Ingredients Center</h3>
 

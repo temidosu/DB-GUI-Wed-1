@@ -24,11 +24,11 @@ setRecipeID(event){
         }
         {
             //works but this is incomplete - only show 'edit' button if the user logged in created the recipe
-            <li className="card rounded container mb-4 list-group p-0">
+            <li className="card rounded container mb-4 list-group p-0 border border-danger">
                 
                 <div>
-				<h2 className="h2 card-title card-header ">
-                            <a href="/viewRecipe" style = {{textDecoration: 'none'}} onClick={e=> this.setRecipeID(e)}>{this.props.card.recipeName}</a>
+				<h2 className="h2 card-title card-header bg-danger text-light" style={{background: 'red'}}>
+                            <a href="/viewRecipe" style = {{textDecoration: 'none', color: 'white'}} onClick={e=> this.setRecipeID(e)}>{this.props.card.recipeName}</a>
 							<button type="button" className = "float-end mt-1 mb-2 btn btn-sm btn-info" style= {{width: '80px'}}>
 								<NavLink to ={ '/editRecipe'} style = {{textDecoration: 'none', color: 'black'}}>Edit</NavLink></button>
                         </h2>
@@ -61,13 +61,13 @@ setRecipeID(event){
                         <div className="card-text text-muted h6">{this.props.card.instructions}</div>
                         </div>
 
-						</div>
-				
-                    
-					<h4>Description:</h4>
+						<h4>Description:</h4>
                     <div className="row mt-1 mb-1 ms-1">
-                        <div className="text-muted card-text"><p className="h6">"{this.props.card.description}"</p></div>
+                        <div className="text-muted card-text h6">"{this.props.card.description}"</div>
                     </div>
+
+						</div>
+			
 					</div>
 				
                     <div>
