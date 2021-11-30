@@ -1,5 +1,5 @@
 import React from "react";
-import {Link} from 'react-router-dom'
+import {Link, NavLink} from 'react-router-dom'
 
 
 
@@ -18,54 +18,65 @@ setRecipeID(event){
 
 
     <div id="CompactRecipeCard">
-        <li className="list-group mb-0"></li>
+        <li className="list-group mb-0 p-0"></li>
         {
             //  !props.createdRecipes.length && <li className= "list-group-item">No recipe created yet!</li>
         }
         {
-            //works but this is incomplete
+            //works but this is incomplete - only show edit button if the user logged in created the recipe
             <li className="card rounded container mb-4 list-group p-0">
                 
-                <div className="card-header">
-                    {/* [1, 2, 3, 4, 5].map(x => (<i key={x} className={(x > props.card.rating ? 'empty-star' : 'full-star')}></i>)) */}
-                </div>
-                <div className="card-body">
-                    <div className="row mt-1 mb-1 ms-1">
-					<img className = "card-img-top thumbnail img-fluid" src = {this.props.card.imageURL} alt= "Recipe image"></img>
-					<a className = "float-end "href="/editRecipe">Edit</a>
-                        <h2 className="h4 card-title">
-                            <a href="/viewRecipe" onClick={e=> this.setRecipeID(e)}> {this.props.card.recipeName}</a>
+                <div>
+				<h2 className="h2 card-title card-header ">
+                            <a href="/viewRecipe" style = {{textDecoration: 'none'}} onClick={e=> this.setRecipeID(e)}>{this.props.card.recipeName}</a>
+							<button type="button" className = "float-end mt-1 mb-2 btn btn-sm btn-info" style= {{width: '80px'}}>
+								<NavLink to ={ '/editRecipe'} style = {{textDecoration: 'none', color: 'black'}}>Edit</NavLink></button>
                         </h2>
-						
-                        <img src = {this.props.card.imageURL}></img>
-                        <div className="text-muted h5">{this.props.card.instructions}</div>
-                        <div>
-                        <h4>Author: {this.props.card.author}</h4>
-                        </div>
 
-						<div className = "h4">
+						<h5 className="h5 card-header">
+                           Rating placeholder
+                        </h5>
+				
+                    {/* [1, 2, 3, 4, 5].map(x => (<i key={x} className={(x > this.props.card.rating ? 'empty-star' : 'full-star')}></i>)) */}
+                </div>
+				<img className = "card-img-top" style={{height: '500px', width: '100%'}} src = {this.props.card.imageURL} alt= "Recipe image"></img>
+			
+                <div className="card-body p-0">
+                    <div className="row mt-1 mb-1 ms-1">
+					
+						<div className = "h4 mt-1">
 						<div>Ingredients: </div>
+						<div className="row mt-1 mb-1 ms-1 ">
 						{
 							
-						this.props.card.ingredients.map((currentIng, i) => <li key={i}>
-						<div>
-							<p className = "h5 card-text">{currentIng}</p>
+						this.props.card.ingredients.map((currentIng, i) => <ul key={i}>
+						<div className="list-group-item list-group-flush">
+							<p className = "h6 card-text">{currentIng}</p>
 						</div>
-						</li>)
+						</ul>)
 						}
+						</div>
+						<h4>Instructions:</h4>
+						<div className="row mt-1 mb-1 ms-1">
+                        <div className="card-text text-muted h6">{this.props.card.instructions}</div>
+                        </div>
 
 						</div>
-					
-						
-                        {/* Add ingredients and creator*/}
-                    </div>
+				
+                    
+					<h4>Description:</h4>
                     <div className="row mt-1 mb-1 ms-1">
-                        <div className="text-muted card-text"><p className="h4">"{this.props.card.description}"</p></div>
+                        <div className="text-muted card-text"><p className="h6">"{this.props.card.description}"</p></div>
                     </div>
+					</div>
+				
                     <div>
 
                     </div>
                 </div>
+				<div className = "card-footer mb-0">
+                        <h5>Recipe Creator: {this.props.card.author}</h5>
+                        </div>
             </li>
         }</div>
 </>

@@ -109,10 +109,10 @@ export class ProfileRecipes extends React.Component {
 				<h1>{this.state.user.firstName} {this.state.user.lastName}</h1>
 				{/* Make the ingredients a list, figure out how to remove ingredients */}
 
-                <h2>My Ingredients</h2>
+                <h3>Ingredients Center</h3>
 
                 {this.state.addIngredients === false &&
-                <button onClick={() => this.onAdd()} type="button" className = "btn-sm btn-secondary bg-success">Add/Remove Ingredients</button>
+                <button onClick={() => this.onAdd()} type="button" className = "btn-sm btn-secondary bg-success me-1">Add/Remove Ingredients</button>
                     }
                 {this.state.addIngredients === true && 
                 <form className = "form-control">

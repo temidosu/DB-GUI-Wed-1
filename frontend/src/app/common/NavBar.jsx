@@ -19,10 +19,10 @@ export const Navbar = props => {
 					<li><a href="#">Updates</a></li>
 				</ul>
 			</li>
-			<li><a href="#">My Profile <i class="icon-chevron-down"></i> </a>
+			<li><a href="/profileRecipes">My Profile <i class="icon-chevron-down"></i> </a>
 				<ul>
-					<li><a href="#">Recipes</a></li>
-					<li><a href="#">Account Settings</a></li>
+					<li><a href="/profileRecipes">Recipes</a></li>
+					<li><a href="/profileSettings">Account Settings</a></li>
 				</ul>
 			</li>
 			<li><a href="/recipeSchedule">Recipe Scheduler</a></li>
@@ -30,7 +30,10 @@ export const Navbar = props => {
 
 
 		</ul>
+		<br></br><br></br>
+
 	</nav>
+	
 }
 
 
