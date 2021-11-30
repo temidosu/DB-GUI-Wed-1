@@ -10,17 +10,30 @@ function error(err) {
 export class AccountRepository {
 
 	getProfiles() {
-        return new Promise((resolve, reject) => {
-            axios.get(hostname + '/api/users')
-                .then(response => {
-                    resolve(response.data);
-                })
-                .catch(err => {
-                    console.error(err);
-                    reject(err);
-                });
-        })
-    }
+		return new Promise((resolve, reject) => {
+			axios.get(hostname + '/api/users')
+				.then(response => {
+					resolve(response.data);
+				})
+				.catch(err => {
+					console.error(err);
+					reject(err);
+				});
+		})
+	}
+
+	getRecipes() {
+		return new Promise((resolve, reject) => {
+			axios.get(hostname + '/api/recipes')
+				.then(response => {
+					resolve(response.data);
+				})
+				.catch(err => {
+					console.error(err);
+					reject(err);
+				});
+		})
+	}
 
 
 	login(username, password) {
@@ -39,7 +52,7 @@ export class AccountRepository {
 
 	register(account) {
 		return new Promise((resolve, reject) => {
-			axios.post(hostname + '/api/register', { ...account })
+			axios.post(hostname + '/api/SignUp/users', { ...account })
 				.then(response => {
 					resolve(response.data);
 				})
@@ -52,7 +65,7 @@ export class AccountRepository {
 
 	createRecipe(recipe) {
 		return new Promise((resolve, reject) => {
-			axios.post(hostname + '/recipes', recipe)
+			axios.post(hostname + '/api/recipes', recipe)
 				.then(response => {
 					resolve(response.data);
 				})
@@ -65,7 +78,20 @@ export class AccountRepository {
 
 	getUser(userID) {
 		return new Promise((resolve, reject) => {
-			axios.post(hostname + `/users/${userID}`)
+			axios.post(hostname + `/api/users/${userID}`)
+				.then(response => {
+					resolve(response);
+				})
+				.catch(err => {
+					error(err);
+					resolve(err);
+				});
+		});
+	}
+
+	getRecipe(recipeId) {
+		return new Promise((resolve, reject) => {
+			axios.post(hostname + `/api/recipes/${recipeId}`)
 				.then(response => {
 					resolve(response);
 				})
