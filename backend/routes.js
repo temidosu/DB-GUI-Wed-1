@@ -3,12 +3,6 @@ const path = require('path')
 const fs = require('fs');
 const { json } = require('body-parser');
 
-const projectsRoutes = require('./routes/projectsRoutes');
-const reviewsRoutes = require('./routes/reviewsRoutes');
-// const typeRoutes = require('./routes/typeRoutes');
-
-
-
 const users = require('./routes/users');
 
 module.exports = function routes(app, logger) {
