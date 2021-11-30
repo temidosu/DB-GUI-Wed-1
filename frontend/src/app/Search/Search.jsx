@@ -20,7 +20,15 @@ export class Search extends React.Component {
 		wordEntered: '',
 		placeholder: 'Enter Recipe Name',
 		authorFilter: false,
-		recipeFilter: true
+		recipeFilter: true,
+		testArr: [
+			{
+				testSub: [1, 2, 3]
+			},
+			{
+				testSub: [4, 5, 6]
+			}
+		]
 
 	}
 
@@ -32,12 +40,12 @@ export class Search extends React.Component {
 				return value.recipeName.toLowerCase().includes(searchWord.toLowerCase());
 			}
 			else {
-				return value.author.toLowerCase().includes(searchWord.toLowerCase());
+				return value.recipeCreator.toLowerCase().includes(searchWord.toLowerCase());
 			}
 		});
 
 		if (searchWord === "") {
-			this.setState({ filteredData: Recipe })
+			this.setState({ filteredData: this.state.data })
 		} else {
 			this.setState({ filteredData: newFilter })
 		}
@@ -60,6 +68,17 @@ export class Search extends React.Component {
 		this.setState({ filteredData: [] })
 		this.setState({ wordEntered: [] })
 	};
+
+	testLoop = () => {
+		let words = ''
+		for (let i = 0; i < this.state.data.length; i++){
+			words+= (this.state.data[i].ingredientList + ", ");
+			
+		}
+		let wordArr = words.split(',');
+		console.log(wordArr)
+		return (wordArr.length)
+	}
 
 	filterRender = () => {
 		if (this.state.filteredData !== 0 && this.state.wordEntered !== '') {
@@ -90,49 +109,82 @@ export class Search extends React.Component {
 		}
 	}
 
+	testLol = () =>{
+		console.log(this.state.data)
+	}
+
 	render() {
 
 		return <>
 			{sessionStorage.getItem("isAuthenticated") !== "true" &&
-				(<Navigate to="/login" />)}
-
-			<div className="search">
-				<div className="searchInputs">
-					<input
-						type="text"
-						placeholder={this.state.placeholder}
-						value={this.state.wordEntered}
-						onChange={(e) => this.handleFilter(e)}
-					/>
-					<div className="searchIcon">
-						{this.state.filteredData.length === 0 ? (
-							<SearchIcon />
-						) : (
-							<CloseIcon id="clearBtn" onClick={(e) => this.clearInput(e)} />
-						)}
-					</div>
-				</div>
-				<div>
-					<label for="membership">Search Type:</label>
-					<select name="membership" id="membership" onChange={(e) => this.changeFilter(e)}>
-						<option
-							value="recipeFilter"
-						>Recipe</option>
-						<option
-							value="authorFilter"
-						>Author</option>
-					</select>
-				</div>
-				{this.filterRender()}
-			</div>
+      (<Navigate to="/login"/>)}
+      
+      <div className="search">
+        <div className="searchInputs">
+          <input
+            type="text"
+            placeholder={this.state.placeholder}
+            value={this.state.wordEntered}
+            onChange={(e)=>this.handleFilter(e)}
+          />
+          <div className="searchIcon">
+            {this.state.filteredData.length === 0 ? (
+              <SearchIcon />
+            ) : (
+              <CloseIcon id="clearBtn" onClick={(e)=>this.clearInput(e)} />
+            )}
+          </div>
+        </div>
+        <div>
+          <label for="membership">Search Type:</label>
+            <select name="membership" id="membership" onChange={(e)=>this.changeFilter(e)}>
+              <option 
+                value="recipeFilter" 
+                >Recipe</option>
+              <option 
+                value="authorFilter"
+                >Author</option>
+            </select>
+        </div>
+        {this.filterRender()}
+      </div>
 		</>
 	}
-	componentDidMount() {
-		var data = this.state.data;
-		this.accountRepository.getRecipes()
-			.then(recipe => data.push(recipe));
+	async componentDidMount() {
+		let data = await this.accountRepository.getAllRecipes()
+		this.setState({ data })
+		/*this.state.data[0]["ingredients"] = ["bread", "butter"]
+		this.setState({...data})
+		this.state.data[1]["ingredients"] = ["eggs", "butter"]
+		this.setState({...data})
 
-		this.setState({ data });
+		const { testArr } = { ...this.state}
+		const currentState = testArr
+		this.state.testArr[0]["testSub2"] = [7, 8, 9]
+		this.setState({ testArr })
+		this.state.testArr[1]["testSub2"] = [10, 11, 12]
+		this.setState({...testArr})*/
+		
+
+
+		/*for (let i = 0; i < this.state.data.length; i++){
+			let words = this.state.data[i].ingredientList;
+			let wordArr = words.split(',');
+			console.log(wordArr)
+			(this.state.data[i])["ingredients"] = wordArr
+		}*/
+		//const ingredients = []
+		//console.log(this.state.data)
+		/*for (let i = 0; i < this.state.dath.length; i++){
+			var ingredientsArr = await this.accountRepository.returnIngredientsForRecipe(this.state.data[i].recipeID)
+			console.log("hitest")
+			for(var keyX in ingredientsArr){
+				ingredients.push(ingredientsArr[keyX].ingredientName)
+			}
+			this.state.data[i].ingredients = ingredients
+		}*/
+		//actual scuffed
+		
 	}
 }
 

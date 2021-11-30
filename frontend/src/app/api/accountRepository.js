@@ -102,6 +102,46 @@ export class AccountRepository {
 		});
 	}
 
+	getAllRecipes(){
+		return new Promise((resolve, reject) => {
+			axios.get(hostname + '/api/recipes')
+			.then(response => {
+				if (response.data.length > 0) {
+					resolve(response.data)
+				}
+				else {
+					resolve(undefined);
+				}
+			})
+			.catch(err => {
+				error(err);
+				reject(err);
+			});
+		});
+
+	}
+
+
+
+	returnIngredientsForRecipe(recipeID){
+		return new Promise((resolve, reject) => {
+			axios.get(hostname + '/api/recipeIngredients/', recipeID)
+			.then(response => {
+				if (response.data.length > 0) {
+					resolve(response.data)
+				}
+				else {
+					resolve(undefined);
+				}
+			})
+			.catch(err => {
+				error(err);
+				reject(err);
+			});
+		});
+
+	}
+
 }
 
 export default AccountRepository;

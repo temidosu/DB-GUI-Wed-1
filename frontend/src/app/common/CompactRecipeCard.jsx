@@ -1,22 +1,6 @@
 import React from "react";
-import {Link} from 'react-router-dom'
 
-
-
-
-
-export class CompactRecipeCard extends React.Component {
-    
-setRecipeID(event){
-    sessionStorage.setItem("recipeID", this.props.card.recipeID);
-    console.log(sessionStorage.getItem("recipeID"))
-}
-
-
-    render() {
-        return <>
-
-
+export const CompactRecipeCard = props => <>
     <div id="CompactRecipeCard">
         <li className="list-group mb-0"></li>
         {
@@ -31,36 +15,19 @@ setRecipeID(event){
                 </div>
                 <div className="card-body">
                     <div className="row mt-1 mb-1 ms-1">
-					<img className = "card-img-top thumbnail img-fluid" src = {this.props.card.imageURL} alt= "Recipe image"></img>
+					<img className = "card-img-top thumbnail img-fluid" src = {props.card.hyperlink} alt= "Recipe image"></img>
 					<a className = "float-end "href="/editRecipe">Edit</a>
-                        <h2 className="h4 card-title">
-                            <a href="/viewRecipe" onClick={e=> this.setRecipeID(e)}> {this.props.card.recipeName}</a>
-                        </h2>
+                        <h2 className="h4 card-title">{props.card.recipeName}</h2>
 						
-                        <img src = {this.props.card.imageURL}></img>
-                        <div className="text-muted h5">{this.props.card.instructions}</div>
-                        <div>
-                        <h4>Author: {this.props.card.author}</h4>
-                        </div>
-
-						<div className = "h4">
-						<div>Ingredients: </div>
-						{
-							
-						this.props.card.ingredients.map((currentIng, i) => <li key={i}>
-						<div>
-							<p className = "h5 card-text">{currentIng}</p>
-						</div>
-						</li>)
-						}
-
-						</div>
+                        <div className="text-muted h5 card-text">{props.card.recipeDesc}</div>
+                        {/* insert ingredient list here*/}
+						
 					
 						
                         {/* Add ingredients and creator*/}
                     </div>
                     <div className="row mt-1 mb-1 ms-1">
-                        <div className="text-muted card-text"><p className="h4">"{this.props.card.description}"</p></div>
+                        <div className="text-muted card-text"><p className="h4">"{props.card.recipeCreator}"</p></div>
                     </div>
                     <div>
 
@@ -68,8 +35,4 @@ setRecipeID(event){
                 </div>
             </li>
         }</div>
-</>
-
-    }
-}
-
+</>;
