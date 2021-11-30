@@ -89,6 +89,19 @@ export class AccountRepository {
 		});
 	}
 
+	getRecipe(recipeId) {
+		return new Promise((resolve, reject) => {
+			axios.post(hostname + `/recipes/${recipeId}`)
+				.then(response => {
+					resolve(response);
+				})
+				.catch(err => {
+					error(err);
+					resolve(err);
+				});
+		});
+	}
+
 }
 
 export default AccountRepository;

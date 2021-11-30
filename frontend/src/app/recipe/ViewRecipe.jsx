@@ -43,12 +43,9 @@ export class ViewRecipe extends React.Component {
 		// 		this.setState({ card: recipes[key] })
 		// 	}
 		// }
-		
-		var recipes;
-		this.AccountRepository.getRecipes()
-			.then(recipe => recipes.push(recipe));
 
-		this.setState({ recipes });
+		this.AccountRepository.getRecipe(state.card.recipeID)
+			.then(x => this.setState({ card: x }));
 	}
 
 
