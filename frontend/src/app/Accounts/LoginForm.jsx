@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 import './accounts.css';
-import { AccountRepository } from '../Api/accountRepository';
+import { AccountRepository } from '../api/accountRepository';
 
 export class LoginForm extends React.Component {
 
@@ -15,7 +15,7 @@ export class LoginForm extends React.Component {
 	accountRepository = new AccountRepository();
 
 
-	async testLOL(event){
+	async testLOL(event) {
 		const response = await this.accountRepository.getProfiles();
 		console.log(response)
 	}

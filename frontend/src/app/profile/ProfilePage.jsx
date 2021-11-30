@@ -4,7 +4,7 @@ import { CompactRecipeCardList } from '../common/CompactCardList';
 import { CreateRecipe } from "../recipe/createRecipe";
 // import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 // import { Link } from 'react-router-dom';
-import { AccountRepository } from '../Api/accountRepository';
+import { AccountRepository } from '../api/accountRepository';
 
 export class ProfilePage extends React.Component {
 
@@ -28,10 +28,10 @@ export class ProfilePage extends React.Component {
 
 	addRecipe(recipe) {
 		var recipes = this.state.user.createdRecipes;
-	//	this.accountRepository.createRecipe(recipe)
+		//	this.accountRepository.createRecipe(recipe)
 		//	.then(recipe => recipes.push(recipe));
 
-		 recipes.push(recipe);
+		recipes.push(recipe);
 		this.setState({ recipes });
 	}
 
@@ -45,15 +45,15 @@ export class ProfilePage extends React.Component {
 	render() {
 		return <>
 
-				<CreateRecipe onRecipeAdded={recipe => this.addRecipe(recipe)} class="d-block" />
-				{/* Dynamically create RecipeCards */}
+			<CreateRecipe onRecipeAdded={recipe => this.addRecipe(recipe)} class="d-block" />
+			{/* Dynamically create RecipeCards */}
 
 
-				<h2>Created Recipes</h2>
+			<h2>Created Recipes</h2>
 
-				<CompactRecipeCardList userCreatedRecipes={this.state.user.createdRecipes}></CompactRecipeCardList>
+			<CompactRecipeCardList userCreatedRecipes={this.state.user.createdRecipes}></CompactRecipeCardList>
 
-				{/* Calendar for ingredients */}
+			{/* Calendar for ingredients */}
 
 
 		</>
