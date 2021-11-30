@@ -11,7 +11,7 @@ const mysql = require('mysql');
 
  var pool = mysql.createPool({
  	host: 'dbdb.coz7ukfx1bzs.us-east-2.rds.amazonaws.com',
- 	user: 'root',
+ 	user: 'admin',
  	password: 'SSXSTAqZKwh9pApYhNMh',
  	database: 'r2rdb',
 	port: 3306,
