@@ -15,7 +15,7 @@ export class LoginForm extends React.Component {
 	accountRepository = new AccountRepository();
 
 
-	async testLOL(event){
+	async testLOL(event) {
 		const response = await this.accountRepository.getProfiles();
 		console.log(response)
 	}

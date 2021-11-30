@@ -38,7 +38,7 @@ export class AccountRepository {
 
 	login(username, password) {
 		return new Promise((resolve, reject) => {
-			axios.post(hostname + '/api/login', { username, password })
+			axios.get(hostname + '/api/login', { username, password })
 				.then(response => {
 					resolve({ status: response.data.status, account: response.data.account });
 					console.log(response)
@@ -50,9 +50,10 @@ export class AccountRepository {
 		});
 	}
 
+	// Working
 	register(account) {
 		return new Promise((resolve, reject) => {
-			axios.post(hostname + '/api/SignUp/users', { ...account })
+			axios.post(hostname + '/api/register', account)
 				.then(response => {
 					resolve(response.data);
 				})
@@ -60,6 +61,7 @@ export class AccountRepository {
 					error(err);
 					resolve(undefined);
 				});
+
 		});
 	}
 
