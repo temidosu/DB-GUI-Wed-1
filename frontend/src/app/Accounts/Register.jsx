@@ -6,6 +6,7 @@ import './accounts.css';
 import { AccountRepository } from '../api/accountRepository';
 
 export const Register = () => {
+	const accountRepository = new AccountRepository();
 
 	const [firstName, setFirstName] = useState("");
 	const [lastName, setLastName] = useState("");
@@ -19,7 +20,6 @@ export const Register = () => {
 	const [validPassword, setValidPassword] = useState(true);
 	const [complete, setComplete] = useState(false);
 
-	const accountRepository = new AccountRepository();
 
 	function register() {
 		// event.preventDefault();
@@ -30,13 +30,13 @@ export const Register = () => {
 		}
 
 		let account = {
-			name: `${firstName} ${lastName}`,
+			// name: `${firstName} ${lastName}`,
 			userName: username,
-			email,
-			password
+			userEmail: email,
+			userPass: password
 		};
 
-		this.accountRepository.register(account);
+		accountRepository.register(account);
 		setComplete(true);
 	}
 
@@ -143,12 +143,10 @@ export const Register = () => {
 
 				<div id="login-button-container" className="text-center">
 
-					<Link className="btn btn-info" to={`/`} onClick={() => this.register()}>Submit</Link>
-
 					<button
 						type="submit"
 						className="btn btn-info"
-						onClick={() => this.register()}>
+						onClick={() => register()}>
 
 						Submit
 					</button>

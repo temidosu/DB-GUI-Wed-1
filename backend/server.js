@@ -43,7 +43,7 @@ app.use(function (req, res, next) {
 app.use(loginEnd)
 app.use(profileEnd)
 app.use(recipesEnd)
-const port = process.env.PORT || 8000
+const port = process.env.PORT || 5000
 app.listen(port, '0.0.0.0', () => console.log(`Listening on port ${port}`));
 
 
