@@ -2,14 +2,14 @@ import React from "react";
 import { User } from '../../models/User';
 import { CompactRecipeCardList } from '../common/CompactCardList';
 import { CreateRecipe } from "../recipe/createRecipe";
-import { recipes } from '../../data/recipes';
-
+import { AccountRepository } from '../api/accountRepository';
+import { Recipe } from '../../models/Recipe';
 export class ProfileRecipes extends React.Component {
 
-    //accountRepository
-    //Login form - const response
-    //sessionStorage.getItem - store this
-    //
+	//accountRepository
+	//Login form - const response
+	//sessionStorage.getItem - store this
+	//
 	state = {
 
 		// This will get set by profilepage's parent later
@@ -21,90 +21,90 @@ export class ProfileRecipes extends React.Component {
 			[], /* savedRecipes */
 			[], /* createdRecipes */
 			[], /* ingredients */
-            '' /* Profile Picture */
+			'' /* Profile Picture */
 			//[] /* Planner */
 		),
 		savedRecipe: false,
-        showRecipe: false,
-        addIngredients: false,
-        removeIngredients: false,
-        compareIngredients: false,
-        removeIng: [],
-        savedRecipes: recipes,
-        createdRecipes: recipes,
-        selectedRecipe: []
+		showRecipe: false,
+		addIngredients: false,
+		removeIngredients: false,
+		compareIngredients: false,
+		removeIng: [],
+		savedRecipes: [],
+		createdRecipes: [],
+		selectedRecipe: []
 	};
 
-    removeIngredient(ing) {
-        this.state.removeIng = [...this.state.user.ingredients]; // make a separate copy of the array
-        var index = this.state.removeIng.indexOf(ing)
-        if (index !== -1) {
-            this.state.removeIng.splice(index, 1);
-            this.state.user.ingredients = this.state.removeIng;
-        }
-    }
+	removeIngredient(ing) {
+		this.state.removeIng = [...this.state.user.ingredients]; // make a separate copy of the array
+		var index = this.state.removeIng.indexOf(ing)
+		if (index !== -1) {
+			this.state.removeIng.splice(index, 1);
+			this.state.user.ingredients = this.state.removeIng;
+		}
+	}
 
-    handleCheck(ingredient) {
-        return this.state.user.ingredients.some(ing => ing === ingredient);
-    }
+	handleCheck(ingredient) {
+		return this.state.user.ingredients.some(ing => ing === ingredient);
+	}
 
-    addIngredient(ingredient) {
+	addIngredient(ingredient) {
 
-        this.setState({ showRecipe: true }); 
-        
-        if (!this.handleCheck(ingredient)) {
-        this.state.user.ingredients.push(ingredient);
-        }
-        else {
-            this.removeIngredient(ingredient);
-        }
-    }
+		this.setState({ showRecipe: true });
 
-    onAdd(){
+		if (!this.handleCheck(ingredient)) {
+			this.state.user.ingredients.push(ingredient);
+		}
+		else {
+			this.removeIngredient(ingredient);
+		}
+	}
 
-        this.setState({ addIngredients: true }); 
-        
-    }
+	onAdd() {
 
-    onRemove(){
+		this.setState({ addIngredients: true });
 
-        this.setState({ removeIngredients: true }); 
-        
-    }
-    onCompare(){
+	}
 
-        this.setState({ compareIngredients: true }); 
-        
-    }
+	onRemove() {
 
-    handleComparison(recipe) {
-        return this.state.createdRecipes.some(rec => rec.recipeName === recipe.recipeName);
-    }
+		this.setState({ removeIngredients: true });
 
-    compareIngredients(recipeIndex) {
+	}
+	onCompare() {
 
-        if (recipeIndex >= 0)
-        this.setState({selectedRecipe: this.state.savedRecipes[recipeIndex].ingredients});
+		this.setState({ compareIngredients: true });
 
-    }
+	}
 
-    onConfirm(){
+	handleComparison(recipe) {
+		return this.state.createdRecipes.some(rec => rec.recipeName === recipe.recipeName);
+	}
 
-        this.setState({ addIngredients: false }); 
-        this.setState({ removeIngredients: false }); 
+	compareIngredients(recipeIndex) {
 
-    }
+		if (recipeIndex >= 0)
+			this.setState({ selectedRecipe: this.state.savedRecipes[recipeIndex].ingredients });
 
-    onClose() {
-        this.setState({ compareIngredients: false, selectedRecipe: [] }); 
+	}
 
-    }
+	onConfirm() {
 
-    Data = ['Mustard', 'Ketchup', 'Relish', 'Butter', 'Baking Soda', 'Pickles', 'Onions', 'Milk', 'Eggs', 'Chocolate', 'Sugar'];
+		this.setState({ addIngredients: false });
+		this.setState({ removeIngredients: false });
+
+	}
+
+	onClose() {
+		this.setState({ compareIngredients: false, selectedRecipe: [] });
+
+	}
+
+	Data = ['Mustard', 'Ketchup', 'Relish', 'Butter', 'Baking Soda', 'Pickles', 'Onions', 'Milk', 'Eggs', 'Chocolate', 'Sugar'];
 
 	render() {
 		return <>
-		
+
 			<div id="Profile Page">
 				<h1>{this.state.user.firstName} {this.state.user.lastName}</h1>
 				{/* Make the ingredients a list, figure out how to remove ingredients */}
@@ -169,13 +169,13 @@ export class ProfileRecipes extends React.Component {
 
 				<h2>Saved Recipes</h2>
 
-                <CompactRecipeCardList userCreatedRecipes={this.state.savedRecipes}></CompactRecipeCardList>
+				<CompactRecipeCardList userCreatedRecipes={this.state.savedRecipes}></CompactRecipeCardList>
 
-		
 
-			{/* Calendar for ingredients */}
 
-		</div>
+				{/* Calendar for ingredients */}
+
+			</div>
 
 		</>
 	}

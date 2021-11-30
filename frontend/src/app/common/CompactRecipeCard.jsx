@@ -23,7 +23,7 @@ setRecipeID(event){
             //  !props.createdRecipes.length && <li className= "list-group-item">No recipe created yet!</li>
         }
         {
-            //works but this is incomplete - only show edit button if the user logged in created the recipe
+            //works but this is incomplete - only show 'edit' button if the user logged in created the recipe
             <li className="card rounded container mb-4 list-group p-0">
                 
                 <div>
