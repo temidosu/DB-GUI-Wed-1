@@ -23,10 +23,10 @@ export default function Routing({ appProps }) {
 				<Route path="/login" exact element={<LoginForm />} />
 				<Route path="/register" exact element={<Register />} />
 				<Route path="/createRecipe" exact element={<ProfilePage />} />
-        <Route path="/profileRecipes" exact element={<ProfileRecipes/>} />
-        <Route path="/editRecipe" exact element={<EditRecipe/>} />
-        <Route path="/profileSettings" exact element={<ProfileSettings/>} />
-        <Route path="/viewRecipe" exact element={<ViewRecipe/>} />
+        		<Route path="/profileRecipes" exact element={<ProfileRecipes/>} />
+        		<Route path="/editRecipe" exact element={<EditRecipe/>} />
+        		<Route path="/profileSettings" exact element={<ProfileSettings/>} />
+        		<Route path="/viewRecipe" exact element={<ViewRecipe/>} />
 
 			</Routes>
 		</Router>
