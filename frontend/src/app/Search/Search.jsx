@@ -11,8 +11,11 @@ import { Recipe } from '../../models/Recipe';
 
 export class Search extends React.Component {
 
+	accountRepository = new AccountRepository();
+
 	// searchRepo = new SearchRepository();
 	state = {
+		data: [],
 		filteredData: [],
 		wordEntered: '',
 		placeholder: 'Enter Recipe Name',
@@ -125,11 +128,11 @@ export class Search extends React.Component {
 		</>
 	}
 	componentDidMount() {
-		var recipes;
-		this.AccountRepository.getRecipes()
-			.then(recipe => recipes.push(recipe));
+		var data = this.state.data;
+		this.accountRepository.getRecipes()
+			.then(recipe => data.push(recipe));
 
-		this.setState({ recipes });
+		this.setState({ data });
 	}
 }
 

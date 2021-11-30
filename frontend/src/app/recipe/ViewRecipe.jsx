@@ -23,18 +23,18 @@ export class ViewRecipe extends React.Component {
 		buttonVal: "Save"
 	}
 
-
-
-
 	returnRecipe() {
-		recipes.map((cardImport) => {
-			if (cardImport.recipeID == sessionStorage.getItem("recipeID")) {
-				return cardImport
-			}
-			else {
-				return 10
-			}
-		})
+
+		// What does this do?
+
+		// recipes.map((cardImport) => {
+		// 	if (cardImport.recipeID == sessionStorage.getItem("recipeID")) {
+		// 		return cardImport
+		// 	}
+		// 	else {
+		// 		return 10
+		// 	}
+		// })
 	}
 
 	componentDidMount() {
@@ -44,7 +44,7 @@ export class ViewRecipe extends React.Component {
 		// 	}
 		// }
 
-		this.AccountRepository.getRecipe(state.card.recipeID)
+		this.AccountRepository.getRecipe(this.state.card.recipeID)
 			.then(x => this.setState({ card: x }));
 	}
 

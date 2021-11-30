@@ -24,7 +24,7 @@ export class AccountRepository {
 
 	getRecipes() {
 		return new Promise((resolve, reject) => {
-			axios.get(hostname + '/recipes')
+			axios.get(hostname + '/api/recipes')
 				.then(response => {
 					resolve(response.data);
 				})
@@ -65,7 +65,7 @@ export class AccountRepository {
 
 	createRecipe(recipe) {
 		return new Promise((resolve, reject) => {
-			axios.post(hostname + '/recipes', recipe)
+			axios.post(hostname + '/api/recipes', recipe)
 				.then(response => {
 					resolve(response.data);
 				})
@@ -78,7 +78,7 @@ export class AccountRepository {
 
 	getUser(userID) {
 		return new Promise((resolve, reject) => {
-			axios.post(hostname + `/users/${userID}`)
+			axios.post(hostname + `/api/users/${userID}`)
 				.then(response => {
 					resolve(response);
 				})
@@ -91,7 +91,7 @@ export class AccountRepository {
 
 	getRecipe(recipeId) {
 		return new Promise((resolve, reject) => {
-			axios.post(hostname + `/recipes/${recipeId}`)
+			axios.post(hostname + `/api/recipes/${recipeId}`)
 				.then(response => {
 					resolve(response);
 				})
