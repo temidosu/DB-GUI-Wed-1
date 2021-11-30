@@ -1,5 +1,7 @@
 const express = require("express")
 const app = express.Router()
+var router = express.Router();
+
 const pool = require('../db')
 const path = require('path')
 const fs = require('fs');
@@ -8,30 +10,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(bodyParser.raw());
 
-app.get('/', (req, res) => {
-	res.send('HELLO WORLD!');
-});
-
-//Connect to MySQL
-var mysql = require('mysql');
-
-//Open Connection
-con.connect(function (err) {
-	if (err) throw err;
-});
-
-// create router
-var router = express.Router();
-
-// middleware to use for all requests
-router.use(function (req, res, next) {
-	// do logging
-	console.log('Something is happening.');
-	next();
-});
-
-// REGISTER  ROUTES
-app.use('/recipesPage', router);
 
 router.get('/recipes', function (req, res) {
 	con.query("SELECT * FROM recipes", function (err, result, fields) {
@@ -41,22 +19,24 @@ router.get('/recipes', function (req, res) {
 });
 
 router.post('/recipes', async (req, res) => {
-	var recipe = req.body.recipe;
-	var recipeName = req.body.recipeName;
-	var ingredientList = req.body.ingredientList;
-	var recipeCreator = req.body.recipeCreator;
-	var recipePhoto = req.body.recipiePhoto;
-	var recipeDesc = req.body.recipeDesc;
-	var recipeIndc = req.body.recipeIndc;
-	var hyperlink = req.body.hyperlink;
-	var userID = req.body.userID;
+	const recipe = req.body.recipe;
+	const recipeName = req.body.recipeName;
+	const ingredientList = req.body.ingredientList;
+	const recipeCreator = req.body.recipeCreator;
+	const recipePhoto = req.body.recipiePhoto;
+	const recipeDesc = req.body.recipeDesc;
+	const recipeIndc = req.body.recipeIndc;
+	const hyperlink = req.body.hyperlink;
+	const userID = req.body.userID;
 
 	con.query("INSERT INTO recipes (recipe, recipeName, ingredientList, recipeCreator, recipePhoto, recipeDesc, recipeIndc, hyperlink, userID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-		[recipe, recipeName, ingredientList, recipeCreator, recipePhoto, recipeDesc, recipeIndc, hyperlink, userID], function (err, result, fields) {
+		[recipe, recipeName, ingredientList, recipeCreator, recipePhoto, recipeDesc, recipeIndc, hyperlink, userID],
+		function (err, result, fields) {
 			if (err) throw err;
 			res.end(JSON.stringify(result)); // Result in JSON format
 		});
 });
+
 router.get('/recipes/:recipeID', function (req, res) {
 	var recipeID = req.param('recipeID')
 	con.query("SELECT * FROM recipes WHERE recipeID = ?", recipeID, function (err, result, fields) {
@@ -64,7 +44,8 @@ router.get('/recipes/:recipeID', function (req, res) {
 		res.end(JSON.stringify(result)); // Result in JSON format
 	});
 });
-// New Shit (Put Statement)
+
+// Update Recipe
 router.put('/recipes/:recipeID/updateRecipe', async (req, res) => {
 	var recipeID = req.param('recipeID')
 	var recipeNew = req.param('recipeNew')
@@ -75,6 +56,7 @@ router.put('/recipes/:recipeID/updateRecipe', async (req, res) => {
 			res.end(JSON.stringify(result)); // Result in JSON format
 		});
 });
+
 router.put('/recipes/:recipeID/updateRecipeName', async (req, res) => {
 	var recipeID = req.param('recipeID')
 	var recipeNameNew = req.param('recipeNameNew')
@@ -215,6 +197,4 @@ router.delete('/recipes/:userID/:recipeID', function (req, res) {
 	});
 });
 
-//PORT ENVIRONMENT VARIABLE originalPort = 8000
-const port = process.env.PORT || 8000;
-app.listen(port, () => console.log(`Listening on port ${port}..`));
+module.exports = router;

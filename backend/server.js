@@ -16,8 +16,6 @@ const config = {
 
 const app = express();
 
-
-
 let users = require('./routes/users')
 
 app.use(bodyParser.json());
