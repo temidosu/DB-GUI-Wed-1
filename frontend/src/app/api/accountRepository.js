@@ -52,7 +52,7 @@ export class AccountRepository {
 
 	register(account) {
 		return new Promise((resolve, reject) => {
-			axios.post(hostname + '/api/SignUp/users', { ...account })
+			axios.post(hostname + '/api/register', account)
 				.then(response => {
 					resolve(response.data);
 				})
@@ -60,6 +60,7 @@ export class AccountRepository {
 					error(err);
 					resolve(undefined);
 				});
+
 		});
 	}
 
