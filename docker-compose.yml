@@ -13,9 +13,9 @@ services:
     # map code volumes from local to inside working directory, changes made locally will update into the container
     volumes:
       - ./backend:/usr/src/app
-    # ports to map, YOU CANNOT RUN ANYTHING ELSE ON PORT 8000
+    # ports to map, YOU CANNOT RUN ANYTHING ELSE ON PORT 5000
     ports:
-      - 8000:8000
+      - 5000:5000
     # shared network
     networks:
       - api
@@ -46,4 +46,4 @@ services:
 
 # specify networks
 networks:
-  api:
+  api: null

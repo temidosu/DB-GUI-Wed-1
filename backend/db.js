@@ -14,12 +14,4 @@ var pool = mysql.createPool({
 	database: 'r2rdb'
 });
 
-// var pool = mysql.createPool({
-// 	host: 'localhost',
-// 	user: 'root',
-// 	password: 'warwick12',
-// 	port: 3306,
-// 	database: 'r2rdb'
-// });
-
 module.exports = pool;
