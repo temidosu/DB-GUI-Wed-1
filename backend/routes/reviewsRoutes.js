@@ -121,5 +121,20 @@ app.post('/createreview', (req, res) => {
 	})
 });
 
+// PUT /updateReview
+router.put('/updateReview', async (req, res) => {
+	const recipeID = req.body.recipeID;
+	const userID = req.body.userID;
+	const reviewRate = req.body.reviewRate;
+	const reviewDesciption = req.body.reviewDescription;
+
+	con.query("UPDATE recipes SET reviewRate = ?, reviewDescription = ? WHERE userID = ? && recipeID = ?",
+		[reviewRate, reviewDesciption, userID, recipeID],
+		function (err, result, fields) {
+			if (err) throw err;
+			res.end(JSON.stringify(result)); // Result in JSON format
+		});
+});
+
 module.exports = app;
 

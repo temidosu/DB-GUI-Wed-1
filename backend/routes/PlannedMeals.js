@@ -11,18 +11,6 @@ app.get('/', (req, res) => {
 const port = process.env.PORT || 8000;
 app.listen(port, () => console.log(`Listening on port ${port}..`));
 
-//Connect to MySQL
-var mysql = require('mysql');
-
-//Connect to MySQL
-var con = mysql.createConnection({
-	host: "mysqldockerexample-mysql-1",
-	port: "3306",
-	user: "exampleuser",
-	password: "password",
-	database: "classicmodels"
-});
-
 //Open Connection
 con.connect(function (err) {
 	if (err) throw err;
