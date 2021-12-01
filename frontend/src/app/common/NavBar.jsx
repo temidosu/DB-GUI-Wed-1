@@ -13,7 +13,7 @@ export const Navbar = props => {
 			<li><a href="/profileRecipes">My Profile <i className="icon-chevron-down"></i> </a>
 				<ul>
 					<li><a href="/profileRecipes">Recipes</a></li>
-					<li><a href="/profileSettings">Account Settings</a></li>
+					{/* <li><a href="/profileSettings">Account Settings</a></li> */}
 				</ul>
 			</li>
 

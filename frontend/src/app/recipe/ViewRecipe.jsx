@@ -97,7 +97,7 @@ export class ViewRecipe extends React.Component {
                 <div>
 				<h2 className="h2 card-title card-header bg-danger text-light" style={{background: 'red'}}>
                             <a href="/viewRecipe" style = {{textDecoration: 'none', color: 'white'}} onClick={e=> this.setRecipeID(e)}>{this.state.card.recipeName}</a>
-							<button type="button" className = "float-end mt-1 mb-2 btn btn-sm btn-info" style= {{width: '80px'}}>{this.state.buttonVal}</button>
+							{/*<button type="button" className = "float-end mt-1 mb-2 btn btn-sm btn-info" style= {{width: '80px'}}>{this.state.buttonVal}</button>*/}
                         </h2>
 
 						<h5 className="h5 card-footer">
