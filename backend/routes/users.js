@@ -14,10 +14,10 @@ router.get('/users', function (req, res) {
 
 // GetUser
 router.get('/user/:userID', function (req, res) {
-	pool.query(`SELECT * FROM users WHERE userID = ${req.params.userID}`,
+	pool.query(`SELECT * FROM users WHERE userID = "${req.params.userID}"`,
 		function (err, result, fields) {
 			if (err) throw err;
-			res.end(JSON.stringify(result)); // Result in JSON format
+			res.end(JSON.stringify(result));
 		});
 });
 
@@ -35,9 +35,6 @@ router.post('/register', async (req, res) => {
 		});
 });
 
-
-
-
 router.post('/login', (req, res) => {
 	pool.query(`SELECT * FROM users where userName = "${req.body.username}"`,
 		function (err, result, fields) {
@@ -48,13 +45,6 @@ router.post('/login', (req, res) => {
 			}
 		});
 
-});
-
-router.get('/recipes/', async (req, res) => {
-	pool.query(`SELECT * FROM recipes`,
-		function (err, result, fields) {
-			res.send(result);
-		});
 });
 
 router.get('/recipes/', async (req, res) => {
