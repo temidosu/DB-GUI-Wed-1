@@ -171,22 +171,19 @@ export class Search extends React.Component {
 								<CloseIcon id="clearBtn" onClick={(e) => this.clearInput(e)} />
 							)}
 						</div>
-						<div className="mt-2 ms-2 me-4">
-							Ingredients to filter by:
-							{this.state.ingredientsIncluded.map((ing, i) =>
-								<span key={i}> {ing}, </span>)}
-						</div>
+						
 					</div>
 
-					<div className="mt-2 ms-0 me-4">
+					<label className="mt-4 me-2" htmlFor="ingredients"><span>Ingredients:</span></label>
+					<div className="mt-3 ms-0 me-2">
 
-						<label htmlFor="ingredients">Ingredients:</label>
-						<select name="ingredients" required="true" className="selectpicker form-control" multiple data-selected-text-format="count > 3" title="Select Ingredients" onChange={event => this.addIngredient(event.target.value)}>
-							{this.state.ingredientList.map((data, i) =>
-								<option key={i} value={data}>{data}</option>
-							)};
-
-						</select>
+						
+						<select name="recipes" className="form-select form-control"  onChange={event => this.addIngredient(event.target.value)}>
+								<option selected>Select an ingredient...</option>
+								{this.state.ingredientList.map((data, i) =>
+									<option key={i} value={i}>{data}</option>
+								)};
+							</select>
 					</div>
 
 
