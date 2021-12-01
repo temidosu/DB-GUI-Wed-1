@@ -128,6 +128,42 @@ router.get('/reviews/:recipeId', async (req, res) => {
 
 });
 
+//GET
+//Get all saved recipes from a user id
+router.get('/saveRecipes/:userId/:recipeId', async (req, res) => {
+	
+	pool.query(`SELECT * FROM favRecipes where userID = "${req.params.userId}" AND recipeID = "${req.params.recipeId}"`,
+		function (err, result, fields) {
+			res.send(result);
+	});
+
+});
+
+//POST
+//Insert a saved recipe
+router.post('/saveRecipes', async (req, res) => {
+	var userID = req.body.userID
+	var recipeID = req.body.recipeID
+	pool.query("INSERT INTO favRecipes (userID, recipeID) VALUES (?, ?)",
+		[userID, recipeID], function (err, result, fields) {
+			if (err) throw err;
+			res.end(JSON.stringify(result)); // Result in JSON format
+		});
+});
+
+//DELETE
+//DELETE a saved recipe
+router.delete('/saveRecipes', async (req, res) => {
+	var userID = req.body.userID
+	var recipeID = req.body.recipeID
+	pool.query("DELETE FROM favRecipes WHERE userID = ? AND recipeID = ? ", 
+		[userID, recipeID], function (err, result, fields) {
+			if (err) throw err;
+			res.end(JSON.stringify(result));
+	});
+});
+
+
 
 
 
