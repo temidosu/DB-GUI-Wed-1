@@ -107,9 +107,9 @@ router.put('/updateReview', async (req, res) => {
 	const recipeID = req.body.recipeID;
 	const userID = req.body.userID;
 	const reviewRate = req.body.reviewRate;
-	const reviewDesciption = req.body.reviewDescription;
 
-	pool.query("UPDATE recipes SET reviewRate = ?, reviewDescription = ? WHERE userID = ? && recipeID = ?",
+
+	pool.query("UPDATE recipes SET reviewRate = ?, WHERE userID = ? && recipeID = ?",
 		[reviewRate, reviewDesciption, userID, recipeID],
 		function (err, result, fields) {
 			if (err) throw err;
