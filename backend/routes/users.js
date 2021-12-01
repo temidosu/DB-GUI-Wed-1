@@ -4,7 +4,7 @@ var router = express.Router();
 
 //Signup
 
-//GET
+//GET Users
 router.get('/users', function (req, res) {
 	pool.query("SELECT * FROM users", function (err, result, fields) {
 		if (err) throw err;
@@ -21,12 +21,15 @@ router.get('/user/:userID', function (req, res) {
 		});
 });
 
+
 //POST
 // Create new user
 router.post('/register', async (req, res) => {
 	const newUserName = req.body.userName;
 	const newUserPass = req.body.userPass;
 	const newUserEmail = req.body.userEmail;
+
+	console.log(newUserName);
 
 	pool.query("INSERT INTO users (userName, userPass, userEmail) VALUES (?, ?, ?)", [newUserName, newUserPass, newUserEmail],
 		function (err, result, fields) {
@@ -35,34 +38,65 @@ router.post('/register', async (req, res) => {
 		});
 });
 
+
+
+//POST
+// Login with username password
 router.post('/login', (req, res) => {
-	pool.query(`SELECT * FROM users where userName = "${req.body.username}"`,
-		function (err, result, fields) {
+		pool.query(`SELECT * FROM users where userName = "${req.body.username}"`,
+			function (err, result, fields) {
 			if (result[0].userPass == req.body.password) {
-				res.send({ status: true, account: result[0] });
+				res.send({status: true, account: result[0]});
 			} else {
 				res.send({ status: false });
 			}
 		});
-
+	
 });
 
+
+//GET
+//Return all recipe information
 router.get('/recipes/', async (req, res) => {
-	pool.query(`SELECT * FROM recipes`,
-		function (err, result, fields) {
+		pool.query(`SELECT * FROM recipes`,
+			function (err, result, fields) {
 			res.send(result);
 		});
 });
 
 
+//GET
+//Return recipe from recipe id
 router.get('/recipes/:recipeId', async (req, res) => {
-
-	pool.query(`SELECT * FROM recipes where recipeID = "${req.params.recipeId}"`,
-		function (err, result, fields) {
-			res.send(result);
+	
+		pool.query(`SELECT * FROM recipes where recipeID = "${req.params.recipeId}"`,
+			function (err, result, fields) {
+				res.send(result);
 		});
-
+	
 });
+
+
+//POST
+//Insert a recipe by userID
+router.post('/recipes/:userID', async (req, res) => {
+	var recipe = req.body.recipe
+	var recipeName = req.body.recipeName
+	var ingredientList = req.body.ingredientList
+	var recipeCreator = req.body.recipeCreator
+	var recipePhoto = req.body.recipePhoto
+	var recipeDesc = req.body.recipeDesc
+	var recipeIndc = req.body.recipeIndc
+	var hyperlink = req.body.hyperlink
+	var userID = req.param('userID')
+
+	con.query("INSERT INTO recipes (recipe, recipeName, ingredientList, recipeCreator, recipePhoto, recipeDesc, recipeIndc, hyperlink, userID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+		[recipe, recipeName, ingredientList, recipeCreator, recipePhoto, recipeDesc, recipeIndc, hyperlink, userID], function (err, result, fields) {
+			if (err) throw err;
+			res.end(JSON.stringify(result)); // Result in JSON format
+		});
+});
+
 
 
 

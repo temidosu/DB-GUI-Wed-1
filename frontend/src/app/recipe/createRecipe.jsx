@@ -2,8 +2,11 @@ import React from "react";
 import { User } from '../../models/User';
 import { Recipe } from '../../models/Recipe';
 import { data } from "jquery";
+import { AccountRepository } from '../api/accountRepository';
 
 export class CreateRecipe extends React.Component {
+
+    accountRepository = new AccountRepository();
 
     state = {
             id: 0,
@@ -16,7 +19,8 @@ export class CreateRecipe extends React.Component {
             creatorID: '',
             showRecipe: false,
             valid: 2,
-            otherIngredient: ''
+            otherIngredient: '',
+            ingredientList: []
     };
 
     handleValidation() {
@@ -140,7 +144,7 @@ export class CreateRecipe extends React.Component {
                         <div className="col-6 ms-1 mb-3">
                         <label htmlFor="ingredients">Ingredients</label>
                         <select name = "ingredients" required="true" className = "selectpicker form-control" multiple data-selected-text-format="count > 3" title = "Select Ingredients" onChange={event => this.addIngredient(event.target.value)}>
-                         {this.Data.map((data, i) =>
+                         {this.state.ingredientList.map((data, i) =>
                           <option key={i} value={data}>{data}</option>
                                  )};
                                 </select>Ingredients selected: 
@@ -187,7 +191,22 @@ export class CreateRecipe extends React.Component {
         </>;
     }
 // CreatorID for new recipe should be passed in through props
-componentDidMount() {
-  //  this.setState({creatorID : this.props.match.params.creatorID});
+async componentDidMount() {
+    this.setState({creatorID : sessionStorage.getItem("userId")});
+    let data = await this.accountRepository.getAllRecipes()
+    let ingredientArray = []
+    for (let i = 0; i < data.length; i++){
+        let words = data[i].ingredientList;
+        let wordArr = words.split(',');
+        for (let j =0; j< wordArr.length; j++){
+            let wordPush = wordArr[j]
+            ingredientArray.push(wordPush.toLowerCase())
+        }
+        
+    }
+    ingredientArray.sort()
+    let uniqingredientArray = [...new Set(ingredientArray)];
+    this.setState({ingredientList: uniqingredientArray})
+
 }
 }
