@@ -178,7 +178,61 @@ export class AccountRepository {
 	});
 	}
 
+	getSaved(userID, recipeID) {
+		return new Promise((resolve, reject) => {
+			axios.get(hostname + `/api/saveRecipes/${userID}/${recipeID}`)
+				.then(response => {
+					console.log("hiiii")
+					resolve(response);
+				})
+				.catch(err => {
+					error(err);
+					resolve(err);
+				});
+		});
+	}
 
+	postSaved(userID, recipeID){
+		return new Promise((resolve, reject) => {
+			axios.post(hostname + `/api/saveRecipes`, {userID, recipeID})
+			.then(response => {
+				resolve(response.data);
+			})
+			.catch(err => {
+				debugger;
+				error(err);
+				reject(err);
+			});
+		});
+	}
+
+	deleteSaved(userID, recipeID){
+		return new Promise((resolve, reject) => {
+			axios.delete(hostname + `/api/saveRecipes`, {userID, recipeID})
+			.then(response => {
+				resolve(response.data);
+			})
+			.catch(err => {
+				debugger;
+				error(err);
+				reject(err);
+			});
+		});
+	}
+	
+
+	getRecipesUserID(userID){
+		return new Promise((resolve, reject) => {
+			axios.get(hostname + `/api/recipes/${userID}`)
+				.then(response => {
+					resolve(response.data);
+				})
+				.catch(err => {
+					error(err);
+					resolve(err);
+				});
+		});
+	}
 
 }
 
