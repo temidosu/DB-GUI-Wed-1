@@ -21,14 +21,9 @@ export class Search extends React.Component {
 		placeholder: 'Enter Recipe Name',
 		authorFilter: false,
 		recipeFilter: true,
-		testArr: [
-			{
-				testSub: [1, 2, 3]
-			},
-			{
-				testSub: [4, 5, 6]
-			}
-		]
+		ingredientList: [],
+		ingredientsIncluded: [],
+		ingredientsNotIncluded: [],
 
 	}
 
@@ -109,9 +104,33 @@ export class Search extends React.Component {
 		}
 	}
 
-	testLol = () =>{
-		console.log(this.state.data)
-	}
+	
+
+	handleCheck(ingredient) {
+        return this.state.ingredientsIncluded.some(ing => ing === ingredient);
+    }
+
+	removeIngredient(ing) {
+        this.setState({
+            ingredientsIncluded: this.state.ingredientsIncluded.filter(function(ingredient) { 
+            	return ingredient !== ing 
+        })
+    });
+    }
+
+	addIngredient(ingredient) {
+
+        
+        if (!this.handleCheck(ingredient)) {
+        	let newIng = this.state.ingredientsIncluded
+			newIng.push(ingredient);
+			this.setState({ingredientsIncluded: newIng})
+		
+        }
+        else {
+            this.removeIngredient(ingredient);
+        }
+    }
 
 	render() {
 
@@ -146,13 +165,33 @@ export class Search extends React.Component {
                 >Author</option>
             </select>
         </div>
+		<div>
+
+		<div className="col-3 ms-1 mb-3">
+			<label htmlFor="ingredients">Ingredients</label>
+			<select name = "ingredients" required="true" className = "selectpicker form-control" multiple data-selected-text-format="count > 3" title = "Select Ingredients" onChange={event => this.addIngredient(event.target.value)}>
+				{this.state.ingredientList.map((data, i) =>
+					<option key={i} value={data}>{data}</option>
+				)};
+			</select>Ingredients selected: 
+				{this.state.ingredientsIncluded.map((ing, i) =>
+					<span key = {i}> {ing}, </span>)}
+		</div>
+
+
+
+		</div>
+		<div>
         {this.filterRender()}
+		</div>
       </div>
 		</>
 	}
 	async componentDidMount() {
 		let data = await this.accountRepository.getAllRecipes()
 		this.setState({ data })
+
+		
 		/*this.state.data[0]["ingredients"] = ["bread", "butter"]
 		this.setState({...data})
 		this.state.data[1]["ingredients"] = ["eggs", "butter"]
@@ -164,7 +203,19 @@ export class Search extends React.Component {
 		this.setState({ testArr })
 		this.state.testArr[1]["testSub2"] = [10, 11, 12]
 		this.setState({...testArr})*/
-		
+		let ingredientArray = []
+		for (let i = 0; i < this.state.data.length; i++){
+			let words = this.state.data[i].ingredientList;
+			let wordArr = words.split(',');
+			for (let j =0; j< wordArr.length; j++){
+				let wordPush = wordArr[j]
+				ingredientArray.push(wordPush.toLowerCase())
+			}
+			
+		}
+		ingredientArray.sort()
+		let uniqingredientArray = [...new Set(ingredientArray)];
+		this.setState({ingredientList: uniqingredientArray})
 
 
 		/*for (let i = 0; i < this.state.data.length; i++){
