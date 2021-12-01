@@ -12,6 +12,15 @@ router.get('/users', function (req, res) {
 	});
 });
 
+router.get('/user/:userID', function (req, res) {
+	// const userID = req.body.userID;
+	pool.query(`SELECT * FROM users WHERE userID = "${req.body.userID}"`,
+		function (err, result, fields) {
+			if (err) throw err;
+			res.end(JSON.stringify(result)); // Result in JSON format
+		});
+});
+
 //POST
 // Create new user
 router.post('/register', async (req, res) => {
@@ -32,20 +41,20 @@ router.post('/register', async (req, res) => {
 
 
 router.post('/login', (req, res) => {
-		pool.query(`SELECT * FROM users where userName = "${req.body.username}"`,
-			function (err, result, fields) {
+	pool.query(`SELECT * FROM users where userName = "${req.body.username}"`,
+		function (err, result, fields) {
 			if (result[0].userPass == req.body.password) {
-				res.send({status: true, account: result[0]});
+				res.send({ status: true, account: result[0] });
 			} else {
 				res.send({ status: false });
 			}
 		});
-	
+
 });
 
 router.get('/recipes/', async (req, res) => {
-		pool.query(`SELECT * FROM recipes`,
-			function (err, result, fields) {
+	pool.query(`SELECT * FROM recipes`,
+		function (err, result, fields) {
 			res.send(result);
 		});
 });
@@ -53,18 +62,18 @@ router.get('/recipes/', async (req, res) => {
 router.get('/recipes/', async (req, res) => {
 	pool.query(`SELECT * FROM recipes`,
 		function (err, result, fields) {
-		res.send(result);
-	});
+			res.send(result);
+		});
 });
 
 
 router.get('/recipes/:recipeId', async (req, res) => {
-	
-		pool.query(`SELECT * FROM recipes where recipeID = "${req.params.recipeId}"`,
-			function (err, result, fields) {
-				res.send(result);
+
+	pool.query(`SELECT * FROM recipes where recipeID = "${req.params.recipeId}"`,
+		function (err, result, fields) {
+			res.send(result);
 		});
-	
+
 });
 
 
