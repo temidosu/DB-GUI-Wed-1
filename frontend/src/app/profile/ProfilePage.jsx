@@ -1,5 +1,6 @@
 import React from "react";
 import { User } from '../../models/User';
+import { Navigate } from 'react-router-dom';
 import { CompactRecipeCardList } from '../common/CompactCardList';
 import { CreateRecipe } from "../recipe/createRecipe";
 // import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
@@ -44,6 +45,9 @@ export class ProfilePage extends React.Component {
 
 	render() {
 		return <>
+
+			{sessionStorage.getItem("isAuthenticated") !== "true" &&
+				(<Navigate to="/login" />)}
 
 			<CreateRecipe onRecipeAdded={recipe => this.addRecipe(recipe)} class="d-block" />
 			{/* Dynamically create RecipeCards */}

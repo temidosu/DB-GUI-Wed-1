@@ -1,6 +1,7 @@
 import React from "react";
 import { User } from '../../models/User';
 import { CompactRecipeCardList } from '../common/CompactCardList';
+import { Navigate } from 'react-router-dom';
 import { CreateRecipe } from "../recipe/createRecipe";
 import { AccountRepository } from '../api/accountRepository';
 import { Recipe } from '../../models/Recipe';
@@ -105,6 +106,9 @@ export class ProfileRecipes extends React.Component {
 
 	render() {
 		return <>
+
+			{sessionStorage.getItem("isAuthenticated") !== "true" &&
+				(<Navigate to="/login" />)}
 
 			<div id="Profile Page">
 				<h1>{this.state.user.firstName} {this.state.user.lastName}</h1>

@@ -1,5 +1,6 @@
 import React from "react";
 import { User } from '../../models/User';
+import { Navigate } from 'react-router-dom';
 
 export class ProfileSettings extends React.Component {
 	state = {
@@ -20,6 +21,9 @@ export class ProfileSettings extends React.Component {
 
 	render() {
 		return <>
+
+			{sessionStorage.getItem("isAuthenticated") !== "true" &&
+				(<Navigate to="/login" />)}		
 
 			<div id="Profile Page">
 				<h1>{this.state.user.firstName} {this.state.user.lastName}</h1>
