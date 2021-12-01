@@ -12,7 +12,6 @@ router.get('/users', function (req, res) {
 	});
 });
 
-<<<<<<< HEAD
 // GetUser
 router.get('/user/:userID', function (req, res) {
 	pool.query(`SELECT * FROM users WHERE userID = "${req.params.userID}"`,
@@ -23,8 +22,6 @@ router.get('/user/:userID', function (req, res) {
 });
 
 
-=======
->>>>>>> 1b2241bd49ff033dfffd9466b5490f02cca905a6
 //POST
 // Create new user
 router.post('/register', async (req, res) => {
@@ -43,12 +40,8 @@ router.post('/register', async (req, res) => {
 
 
 
-<<<<<<< HEAD
 //POST
 // Login with username password
-=======
-
->>>>>>> 1b2241bd49ff033dfffd9466b5490f02cca905a6
 router.post('/login', (req, res) => {
 		pool.query(`SELECT * FROM users where userName = "${req.body.username}"`,
 			function (err, result, fields) {
@@ -59,33 +52,16 @@ router.post('/login', (req, res) => {
 			}
 		});
 	
-<<<<<<< HEAD
-=======
-});
-
-router.get('/recipes/', async (req, res) => {
-		pool.query(`SELECT * FROM recipes`,
-			function (err, result, fields) {
-			res.send(result);
-		});
->>>>>>> 1b2241bd49ff033dfffd9466b5490f02cca905a6
 });
 
 
 //GET
 //Return all recipe information
 router.get('/recipes/', async (req, res) => {
-<<<<<<< HEAD
 		pool.query(`SELECT * FROM recipes`,
 			function (err, result, fields) {
 			res.send(result);
 		});
-=======
-	pool.query(`SELECT * FROM recipes`,
-		function (err, result, fields) {
-		res.send(result);
-	});
->>>>>>> 1b2241bd49ff033dfffd9466b5490f02cca905a6
 });
 
 
@@ -98,13 +74,12 @@ router.get('/recipes/:recipeId', async (req, res) => {
 				res.send(result);
 		});
 	
-<<<<<<< HEAD
 });
 
 
 //POST
 //Insert a recipe by userID
-router.post('/recipes/:userID', async (req, res) => {
+router.post('/recipes', async (req, res) => {
 	var recipe = req.body.recipe
 	var recipeName = req.body.recipeName
 	var ingredientList = req.body.ingredientList
@@ -113,15 +88,15 @@ router.post('/recipes/:userID', async (req, res) => {
 	var recipeDesc = req.body.recipeDesc
 	var recipeIndc = req.body.recipeIndc
 	var hyperlink = req.body.hyperlink
-	var userID = req.param('userID')
+	var videoTitle = req.body.videoTitle
+	var flagPublicPrivate  = req.body.flagPublicPrivate
+	var userID = req.body.userID
 
-	con.query("INSERT INTO recipes (recipe, recipeName, ingredientList, recipeCreator, recipePhoto, recipeDesc, recipeIndc, hyperlink, userID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-		[recipe, recipeName, ingredientList, recipeCreator, recipePhoto, recipeDesc, recipeIndc, hyperlink, userID], function (err, result, fields) {
+	pool.query("INSERT INTO recipes (recipe, recipeName, ingredientList, recipeCreator, recipePhoto, recipeDesc, recipeIndc, hyperlink, videoTitle, flagPublicPrivate, userID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+		[recipe, recipeName, ingredientList, recipeCreator, recipePhoto, recipeDesc, recipeIndc, hyperlink, videoTitle, flagPublicPrivate, userID], function (err, result, fields) {
 			if (err) throw err;
 			res.end(JSON.stringify(result)); // Result in JSON format
 		});
-=======
->>>>>>> 1b2241bd49ff033dfffd9466b5490f02cca905a6
 });
 
 
