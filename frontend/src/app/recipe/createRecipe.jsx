@@ -8,6 +8,9 @@ export class CreateRecipe extends React.Component {
 
     accountRepository = new AccountRepository();
 
+
+    
+
     state = {
             id: 0,
             recipeName: '',
@@ -17,10 +20,15 @@ export class CreateRecipe extends React.Component {
             ingredients: [],
             description: '',
             creatorID: '',
+            creatorName: '',
             showRecipe: false,
             valid: 2,
+            review: null,
+            videoLink: "",
+            videoTitle: "",
             otherIngredient: '',
-            ingredientList: []
+            ingredientList: [],
+            public: 1
     };
 
     handleValidation() {
@@ -61,12 +69,60 @@ export class CreateRecipe extends React.Component {
         
     }
 
+    async handleClick() {
+
+          const recipe = {
+            recipe: this.state.instructions,
+            recipeName: this.state.recipeName,
+            ingredientList: this.state.ingredients,
+            recipeCreator: this.state.creatorName,
+            recipePhoto: this.state.imageURL,
+            recipeDesc: this.state.description,
+            recipeIndc: this.state.review,
+            hyperlink: this.state.videoLink,
+            videoTitle: this.state.videoTitle,
+            flagPublicPrivate: this.state.public,
+            userID: this.creatorID
+          }
+          await this.articleRepository.postRecipe(recipe);
+          this.setState({ redirect: true });
+          return;
+        
+    
+       /* if (this.state.button.value === "Post Article") {
+          this.setState({ button: { value: "Posted", class: "btn-success disabled" } });
+        }*/
+      }
+
     //get the creator/user
-    onCreate() {
+    async onCreate() {
 
         if (this.handleValidation()) {
-        this.props.onRecipeAdded(this.state); /* Add to this user's 'created' recipes */
-        this.setState({
+            let ingToString = this.state.ingredients.toString()
+            let userIdToInt = parseInt(this.state.creatorID)
+            const recipe = {
+                recipe: this.state.instructions,
+                recipeName: this.state.recipeName,
+                ingredientList: ingToString,
+                recipeCreator: this.state.creatorName,
+                recipePhoto: null,
+                recipeDesc: this.state.description,
+                recipeIndc: this.state.review,
+                hyperlink: this.state.videoLink,
+                videoTitle: this.state.videoTitle,
+                flagPublicPrivate: this.state.public,
+                userID: userIdToInt
+              }
+              console.log(recipe)
+              await this.accountRepository.postRecipe(recipe);
+
+
+
+
+
+         
+     //   this.props.onRecipeAdded(this.state); /* Add to this user's 'created' recipes */
+     /*   this.setState({
             id: 0,
             recipeName: '',
             imageURL: '',
@@ -78,11 +134,14 @@ export class CreateRecipe extends React.Component {
             showRecipe: false,
             valid: 1,
             otherIngredient: ''
-        });
+        })*/
     }
     else {
         this.setState({ valid: 0 })
     }
+
+
+
     }
 
     removeIngredient(ing) {
@@ -207,6 +266,12 @@ async componentDidMount() {
     ingredientArray.sort()
     let uniqingredientArray = [...new Set(ingredientArray)];
     this.setState({ingredientList: uniqingredientArray})
+    
+
+
+
+    let userData = await this.accountRepository.getUser(sessionStorage.getItem("userId"))
+    this.setState({creatorName: userData[0].userName})
 
 }
 }

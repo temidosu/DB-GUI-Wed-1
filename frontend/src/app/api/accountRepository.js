@@ -40,7 +40,6 @@ export class AccountRepository {
 		return new Promise((resolve, reject) => {
 			axios.post(hostname + '/api/login', { username, password })
 				.then(response => {
-					console.log("hi")
 					resolve({ status: response.data.status, account: response.data.account });
 					console.log(response)
 				})
@@ -51,7 +50,6 @@ export class AccountRepository {
 		});
 	}
 
-	// Working
 	register(account) {
 		return new Promise((resolve, reject) => {
 			axios.post(hostname + '/api/register', account)
@@ -81,9 +79,9 @@ export class AccountRepository {
 
 	getUser(userID) {
 		return new Promise((resolve, reject) => {
-			axios.post(hostname + `/api/users/${userID}`)
+			axios.get(hostname + `/api/user/${userID}`)
 				.then(response => {
-					resolve(response);
+					resolve(response.data);
 				})
 				.catch(err => {
 					error(err);
@@ -110,45 +108,44 @@ export class AccountRepository {
 		});
 	}
 
-	getAllRecipes(){
+	getAllRecipes() {
 		return new Promise((resolve, reject) => {
 			axios.get(hostname + '/api/recipes')
-			.then(response => {
-				if (response.data.length > 0) {
-					resolve(response.data)
-				}
-				else {
-					resolve(undefined);
-				}
-			})
-			.catch(err => {
-				error(err);
-				reject(err);
-			});
+				.then(response => {
+					if (response.data.length > 0) {
+						resolve(response.data)
+					}
+					else {
+						resolve(undefined);
+					}
+				})
+				.catch(err => {
+					error(err);
+					reject(err);
+				});
 		});
 
 	}
 
 
 
-	returnIngredientsForRecipe(recipeID){
-		return new Promise((resolve, reject) => {
-			axios.get(hostname + '/api/recipeIngredients/', recipeID)
-			.then(response => {
-				if (response.data.length > 0) {
-					resolve(response.data)
-				}
-				else {
-					resolve(undefined);
-				}
-			})
-			.catch(err => {
-				error(err);
-				reject(err);
-			});
-		});
+	postRecipe(recipe) {
+        return new Promise((resolve, reject) => {
+            axios.post(hostname + `/api/recipes`, { ...recipe})
+                .then(response => {
+                    resolve(response.data);
+                })
+                .catch(err => {
+                    debugger;
+                    error(err);
+                    reject(err);
+                });
+        });
+    }
 
-	}
+
+
+
 
 }
 
