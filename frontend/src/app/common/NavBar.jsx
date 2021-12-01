@@ -16,7 +16,6 @@ export const Navbar = props => {
 					<li><a href="/profileSettings">Account Settings</a></li>
 				</ul>
 			</li>
-			<li><a href="/recipeSchedule">Recipe Scheduler</a></li>
 
 			<li className="float-end" > <a href="/login" onClick={() => sessionStorage.clear()}>Sign Out</a></li>
 		</ul>

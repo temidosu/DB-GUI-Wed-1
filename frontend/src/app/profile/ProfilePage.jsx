@@ -62,13 +62,6 @@ export class ProfilePage extends React.Component {
 			{/* Dynamically create RecipeCards */}
 
 
-			<h2>Created Recipes</h2>
-
-			<CompactRecipeCardList userCreatedRecipes={this.state.user.createdRecipes}></CompactRecipeCardList>
-
-			{/* Calendar for ingredients */}
-
-
 		</>
 	}
 }

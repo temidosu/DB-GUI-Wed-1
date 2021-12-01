@@ -77,32 +77,6 @@ export class ViewRecipe extends React.Component {
 		
 		let reviewData = await this.accountRepository.getReview(id)
 		this.setState({reviews: reviewData})
-		
-		/*if(this.state.reviews === undefined){
-			this.setState({yourReview: 0, averageReview: null})
-		}
-		else if(this.state.reviews !== undefined){
-			for(let i = 0; i<this.state.reviews.length; i++){
-				if(sessionStorage.getItem("userId") === this.state.reviews[i].userID){
-					this.setState({yourReview: this.state.reviews[i].reviewRate})
-				}
-			}
-		}
-
-
-		const userId = sessionStorage.getItem("userId")
-		console.log(id)
-		let savedData = await this.accountRepository.getSaved(userId, id)
-		//console.log(savedData)
-		
-		if(savedData === undefined){
-			this.setState({saveRecipe: "Save"})
-		}
-		else{
-			this.setState({saveRecipe: "Unsave"})
-		}*/
-
-	
 	
 	}
 
@@ -111,80 +85,63 @@ export class ViewRecipe extends React.Component {
 
 
 		return <>
-			<div>
-				<h1>Review and Save Recipe!</h1>
-				<div id="CompactRecipeCard">
-					<li className="list-group mb-0"></li>
-					{
-						//  !props.createdRecipes.length && <li className= "list-group-item">No recipe created yet!</li>
-					}
-					{
-						//works but this is incomplete
-						<li className="card rounded container mb-4 list-group p-0">
+			<div id="CompactRecipeCard" className="mt-2">
+        <li className="list-group mb-0 p-0"></li>
+        {
+            //  !props.createdRecipes.length && <li className= "list-group-item">No recipe created yet!</li>
+        }
+        {
+            //works but this is incomplete - only show 'edit' button if the user logged in created the recipe
+            <li className="card rounded container mb-4 list-group p-0 border border-danger">
+                
+                <div>
+				<h2 className="h2 card-title card-header bg-danger text-light" style={{background: 'red'}}>
+                            <a href="/viewRecipe" style = {{textDecoration: 'none', color: 'white'}} onClick={e=> this.setRecipeID(e)}>{this.state.card.recipeName}</a>
+							<button type="button" className = "float-end mt-1 mb-2 btn btn-sm btn-info" style= {{width: '80px'}}>{this.state.buttonVal}</button>
+                        </h2>
 
-							<div className="card-header">
-								{/* [1, 2, 3, 4, 5].map(x => (<i key={x} className={(x > props.card.rating ? 'empty-star' : 'full-star')}></i>)) */}
-							</div>
-							<div className="card-body">
-								<div className="row mt-1 mb-1 ms-1">
-									<h2 className="h4" >
-										{this.state.card.recipeName}
-									</h2>
-
-									<img src={this.state.card.hyperlink}></img>
-									<div className="text-muted h5">{this.state.card.recipeIndc}</div>
-									<div>
-										<h4>Author: {this.state.card.recipeCreator}</h4>
-									</div>
-
-									
-
-
-									{/* Add ingredients and creator*/}
-								</div>
-								<div className="row mt-1 mb-1 ms-1">
-									<div className="text-muted"><p className="h4">"{this.state.card.recipeDesc}"</p></div>
-								</div>
-								<div>
-
-								</div>
-							</div>
-						</li>
-					}</div>
-
-
-				<div>
-					<h3>Review</h3>
-					{[...Array(5)].map((star, i) => {
-						const ratingValue = i + 1;
-						return (
-							<label>
-								<input type="radio" 
-								name="rating" 
-								value={this.state.yourReview} 
-								onClick={event => this.updateReview(event.target.value)} 
-								/>
-
-								<FaStar classname="star" color={ratingValue <= this.state.rating ? "#ffc107" : "#e4e5e9"} size={50} />
-							</label>)
-					})
-					}
-				</div>
-				<div>
-					<h4>
-						Average Review
-					</h4>
-				</div>
-			</div>
-
-			<div>
-				<h3>Save Recipe!</h3>
-
-			</div>
-			<div>
-				<button onClick={() => this.onSave()} type="button" className = "btn-lg btn-secondary bg-primary">{this.state.saveRecipe}</button>
+						<h5 className="h5 card-footer">
+						Recipe Creator: {this.state.card.recipeCreator}
+                        </h5>
 				
-			</div>
+                    {/* [1, 2, 3, 4, 5].map(x => (<i key={x} className={(x > this.props.card.rating ? 'empty-star' : 'full-star')}></i>)) */}
+                </div>
+				<img className = "card-img-top" style={{height: '500px', width: '100%'}} src = {this.state.card.recipePhoto} alt= "Recipe image"></img>
+			
+                <div className="card-body p-0">
+                    <div className="row mt-1 mb-1 ms-1">
+					
+						<div className = "h4 mt-1">
+						<div>Ingredients: </div>
+						<div className="row mt-1 mb-1 ms-1 ">
+						{
+							
+							<div className="row mb-1">
+							<div className="card-text text-muted h6">{this.state.card.ingredientList}</div>
+							</div>
+						}
+						</div>
+						<h4>Instructions:</h4>
+						<div className="row mt-1 mb-1 ms-1">
+                        <div className="card-text text-muted h6">{this.state.card.recipe}</div>
+                        </div>
+
+						<h4>Description:</h4>
+                    <div className="row mt-1 mb-1 ms-1">
+                        <div className="text-muted card-text h6">"{this.state.card.recipeDesc}"</div>
+                    </div>
+
+						</div>
+			
+					</div>
+				
+                    <div>
+
+                    </div>
+                </div>
+
+            </li>
+        }</div>
 
 		</>;
 
