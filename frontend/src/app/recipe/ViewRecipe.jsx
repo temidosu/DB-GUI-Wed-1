@@ -35,7 +35,8 @@ export class ViewRecipe extends React.Component {
 			buttonVal: "Save",
 			reviews: [],
 			yourReview: 0,
-			averageReview: 0
+			averageReview: 0,
+			saveRecipe: "Save"
 		}
 	}
 	
@@ -46,17 +47,22 @@ export class ViewRecipe extends React.Component {
 		}
 		
 	}*/
+	async onSave(){
+		let userId = sessionStorage.getItem("userId")
+		let recipeId = sessionStorage.getItem("recipeID")
+		if (this.state.saveRecipe === "Save"){
+			await this.accountRepository.postSaved(userId, recipeId)
+			this.setState({saveRecipe: "Unsave"})
+		}
+		else{
+			await this.accountRepository.deleteSaved(userId, recipeId)
+			this.setState({saveRecipe: "Save"})
+		}
+	}
 
 
 	async updateReview(e){
-		if(this.state.reviews === undefined){
-			await this.accountRepository.postReview(sessionStorage.getItem("recipeID"), sessionStorage.getItem("userId"), e)
-		}
-		else if(this.state.reviews !== undefined){
-			for(let i = 0; i<this.state.reviews.length; i++){
-				
-			}
-		}
+		
 		
 	}
 
@@ -72,6 +78,26 @@ export class ViewRecipe extends React.Component {
 		let reviewData = await this.accountRepository.getReview(id)
 		this.setState({reviews: reviewData})
 		
+		if(this.state.reviews === undefined){
+			this.setState({yourReview: 0, averageReview: null})
+		}
+		else if(this.state.reviews !== undefined){
+			for(let i = 0; i<this.state.reviews.length; i++){
+				if(sessionStorage.getItem("userId") === this.state.reviews[i].userID){
+					this.setState({yourReview: this.state.reviews[i].reviewRate})
+				}
+			}
+		}
+
+
+		const userId = sessionStorage.getItem("userId")
+		let savedData = await this.accountRepository.getSaved(userId, id)
+		if(savedData.length>0){
+			this.setState({saveRecipe: "Unsave"})
+		}
+		else{
+			this.setState({saveRecipe: "Save"})
+		}
 
 	
 	
@@ -132,14 +158,19 @@ export class ViewRecipe extends React.Component {
 							<label>
 								<input type="radio" 
 								name="rating" 
-								value={ratingValue} 
-								onClick={() => this.setState({ rating: ratingValue })} 
+								value={this.state.yourReview} 
+								onClick={event => this.updateReview(event.target.value)} 
 								/>
 
 								<FaStar classname="star" color={ratingValue <= this.state.rating ? "#ffc107" : "#e4e5e9"} size={50} />
 							</label>)
 					})
 					}
+				</div>
+				<div>
+					<h4>
+						Average Review
+					</h4>
 				</div>
 			</div>
 
@@ -148,7 +179,8 @@ export class ViewRecipe extends React.Component {
 
 			</div>
 			<div>
-				<button type="button">{this.state.buttonVal}</button>
+				<button onClick={() => this.onSave()} type="button" className = "btn-lg btn-secondary bg-primary">{this.state.saveRecipe}</button>
+				
 			</div>
 
 		</>;
