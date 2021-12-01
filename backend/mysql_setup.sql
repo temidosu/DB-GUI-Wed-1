@@ -17,7 +17,7 @@ CREATE TABLE recipes (
 	recipeName varchar(100),
 	ingredientList varchar(5000),
 	recipeCreator varchar(50),
-	recipePhoto blob,
+	recipePhoto varchar(100),
 	recipeDesc varchar(350),
 	recipeIndc int,
 	hyperlink varchar(50),
