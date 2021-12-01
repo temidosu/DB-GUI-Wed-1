@@ -30,12 +30,28 @@ router.post('/register', async (req, res) => {
 
 
 // Login
-router.get('/login', (req, res) => {
+/*router.get('/login', (req, res) => {
 	pool.query(`SELECT * FROM users where userName = "${req.body.username}"`,
 		function (err, result, fields) {
 			if (err) throw err;
 			res.end(JSON.stringify(result));
 		});
+});*/
+
+
+
+router.post('/login', (req, res) => {
+	//con.getConnection(res, (response) => {
+		
+		pool.query(`SELECT * FROM users where userName = "${req.body.username}"`,
+			function (err, result, fields) {
+			if (result[0].userPass == req.body.password) {
+				res.send({status: true, account: result[0]});
+			} else {
+				res.send({ status: false });
+			}
+		});
+	//});
 });
 
 module.exports = router;

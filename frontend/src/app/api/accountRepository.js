@@ -38,8 +38,9 @@ export class AccountRepository {
 
 	login(username, password) {
 		return new Promise((resolve, reject) => {
-			axios.get(hostname + '/api/login', { username, password })
+			axios.post(hostname + '/api/login', { username, password })
 				.then(response => {
+					console.log("hi")
 					resolve({ status: response.data.status, account: response.data.account });
 					console.log(response)
 				})
