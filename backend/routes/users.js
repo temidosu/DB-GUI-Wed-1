@@ -43,23 +43,26 @@ router.post('/register', async (req, res) => {
 //POST
 // Login with username password
 router.post('/login', (req, res) => {
-		pool.query(`SELECT * FROM users where userName = "${req.body.username}"`,
-			function (err, result, fields) {
-			if (result[0].userPass == req.body.password) {
-				res.send({status: true, account: result[0]});
+	pool.query(`SELECT * FROM users where userName = "${req.body.username}"`,
+		function (err, result, fields) {
+			if (!result || !result[0]) {
+				res.send({ status: false });
+			}
+			else if (result[0].userPass == req.body.password) {
+				res.send({ status: true, account: result[0] });
 			} else {
 				res.send({ status: false });
 			}
 		});
-	
+
 });
 
 
 //GET
 //Return all recipe information
 router.get('/recipes/', async (req, res) => {
-		pool.query(`SELECT * FROM recipes`,
-			function (err, result, fields) {
+	pool.query(`SELECT * FROM recipes`,
+		function (err, result, fields) {
 			res.send(result);
 		});
 });
@@ -68,12 +71,12 @@ router.get('/recipes/', async (req, res) => {
 //GET
 //Return recipe from recipe id
 router.get('/recipes/:recipeId', async (req, res) => {
-	
-		pool.query(`SELECT * FROM recipes where recipeID = "${req.params.recipeId}"`,
-			function (err, result, fields) {
-				res.send(result);
+
+	pool.query(`SELECT * FROM recipes where recipeID = "${req.params.recipeId}"`,
+		function (err, result, fields) {
+			res.send(result);
 		});
-	
+
 });
 
 
@@ -89,7 +92,7 @@ router.post('/recipes', async (req, res) => {
 	var recipeIndc = req.body.recipeIndc
 	var hyperlink = req.body.hyperlink
 	var videoTitle = req.body.videoTitle
-	var flagPublicPrivate  = req.body.flagPublicPrivate
+	var flagPublicPrivate = req.body.flagPublicPrivate
 	var userID = req.body.userID
 
 	pool.query("INSERT INTO recipes (recipe, recipeName, ingredientList, recipeCreator, recipePhoto, recipeDesc, recipeIndc, hyperlink, videoTitle, flagPublicPrivate, userID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
@@ -120,11 +123,11 @@ router.put('/updateReview', async (req, res) => {
 //GET
 //Get reviews by recipe id
 router.get('/reviews/:recipeId', async (req, res) => {
-	
+
 	pool.query(`SELECT * FROM reviews where recipeID = "${req.params.recipeId}"`,
 		function (err, result, fields) {
 			res.send(result);
-	});
+		});
 
 });
 
