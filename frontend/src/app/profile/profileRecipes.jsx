@@ -107,10 +107,10 @@ export class ProfileRecipes extends React.Component {
 	render() {
 		return <>
 
-			{/*sessionStorage.getItem("isAuthenticated") !== "true" &&
-				(<Navigate to="/login" />)*/}
+			{sessionStorage.getItem("isAuthenticated") !== "true" &&
+				(<Navigate to="/login" />)}
 
-			<div id="Profile Page">
+			<div className="ms-2" id="Profile Page">
 				<h1 className ="mt-2">{this.state.user.firstName} {this.state.user.lastName}</h1>
 				<hr />
 				<h3>Ingredients Center</h3>
@@ -158,9 +158,9 @@ export class ProfileRecipes extends React.Component {
 					</form>
 				}
 
-				<br></br>Your Ingredients: <br></br>
+				<br></br><br></br><h4>Your Ingredients: </h4>
 				{this.state.user.ingredients.map((ing, i) =>
-					<span key={i}>{ing}<br></br></span>)}
+					<li className="list-group list-group-item" key={i}>{ing}<br></br></li>)}
 				<hr />
 
 

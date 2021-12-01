@@ -21,14 +21,10 @@ export class Search extends React.Component {
 		placeholder: 'Enter Recipe Name',
 		authorFilter: false,
 		recipeFilter: true,
-		testArr: [
-			{
-				testSub: [1, 2, 3]
-			},
-			{
-				testSub: [4, 5, 6]
-			}
-		]
+		ingredientList: [],
+		ingredientsIncluded: [],
+		ingredientsNotIncluded: [],
+		ingredientData: []
 
 	}
 
@@ -109,15 +105,54 @@ export class Search extends React.Component {
 		}
 	}
 
-	testLol = () =>{
-		console.log(this.state.data)
-	}
+	
+
+	handleCheck(ingredient) {
+        return this.state.ingredientsIncluded.some(ing => ing === ingredient);
+    }
+
+	removeIngredient(ing) {
+        this.setState({
+            ingredientsIncluded: this.state.ingredientsIncluded.filter(function(ingredient) { 
+            	return ingredient !== ing 
+        })
+    });
+    }
+
+	addIngredient(ingredient) {
+
+        
+        if (!this.handleCheck(ingredient)) {
+        	let newIng = this.state.ingredientsIncluded
+			newIng.push(ingredient);
+			this.setState({ingredientsIncluded: newIng})
+		
+        }
+        else {
+            this.removeIngredient(ingredient);
+        }
+
+		/*let ingredientDataTemp = this.state.data.filter(function(item) {
+			for (var key in this.state.ingredientsIncluded) {
+				if(item[key].ingredientList.includes(this.state.ingredientsIncluded[key]) === false){
+					return false
+				}
+			}
+			return true;
+		  });
+
+		console.log(ingredientDataTemp)*/
+		
+
+
+
+    }
 
 	render() {
 
 		return <>
-			{/*sessionStorage.getItem("isAuthenticated") !== "true" &&
-      (<Navigate to="/login"/>)*/}
+			{sessionStorage.getItem("isAuthenticated") !== "true" &&
+      (<Navigate to="/login"/>)}
       <div className="card">
       <div className="search input-group container m-5">
         <div className="searchInputs form-outline input-group">
@@ -137,10 +172,24 @@ export class Search extends React.Component {
             )}
           </div>
         </div>
+
+		<div className ="mt-2 ms-0 me-4">
+	
+			<label htmlFor="ingredients"><span>Ingredients:</span></label>
+			<select name = "ingredients" required="true" className = "selectpicker form-control" multiple data-selected-text-format="count > 3" title = "Select Ingredients" onChange={event => this.addIngredient(event.target.value)}>
+				{this.state.ingredientList.map((data, i) =>
+					<option key={i} value={data}>{data}</option>
+				)};
+			</select>Ingredients to filter by: 
+				{this.state.ingredientsIncluded.map((ing, i) =>
+					<span key = {i}> {ing}, </span>)}
+
+
+		</div>
         
-          <label for="membership" className="mt-2 me-2"><span>Search by:</span></label>
+          <label for="membership" className="mt-4 me-2"><span>Search by:</span></label>
 		  <div>
-            <select className="form-select form-control mt-1" name="membership" id="membership" onChange={(e)=>this.changeFilter(e)}>
+            <select className="form-select form-control mt-3" name="membership" id="membership" onChange={(e)=>this.changeFilter(e)}>
               <option 
                 value="recipeFilter" 
                 >Recipe</option>
@@ -151,8 +200,10 @@ export class Search extends React.Component {
 			
         </div>
 		</div>
-		
+		<div>
+			
         {this.filterRender()}
+		</div>
       </div>
 
 		</>
@@ -160,37 +211,24 @@ export class Search extends React.Component {
 	async componentDidMount() {
 		let data = await this.accountRepository.getAllRecipes()
 		this.setState({ data })
-		/*this.state.data[0]["ingredients"] = ["bread", "butter"]
-		this.setState({...data})
-		this.state.data[1]["ingredients"] = ["eggs", "butter"]
-		this.setState({...data})
 
-		const { testArr } = { ...this.state}
-		const currentState = testArr
-		this.state.testArr[0]["testSub2"] = [7, 8, 9]
-		this.setState({ testArr })
-		this.state.testArr[1]["testSub2"] = [10, 11, 12]
-		this.setState({...testArr})*/
-		
-
-
-		/*for (let i = 0; i < this.state.data.length; i++){
+	
+		let ingredientArray = []
+		for (let i = 0; i < this.state.data.length; i++){
 			let words = this.state.data[i].ingredientList;
 			let wordArr = words.split(',');
-			console.log(wordArr)
-			(this.state.data[i])["ingredients"] = wordArr
-		}*/
-		//const ingredients = []
-		//console.log(this.state.data)
-		/*for (let i = 0; i < this.state.dath.length; i++){
-			var ingredientsArr = await this.accountRepository.returnIngredientsForRecipe(this.state.data[i].recipeID)
-			console.log("hitest")
-			for(var keyX in ingredientsArr){
-				ingredients.push(ingredientsArr[keyX].ingredientName)
+			for (let j =0; j< wordArr.length; j++){
+				let wordPush = wordArr[j]
+				ingredientArray.push(wordPush.toLowerCase())
 			}
-			this.state.data[i].ingredients = ingredients
-		}*/
-		//actual scuffed
+			
+		}
+		ingredientArray.sort()
+		let uniqingredientArray = [...new Set(ingredientArray)];
+		this.setState({ingredientList: uniqingredientArray})
+
+
+	
 		
 	}
 }
