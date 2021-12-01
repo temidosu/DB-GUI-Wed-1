@@ -61,7 +61,7 @@ export class CreateRecipe extends React.Component {
         }
 
         if (isValid) {
-        this.setState({ valid: 0 });
+        this.setState({ valid: 1 });
         }
 
         return isValid;
@@ -105,7 +105,7 @@ export class CreateRecipe extends React.Component {
                 recipeName: this.state.recipeName,
                 ingredientList: ingToString,
                 recipeCreator: this.state.creatorName,
-                recipePhoto: null,
+                recipePhoto: this.state.imageURL,
                 recipeDesc: this.state.description,
                 recipeIndc: this.state.review,
                 hyperlink: this.state.videoLink,
