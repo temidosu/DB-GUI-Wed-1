@@ -7,18 +7,19 @@ export class ProfileSettings extends React.Component {
 	accountRepository = new AccountRepository();
 
 	state = {
-		user: ''
-		// This will get set by profilepage's parent later
 	};
 
 	render() {
-		return <>
+		if (!this.state.user) {
+			return <div class="container">Loading...</div>
+		}
 
+		return <>
 			{sessionStorage.getItem("isAuthenticated") !== "true" &&
 				(<Navigate to="/login" />)}
 
 			<div id="Profile Page">
-				<h1>{this.state.user.firstName} {this.state.user.lastName}</h1>
+				{/* <h1>{this.state.currentUser.firstName} {this.state.currentUser.lastName}</h1> */}
 				<img src={this.state.user.profilePic}></img>
 
 				<h2>Account information: </h2>
@@ -37,10 +38,12 @@ export class ProfileSettings extends React.Component {
 		</>
 	}
 
-	async componentDidMount() {
+	componentDidMount() {
+
 		const id = sessionStorage.getItem("userId");
 		this.accountRepository.getUser(id)
 			.then(user => this.setState({ user }));
 
+		console.log("JFG");
 	}
 }

@@ -14,7 +14,7 @@ router.get('/users', function (req, res) {
 
 // GetUser
 router.get('/user/:userID', function (req, res) {
-	pool.query(`SELECT * FROM users WHERE userID = ${req.params.userID}`,
+	pool.query(`SELECT * FROM users WHERE userID = "${req.params.userID}"`,
 		function (err, result, fields) {
 			if (err) throw err;
 			res.end(JSON.stringify(result)); // Result in JSON format
@@ -34,9 +34,6 @@ router.post('/register', async (req, res) => {
 			res.end(JSON.stringify(result)); // Result in JSON format
 		});
 });
-
-
-
 
 router.post('/login', (req, res) => {
 	pool.query(`SELECT * FROM users where userName = "${req.body.username}"`,
