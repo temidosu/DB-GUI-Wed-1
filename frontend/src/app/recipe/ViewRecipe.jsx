@@ -31,6 +31,7 @@ export class ViewRecipe extends React.Component {
 			},
 
 			rating: 0,
+			hover: 0,
 			buttonVal: "Save"
 		}
 	}
@@ -45,11 +46,10 @@ export class ViewRecipe extends React.Component {
 		
 		const id = sessionStorage.getItem("recipeID")
 		const card = await this.accountRepository.getRecipe(id)
-		console.log(card[0])
 		this.setState({card: card[0]})
 
 		const userId = sessionStorage.getItem("userId")
-		
+
 	
 	
 	}
@@ -107,7 +107,12 @@ export class ViewRecipe extends React.Component {
 						const ratingValue = i + 1;
 						return (
 							<label>
-								<input type="radio" name="rating" value={ratingValue} onClick={() => this.setState({ rating: ratingValue })} />
+								<input type="radio" 
+								name="rating" 
+								value={ratingValue} 
+								onClick={() => this.setState({ rating: ratingValue })} 
+								/>
+
 								<FaStar classname="star" color={ratingValue <= this.state.rating ? "#ffc107" : "#e4e5e9"} size={50} />
 							</label>)
 					})

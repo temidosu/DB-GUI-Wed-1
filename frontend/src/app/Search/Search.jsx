@@ -132,7 +132,7 @@ export class Search extends React.Component {
             this.removeIngredient(ingredient);
         }
 
-		/*let ingredientDataTemp = this.state.data.filter(function(item) {
+		let ingredientDataTemp = this.state.data.filter(function(item) {
 			for (var key in this.state.ingredientsIncluded) {
 				if(item[key].ingredientList.includes(this.state.ingredientsIncluded[key]) === false){
 					return false
@@ -141,7 +141,7 @@ export class Search extends React.Component {
 			return true;
 		  });
 
-		console.log(ingredientDataTemp)*/
+		console.log(ingredientDataTemp)
 		
 
 

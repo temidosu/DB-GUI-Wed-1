@@ -11,6 +11,17 @@ setRecipeID(e){
     console.log(sessionStorage.getItem("recipeID"))
 }
 
+/*conditionEdit(){
+    if(this.props.card.userID === sessionStorage.getItem("userId")){
+        console.log("HEYYYY")
+        console.log(this.props.card.userID, sessionStorage.getItem("userId"))
+        return <>
+            <button type="button" className = "float-end mt-1 mb-2 btn btn-sm btn-info" style= {{width: '80px'}}>
+								<NavLink to ={ '/editRecipe'} style = {{textDecoration: 'none', color: 'black'}}>Edit</NavLink></button>
+        </>
+    }
+}*/
+
 
     render() {
         return <>
@@ -28,7 +39,7 @@ setRecipeID(e){
                 <div>
 				<h2 className="h2 card-title card-header bg-danger text-light" style={{background: 'red'}}>
                             <a href="/viewRecipe" style = {{textDecoration: 'none', color: 'white'}} onClick={e=> this.setRecipeID(e)}>{this.props.card.recipeName}</a>
-							<button type="button" className = "float-end mt-1 mb-2 btn btn-sm btn-info" style= {{width: '80px'}}>
+                            <button type="button" className = "float-end mt-1 mb-2 btn btn-sm btn-info" style= {{width: '80px'}}>
 								<NavLink to ={ '/editRecipe'} style = {{textDecoration: 'none', color: 'black'}}>Edit</NavLink></button>
                         </h2>
 

@@ -1,48 +1,50 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
-import './accounts.css';
+//import './accounts.css';
 import { AccountRepository } from '../api/accountRepository';
 
 export class LoginForm extends React.Component {
-
-	state = {
-		username: "",
-		password: "",
-		invalidCred: false,
-		jwtValue: "",
+	constructor(props) {
+		super(props);
+		this.state = {
+			username: "",
+			password: "",
+			invalidCred: false,
+			}
+			
 	}
 
 	accountRepository = new AccountRepository();
 
 
 	async testLOL(event) {
-		const response = await this.accountRepository.getProfiles();
-		console.log(response)
+		const data = await this.accountRepository.getProfiles();
+		console.log(data)
+	}
+
+	validation(){
+		return this.state.username.length > 0 && this.state.password.length > 0;
 	}
 
 	async login(event) {
-		// Authenticate user
-
 		event.preventDefault();
 		event.stopPropagation();
-
-		if (!(this.state.username && this.state.password)) {
+		if (!this.validation()) {
 			this.setState({ invalidCred: true });
-			return;
+			return <>
+			<p className="alert alert-danger">Username or password is blank</p>
+		</>;
 		}
 
-		const response = await this.accountRepository.login(this.state.username, this.state.password);
+		const data = await this.accountRepository.login(this.state.username, this.state.password);
 
-		if (!response || response === 'error') {
-			return;
+		if (!data || data === 'error') {
+			return
 		}
 
-		if (response.status) {
-
+		else if (data.status) {
 			sessionStorage.setItem("isAuthenticated", "true");
-			sessionStorage.setItem("userId", response.account.userID);
-			console.log(response.account.userID)
-
+			sessionStorage.setItem("userId", data.account.userID);
 			this.setState({
 				username: "",
 				password: "",
@@ -60,16 +62,14 @@ export class LoginForm extends React.Component {
 		}
 		return (
 			<>
-				<form id="account-form" className="col-sm-9 col-md-7 col-lg-4 mt-5 mx-auto border-0" onSubmit={e => this.login(e)}>
-					<div className="text-center"> </div><br></br>
+				<form id="account-form" className="col-lg-3 mt-5 mx-auto" onSubmit={e => this.login(e)}>
 					<h1 className="text-center">Sign In</h1>
-					<p>{this.state.jwtValue}</p>
 					{this.state.invalidCred &&
 						<p className="alert alert-danger">
 							Invalid username or password
 						</p>}
 					<div className="form-label-group">
-						<label htmlFor="username">Username</label>
+						<label >Username</label>
 						<input
 							type="text"
 							id="username"
@@ -77,7 +77,7 @@ export class LoginForm extends React.Component {
 							value={this.state.username}
 							onChange={e => this.setState({ username: e.target.value })} />
 					</div>
-					<div className="form-label-group mt-3">
+					<div className="form-label-group">
 						<label htmlFor="password">Password</label>
 						<input
 							type="password"
@@ -90,15 +90,14 @@ export class LoginForm extends React.Component {
 					<div id="login-button-container" className="text-center">
 						<button
 							type="submit"
-							className="btn btn-info"
+							className="btn btn-primary"
 							onClick={e => this.login(e)}>
 							Login
 						</button>
 					</div>
 
-					<div id="register-button-container" className="text-center">
-						<span>Need an account? </span>
-						<a href="/register">Register here</a>
+					<div className="col-lg-7 mt-5 mx-auto">
+						<a href="/register">Register For An Account</a>
 					</div>
 				</form>
 			</>
