@@ -182,7 +182,8 @@ export class AccountRepository {
 		return new Promise((resolve, reject) => {
 			axios.get(hostname + `/api/saveRecipes/${userID}/${recipeID}`)
 				.then(response => {
-					resolve(response.data);
+					console.log("hiiii")
+					resolve(response);
 				})
 				.catch(err => {
 					error(err);
@@ -219,6 +220,19 @@ export class AccountRepository {
 		});
 	}
 	
+
+	getRecipesUserID(userID){
+		return new Promise((resolve, reject) => {
+			axios.get(hostname + `/api/recipes/${userID}`)
+				.then(response => {
+					resolve(response.data);
+				})
+				.catch(err => {
+					error(err);
+					resolve(err);
+				});
+		});
+	}
 
 }
 

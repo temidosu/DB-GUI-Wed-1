@@ -10,11 +10,11 @@ import { Recipe } from '../../models/Recipe';
 
 export class ViewRecipe extends React.Component {
 	accountRepository = new AccountRepository();
-	constructor(){
-		super();
 	
+		
 
-		this.state = {
+
+		state = {
 			card: {
 				hyperlink: "",
 				ingredientList: "",
@@ -38,7 +38,7 @@ export class ViewRecipe extends React.Component {
 			averageReview: 0,
 			saveRecipe: "Save"
 		}
-	}
+	
 	
 
 	/*returnRecipe() {
@@ -48,14 +48,14 @@ export class ViewRecipe extends React.Component {
 		
 	}*/
 	async onSave(){
-		let userId = sessionStorage.getItem("userId")
-		let recipeId = sessionStorage.getItem("recipeID")
+		//let userId = sessionStorage.getItem("userId")
+		//let recipeId = sessionStorage.getItem("recipeID")
 		if (this.state.saveRecipe === "Save"){
-			await this.accountRepository.postSaved(userId, recipeId)
+		//	await this.accountRepository.postSaved(userId, recipeId)
 			this.setState({saveRecipe: "Unsave"})
 		}
 		else{
-			await this.accountRepository.deleteSaved(userId, recipeId)
+		//	await this.accountRepository.deleteSaved(userId, recipeId)
 			this.setState({saveRecipe: "Save"})
 		}
 	}
@@ -78,7 +78,7 @@ export class ViewRecipe extends React.Component {
 		let reviewData = await this.accountRepository.getReview(id)
 		this.setState({reviews: reviewData})
 		
-		if(this.state.reviews === undefined){
+		/*if(this.state.reviews === undefined){
 			this.setState({yourReview: 0, averageReview: null})
 		}
 		else if(this.state.reviews !== undefined){
@@ -91,13 +91,16 @@ export class ViewRecipe extends React.Component {
 
 
 		const userId = sessionStorage.getItem("userId")
+		console.log(id)
 		let savedData = await this.accountRepository.getSaved(userId, id)
-		if(savedData.length>0){
-			this.setState({saveRecipe: "Unsave"})
-		}
-		else{
+		//console.log(savedData)
+		
+		if(savedData === undefined){
 			this.setState({saveRecipe: "Save"})
 		}
+		else{
+			this.setState({saveRecipe: "Unsave"})
+		}*/
 
 	
 	

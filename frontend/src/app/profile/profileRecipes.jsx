@@ -11,6 +11,7 @@ export class ProfileRecipes extends React.Component {
 	//Login form - const response
 	//sessionStorage.getItem - store this
 	//
+	accountRepository = new AccountRepository();
 	state = {
 
 		// This will get set by profilepage's parent later
@@ -33,7 +34,9 @@ export class ProfileRecipes extends React.Component {
 		removeIng: [],
 		savedRecipes: [],
 		createdRecipes: [],
-		selectedRecipe: []
+		selectedRecipe: [],
+		name: "",
+		ingredientList: []
 	};
 
 	removeIngredient(ing) {
@@ -101,6 +104,38 @@ export class ProfileRecipes extends React.Component {
 
 	}
 
+
+	async componentDidMount(){
+		const userID = sessionStorage.getItem("userId")
+		
+		let userData = await this.accountRepository.getRecipesUserID(userID)
+		this.setState({createdRecipes:userData})
+		let userInfo = await this.accountRepository.getUser(userID)
+		this.setState({name:userInfo[0].userName})
+
+
+
+		let data = await this.accountRepository.getAllRecipes()
+    	let ingredientArray = []
+    	for (let i = 0; i < data.length; i++){
+        	let words = data[i].ingredientList;
+        	let wordArr = words.split(',');
+        for (let j =0; j< wordArr.length; j++){
+            let wordPush = wordArr[j]
+            ingredientArray.push(wordPush.toLowerCase())
+        }
+        
+    }
+    	ingredientArray.sort()
+    	let uniqingredientArray = [...new Set(ingredientArray)];
+    	this.setState({ingredientList: uniqingredientArray})
+
+	}
+
+
+
+
+
 	//get ingredients list from DB
 	Data = ['Mustard', 'Ketchup', 'Relish', 'Butter', 'Baking Soda', 'Pickles', 'Onions', 'Milk', 'Eggs', 'Chocolate', 'Sugar'];
 
@@ -111,7 +146,7 @@ export class ProfileRecipes extends React.Component {
 				(<Navigate to="/login" />)}
 
 			<div className="ms-2" id="Profile Page">
-				<h1 className ="mt-2">{this.state.user.firstName} {this.state.user.lastName}</h1>
+				<h1 className ="mt-2">{this.state.name}</h1>
 				<hr />
 				<h3>Ingredients Center</h3>
 
@@ -123,7 +158,7 @@ export class ProfileRecipes extends React.Component {
 						<div className="col-6 ms-1 mb-3">
 							<label htmlFor="ingredients">Select ingredients you own:</label>
 							<select name="ingredients" className="selectpicker form-control" multiple onChange={event => this.addIngredient(event.target.value)}>
-								{this.Data.map((data, i) =>
+								{this.state.ingredientList.map((data, i) =>
 									<option key={i} value={data}>{data}</option>
 								)};
 							</select>Ingredients Owned:
