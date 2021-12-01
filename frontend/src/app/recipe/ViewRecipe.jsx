@@ -33,7 +33,9 @@ export class ViewRecipe extends React.Component {
 			rating: 0,
 			hover: 0,
 			buttonVal: "Save",
-			reviews: []
+			reviews: [],
+			yourReview: 0,
+			averageReview: 0
 		}
 	}
 	
@@ -46,7 +48,15 @@ export class ViewRecipe extends React.Component {
 	}*/
 
 
-	async updateReview(){
+	async updateReview(e){
+		if(this.state.reviews === undefined){
+			await this.accountRepository.postReview(sessionStorage.getItem("recipeID"), sessionStorage.getItem("userId"), e)
+		}
+		else if(this.state.reviews !== undefined){
+			for(let i = 0; i<this.state.reviews.length; i++){
+				
+			}
+		}
 		
 	}
 
@@ -61,6 +71,7 @@ export class ViewRecipe extends React.Component {
 		
 		let reviewData = await this.accountRepository.getReview(id)
 		this.setState({reviews: reviewData})
+		
 
 	
 	

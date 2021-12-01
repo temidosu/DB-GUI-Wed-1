@@ -149,7 +149,7 @@ export class AccountRepository {
 		return new Promise((resolve, reject) => {
 			axios.get(hostname + `/api/reviews/${recipeId}`)
 				.then(response => {
-					if (response.data.length ) {
+					if (response.data.length > 0) {
 						resolve(response.data)
 					}
 					else {
