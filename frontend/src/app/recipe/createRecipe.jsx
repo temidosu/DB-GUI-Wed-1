@@ -122,7 +122,7 @@ export class CreateRecipe extends React.Component {
 
          
      //   this.props.onRecipeAdded(this.state); /* Add to this user's 'created' recipes */
-     /*   this.setState({
+        this.setState({
             id: 0,
             recipeName: '',
             imageURL: '',
@@ -134,7 +134,7 @@ export class CreateRecipe extends React.Component {
             showRecipe: false,
             valid: 1,
             otherIngredient: ''
-        })*/
+        })
     }
     else {
         this.setState({ valid: 0 })
