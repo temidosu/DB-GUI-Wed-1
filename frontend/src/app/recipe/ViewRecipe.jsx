@@ -10,11 +10,11 @@ import { Recipe } from '../../models/Recipe';
 
 export class ViewRecipe extends React.Component {
 	accountRepository = new AccountRepository();
-	constructor(){
-		super();
 	
+		
 
-		this.state = {
+
+		state = {
 			card: {
 				hyperlink: "",
 				ingredientList: "",
@@ -35,9 +35,10 @@ export class ViewRecipe extends React.Component {
 			buttonVal: "Save",
 			reviews: [],
 			yourReview: 0,
-			averageReview: 0
+			averageReview: 0,
+			saveRecipe: "Save"
 		}
-	}
+	
 	
 
 	/*returnRecipe() {
@@ -46,17 +47,22 @@ export class ViewRecipe extends React.Component {
 		}
 		
 	}*/
+	async onSave(){
+		//let userId = sessionStorage.getItem("userId")
+		//let recipeId = sessionStorage.getItem("recipeID")
+		if (this.state.saveRecipe === "Save"){
+		//	await this.accountRepository.postSaved(userId, recipeId)
+			this.setState({saveRecipe: "Unsave"})
+		}
+		else{
+		//	await this.accountRepository.deleteSaved(userId, recipeId)
+			this.setState({saveRecipe: "Save"})
+		}
+	}
 
 
 	async updateReview(e){
-		if(this.state.reviews === undefined){
-			await this.accountRepository.postReview(sessionStorage.getItem("recipeID"), sessionStorage.getItem("userId"), e)
-		}
-		else if(this.state.reviews !== undefined){
-			for(let i = 0; i<this.state.reviews.length; i++){
-				
-			}
-		}
+		
 		
 	}
 

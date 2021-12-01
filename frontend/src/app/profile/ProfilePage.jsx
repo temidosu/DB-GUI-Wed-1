@@ -24,6 +24,7 @@ export class ProfilePage extends React.Component {
 			'' /* Profile Picture */
 			//[] /* Planner */
 		),
+		//userRecipes: [],
 		savedRecipe: false
 	};
 
@@ -42,6 +43,14 @@ export class ProfilePage extends React.Component {
 		this.setState({ ingredients });
 	}
 
+	async componentDidMount(){
+		const userID = sessionStorage.getItem("userId")
+		console.log("lolol")
+		let userData = await this.accountRepository.getRecipesUserID(userID)
+		//this.setState({userRecipes:userData})
+		console.log(userID)
+
+	}
 
 	render() {
 		return <>
