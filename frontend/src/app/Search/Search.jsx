@@ -153,7 +153,7 @@ export class Search extends React.Component {
 		return <>
 			{sessionStorage.getItem("isAuthenticated") !== "true" &&
 				(<Navigate to="/login" />)}
-			<div className="card">
+			<div className="card mx-auto container">
 				<div className="search input-group container m-5">
 					<div className="searchInputs form-outline input-group">
 						<input
