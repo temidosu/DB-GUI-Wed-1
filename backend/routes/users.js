@@ -29,20 +29,9 @@ router.post('/register', async (req, res) => {
 });
 
 
-// Login
-/*router.get('/login', (req, res) => {
-	pool.query(`SELECT * FROM users where userName = "${req.body.username}"`,
-		function (err, result, fields) {
-			if (err) throw err;
-			res.end(JSON.stringify(result));
-		});
-});*/
-
 
 
 router.post('/login', (req, res) => {
-	//con.getConnection(res, (response) => {
-		
 		pool.query(`SELECT * FROM users where userName = "${req.body.username}"`,
 			function (err, result, fields) {
 			if (result[0].userPass == req.body.password) {
@@ -51,7 +40,35 @@ router.post('/login', (req, res) => {
 				res.send({ status: false });
 			}
 		});
-	//});
+	
 });
+
+router.get('/recipes/', async (req, res) => {
+		pool.query(`SELECT * FROM recipes`,
+			function (err, result, fields) {
+			res.send(result);
+		});
+});
+
+router.get('/recipes/', async (req, res) => {
+	pool.query(`SELECT * FROM recipes`,
+		function (err, result, fields) {
+		res.send(result);
+	});
+});
+
+
+router.get('/recipes/:recipeId', async (req, res) => {
+	
+		pool.query(`SELECT * FROM recipes where recipeID = "${req.params.recipeId}"`,
+			function (err, result, fields) {
+				res.send(result);
+		});
+	
+});
+
+
+
+
 
 module.exports = router;
