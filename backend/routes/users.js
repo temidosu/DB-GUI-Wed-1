@@ -133,13 +133,15 @@ router.get('/reviews/:recipeId', async (req, res) => {
 
 //GET
 //Get all saved recipes from a user id
-router.get('/saveRecipes/:userId/:recipeId', async (req, res) => {
+router.get('/saveRecipes/:userID/:recipeID', async (req, res) => {
+	var saveUserID = req.param('userID');
+var saveRecipeID = req.param('recipeID');
+pool.query("SELECT * FROM favRecipes WHERE userID = ? and recipeID = ? ", [saveUserID, saveRecipeID],function (err, 
+      result, fields) {
+      if (err) throw err;
+      res.end(JSON.stringify(result)); // Result in JSON format
+  });
 	
-	pool.query(`SELECT * FROM favRecipes where userID = "${req.params.userId}" AND recipeID = "${req.params.recipeId}"`,
-		function (err, result, fields) {
-			res.send(result);
-	});
-
 });
 
 //POST
