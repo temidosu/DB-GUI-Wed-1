@@ -10,7 +10,7 @@ export class ProfileSettings extends React.Component {
 	};
 
 	render() {
-		if (!this.state.user) {
+		if (!this.state) {
 			return <div class="container">Loading...</div>
 		}
 
@@ -19,13 +19,13 @@ export class ProfileSettings extends React.Component {
 				(<Navigate to="/login" />)}
 
 			<div id="Profile Page">
-				{/* <h1>{this.state.currentUser.firstName} {this.state.currentUser.lastName}</h1> */}
-				<img src={this.state.user.profilePic}></img>
+				<h1>{this.state.firstName} {this.state.lastName}</h1>
+				<img src={this.state.profilePic}></img>
 
 				<h2>Account information: </h2>
-				<h4>{this.state.user.email}</h4>
-				<h4>Saved Recipes: {this.state.user.savedRecipes}</h4>
-				<h4>Saved Recipes: {this.state.user.savedRecipes}</h4>
+				<h4>{this.state.userEmail}</h4>
+				<h4>Saved Recipes: {this.state.savedRecipes}</h4>
+				<h4>Saved Recipes: {this.state.savedRecipes}</h4>
 
 				<h4>{
 
@@ -38,12 +38,17 @@ export class ProfileSettings extends React.Component {
 		</>
 	}
 
-	componentDidMount() {
-
+	async componentDidMount() {
 		const id = sessionStorage.getItem("userId");
-		this.accountRepository.getUser(id)
-			.then(user => this.setState({ user }));
+		const user = await this.accountRepository.getUser(id);
 
-		console.log("JFG");
+
+		this.setState(user.data[0]);
+		console.log(user.data[0]);
+
+
+		// this.accountRepository.getUser(id)
+		// 	.then(user => this.setState({ user }));
+
 	}
 }

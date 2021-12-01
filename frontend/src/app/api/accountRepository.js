@@ -51,7 +51,6 @@ export class AccountRepository {
 		});
 	}
 
-	// Working
 	register(account) {
 		return new Promise((resolve, reject) => {
 			axios.post(hostname + '/api/register', account)
