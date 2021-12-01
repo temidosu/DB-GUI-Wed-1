@@ -116,18 +116,20 @@ export class Search extends React.Component {
 	render() {
 
 		return <>
-			{sessionStorage.getItem("isAuthenticated") !== "true" &&
-      (<Navigate to="/login"/>)}
-      
-      <div className="search">
-        <div className="searchInputs">
+			{/*sessionStorage.getItem("isAuthenticated") !== "true" &&
+      (<Navigate to="/login"/>)*/}
+      <div className="card">
+      <div className="search input-group container m-5">
+        <div className="searchInputs form-outline input-group">
           <input
+		    className="form-control-lg"
+			style={{width: '400px'}}
             type="text"
             placeholder={this.state.placeholder}
             value={this.state.wordEntered}
             onChange={(e)=>this.handleFilter(e)}
           />
-          <div className="searchIcon">
+          <div className="searchIcon btn-primary float btn-lg btn fas fa-search">
             {this.state.filteredData.length === 0 ? (
               <SearchIcon />
             ) : (
@@ -135,9 +137,10 @@ export class Search extends React.Component {
             )}
           </div>
         </div>
-        <div>
-          <label for="membership">Search Type:</label>
-            <select name="membership" id="membership" onChange={(e)=>this.changeFilter(e)}>
+        
+          <label for="membership" className="mt-2 me-2"><span>Search by:</span></label>
+		  <div>
+            <select className="form-select form-control mt-1" name="membership" id="membership" onChange={(e)=>this.changeFilter(e)}>
               <option 
                 value="recipeFilter" 
                 >Recipe</option>
@@ -145,9 +148,13 @@ export class Search extends React.Component {
                 value="authorFilter"
                 >Author</option>
             </select>
+			
         </div>
+		</div>
+		
         {this.filterRender()}
       </div>
+
 		</>
 	}
 	async componentDidMount() {

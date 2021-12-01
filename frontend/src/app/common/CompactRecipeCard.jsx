@@ -4,7 +4,6 @@ import {Link, NavLink} from 'react-router-dom'
 
 
 
-
 export class CompactRecipeCard extends React.Component {
     
 setRecipeID(e){
@@ -39,7 +38,7 @@ setRecipeID(e){
 				
                     {/* [1, 2, 3, 4, 5].map(x => (<i key={x} className={(x > this.props.card.rating ? 'empty-star' : 'full-star')}></i>)) */}
                 </div>
-				<img className = "card-img-top" style={{height: '500px', width: '100%'}} src = {this.props.card.hyperlink} alt= "Recipe image"></img>
+				<img className = "card-img-top" style={{height: '300px', width: '100%'}} src = {this.props.card.hyperlink} alt= "Recipe image"></img>
 			
                 <div className="card-body p-0">
                     <div className="row mt-1 mb-1 ms-1">
