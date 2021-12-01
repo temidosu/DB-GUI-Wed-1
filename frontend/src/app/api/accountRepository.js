@@ -130,6 +130,7 @@ export class AccountRepository {
 
 
 	postRecipe(recipe) {
+		
         return new Promise((resolve, reject) => {
             axios.post(hostname + `/api/recipes`, { ...recipe})
                 .then(response => {
@@ -144,6 +145,38 @@ export class AccountRepository {
     }
 
 
+	getReview(recipeId) {
+		return new Promise((resolve, reject) => {
+			axios.get(hostname + `/api/reviews/${recipeId}`)
+				.then(response => {
+					if (response.data.length ) {
+						resolve(response.data)
+					}
+					else {
+						resolve(undefined);
+					}
+				})
+				.catch(err => {
+					error(err);
+					reject(err);
+				});
+		});
+	}
+
+
+	postReview(recipeID, userID, reviewRate){
+		return new Promise((resolve, reject) => {
+			axios.put(hostname + `/api/updateReview`, {recipeID, userID, reviewRate})
+			.then(response => {
+				resolve(response.data);
+			})
+			.catch(err => {
+				debugger;
+				error(err);
+				reject(err);
+			});
+	});
+	}
 
 
 

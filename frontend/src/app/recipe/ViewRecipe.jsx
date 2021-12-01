@@ -32,13 +32,21 @@ export class ViewRecipe extends React.Component {
 
 			rating: 0,
 			hover: 0,
-			buttonVal: "Save"
+			buttonVal: "Save",
+			reviews: []
 		}
 	}
 	
 
-	returnRecipe() {
+	/*returnRecipe() {
+		if(this.state.reviews === undefined){
 
+		}
+		
+	}*/
+
+
+	async updateReview(){
 		
 	}
 
@@ -47,8 +55,12 @@ export class ViewRecipe extends React.Component {
 		const id = sessionStorage.getItem("recipeID")
 		const card = await this.accountRepository.getRecipe(id)
 		this.setState({card: card[0]})
-
-		const userId = sessionStorage.getItem("userId")
+		
+		let userData = await this.accountRepository.getUser(sessionStorage.getItem("userId"))
+		this.setState({creatorName: userData[0].userName})
+		
+		let reviewData = await this.accountRepository.getReview(id)
+		this.setState({reviews: reviewData})
 
 	
 	
@@ -132,6 +144,8 @@ export class ViewRecipe extends React.Component {
 
 
 	}
+
+	
 
 }
 
