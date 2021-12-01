@@ -24,6 +24,7 @@ export class Search extends React.Component {
 		ingredientList: [],
 		ingredientsIncluded: [],
 		ingredientsNotIncluded: [],
+		ingredientData: []
 
 	}
 
@@ -130,6 +131,21 @@ export class Search extends React.Component {
         else {
             this.removeIngredient(ingredient);
         }
+
+		/*let ingredientDataTemp = this.state.data.filter(function(item) {
+			for (var key in this.state.ingredientsIncluded) {
+				if(item[key].ingredientList.includes(this.state.ingredientsIncluded[key]) === false){
+					return false
+				}
+			}
+			return true;
+		  });
+
+		console.log(ingredientDataTemp)*/
+		
+
+
+
     }
 
 	render() {
@@ -166,7 +182,7 @@ export class Search extends React.Component {
             </select>
         </div>
 		<div>
-
+		<span>
 		<div className="col-3 ms-1 mb-3">
 			<label htmlFor="ingredients">Ingredients</label>
 			<select name = "ingredients" required="true" className = "selectpicker form-control" multiple data-selected-text-format="count > 3" title = "Select Ingredients" onChange={event => this.addIngredient(event.target.value)}>
@@ -178,6 +194,9 @@ export class Search extends React.Component {
 					<span key = {i}> {ing}, </span>)}
 		</div>
 
+
+		
+		</span>
 
 
 		</div>
@@ -191,18 +210,7 @@ export class Search extends React.Component {
 		let data = await this.accountRepository.getAllRecipes()
 		this.setState({ data })
 
-		
-		/*this.state.data[0]["ingredients"] = ["bread", "butter"]
-		this.setState({...data})
-		this.state.data[1]["ingredients"] = ["eggs", "butter"]
-		this.setState({...data})
-
-		const { testArr } = { ...this.state}
-		const currentState = testArr
-		this.state.testArr[0]["testSub2"] = [7, 8, 9]
-		this.setState({ testArr })
-		this.state.testArr[1]["testSub2"] = [10, 11, 12]
-		this.setState({...testArr})*/
+	
 		let ingredientArray = []
 		for (let i = 0; i < this.state.data.length; i++){
 			let words = this.state.data[i].ingredientList;
@@ -218,23 +226,7 @@ export class Search extends React.Component {
 		this.setState({ingredientList: uniqingredientArray})
 
 
-		/*for (let i = 0; i < this.state.data.length; i++){
-			let words = this.state.data[i].ingredientList;
-			let wordArr = words.split(',');
-			console.log(wordArr)
-			(this.state.data[i])["ingredients"] = wordArr
-		}*/
-		//const ingredients = []
-		//console.log(this.state.data)
-		/*for (let i = 0; i < this.state.dath.length; i++){
-			var ingredientsArr = await this.accountRepository.returnIngredientsForRecipe(this.state.data[i].recipeID)
-			console.log("hitest")
-			for(var keyX in ingredientsArr){
-				ingredients.push(ingredientsArr[keyX].ingredientName)
-			}
-			this.state.data[i].ingredients = ingredients
-		}*/
-		//actual scuffed
+	
 		
 	}
 }
