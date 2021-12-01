@@ -12,6 +12,7 @@ router.get('/users', function (req, res) {
 	});
 });
 
+<<<<<<< HEAD
 // GetUser
 router.get('/user/:userID', function (req, res) {
 	pool.query(`SELECT * FROM users WHERE userID = "${req.params.userID}"`,
@@ -22,6 +23,8 @@ router.get('/user/:userID', function (req, res) {
 });
 
 
+=======
+>>>>>>> 1b2241bd49ff033dfffd9466b5490f02cca905a6
 //POST
 // Create new user
 router.post('/register', async (req, res) => {
@@ -40,8 +43,12 @@ router.post('/register', async (req, res) => {
 
 
 
+<<<<<<< HEAD
 //POST
 // Login with username password
+=======
+
+>>>>>>> 1b2241bd49ff033dfffd9466b5490f02cca905a6
 router.post('/login', (req, res) => {
 		pool.query(`SELECT * FROM users where userName = "${req.body.username}"`,
 			function (err, result, fields) {
@@ -52,16 +59,33 @@ router.post('/login', (req, res) => {
 			}
 		});
 	
+<<<<<<< HEAD
+=======
+});
+
+router.get('/recipes/', async (req, res) => {
+		pool.query(`SELECT * FROM recipes`,
+			function (err, result, fields) {
+			res.send(result);
+		});
+>>>>>>> 1b2241bd49ff033dfffd9466b5490f02cca905a6
 });
 
 
 //GET
 //Return all recipe information
 router.get('/recipes/', async (req, res) => {
+<<<<<<< HEAD
 		pool.query(`SELECT * FROM recipes`,
 			function (err, result, fields) {
 			res.send(result);
 		});
+=======
+	pool.query(`SELECT * FROM recipes`,
+		function (err, result, fields) {
+		res.send(result);
+	});
+>>>>>>> 1b2241bd49ff033dfffd9466b5490f02cca905a6
 });
 
 
@@ -74,6 +98,7 @@ router.get('/recipes/:recipeId', async (req, res) => {
 				res.send(result);
 		});
 	
+<<<<<<< HEAD
 });
 
 
@@ -95,6 +120,8 @@ router.post('/recipes/:userID', async (req, res) => {
 			if (err) throw err;
 			res.end(JSON.stringify(result)); // Result in JSON format
 		});
+=======
+>>>>>>> 1b2241bd49ff033dfffd9466b5490f02cca905a6
 });
 
 

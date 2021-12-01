@@ -153,16 +153,18 @@ export class Search extends React.Component {
 		return <>
 			{sessionStorage.getItem("isAuthenticated") !== "true" &&
       (<Navigate to="/login"/>)}
-      
-      <div className="search">
-        <div className="searchInputs">
+      <div className="card">
+      <div className="search input-group container m-5">
+        <div className="searchInputs form-outline input-group">
           <input
+		    className="form-control-lg"
+			style={{width: '400px'}}
             type="text"
             placeholder={this.state.placeholder}
             value={this.state.wordEntered}
             onChange={(e)=>this.handleFilter(e)}
           />
-          <div className="searchIcon">
+          <div className="searchIcon btn-primary float btn-lg btn fas fa-search">
             {this.state.filteredData.length === 0 ? (
               <SearchIcon />
             ) : (
@@ -170,9 +172,24 @@ export class Search extends React.Component {
             )}
           </div>
         </div>
-        <div>
-          <label for="membership">Search Type:</label>
-            <select name="membership" id="membership" onChange={(e)=>this.changeFilter(e)}>
+
+		<div className ="mt-2 ms-0 me-4">
+	
+			<label htmlFor="ingredients"><span>Ingredients:</span></label>
+			<select name = "ingredients" required="true" className = "selectpicker form-control" multiple data-selected-text-format="count > 3" title = "Select Ingredients" onChange={event => this.addIngredient(event.target.value)}>
+				{this.state.ingredientList.map((data, i) =>
+					<option key={i} value={data}>{data}</option>
+				)};
+			</select>Ingredients to filter by: 
+				{this.state.ingredientsIncluded.map((ing, i) =>
+					<span key = {i}> {ing}, </span>)}
+
+
+		</div>
+        
+          <label for="membership" className="mt-4 me-2"><span>Search by:</span></label>
+		  <div>
+            <select className="form-select form-control mt-3" name="membership" id="membership" onChange={(e)=>this.changeFilter(e)}>
               <option 
                 value="recipeFilter" 
                 >Recipe</option>
@@ -180,30 +197,15 @@ export class Search extends React.Component {
                 value="authorFilter"
                 >Author</option>
             </select>
+			
         </div>
-		<div>
-		<span>
-		<div className="col-3 ms-1 mb-3">
-			<label htmlFor="ingredients">Ingredients</label>
-			<select name = "ingredients" required="true" className = "selectpicker form-control" multiple data-selected-text-format="count > 3" title = "Select Ingredients" onChange={event => this.addIngredient(event.target.value)}>
-				{this.state.ingredientList.map((data, i) =>
-					<option key={i} value={data}>{data}</option>
-				)};
-			</select>Ingredients selected: 
-				{this.state.ingredientsIncluded.map((ing, i) =>
-					<span key = {i}> {ing}, </span>)}
-		</div>
-
-
-		
-		</span>
-
-
 		</div>
 		<div>
+			
         {this.filterRender()}
 		</div>
       </div>
+
 		</>
 	}
 	async componentDidMount() {

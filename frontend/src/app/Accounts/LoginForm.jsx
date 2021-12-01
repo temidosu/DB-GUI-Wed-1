@@ -40,7 +40,7 @@ export class LoginForm extends React.Component {
 		if (response.status) {
 
 			sessionStorage.setItem("isAuthenticated", "true");
-			sessionStorage.setItem("userId", response.account.userID);
+			sessionStorage.setItem("userId", response.account.ID);
 
 			this.setState({
 				username: "",

@@ -31,7 +31,13 @@ router.use(function (req, res, next) {
 // REGISTER  ROUTES
 app.use('/userPage', router);
 
-
+router.get('/users/:userID', function (req, res) {
+	var userID = req.param('userID')
+	con.query("SELECT * FROM users WHERE userID = ?", userID, function (err, result, fields) {
+		if (err) throw err;
+		res.end(JSON.stringify(result)); // Result in JSON format
+	});
+});
 router.put('/users/:userID/updateUsername', async (req, res) => {
 	var userID = req.param('userID')
 	var userNameNew = req.param('userNameNew')

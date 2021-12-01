@@ -51,6 +51,7 @@ export class AccountRepository {
 		});
 	}
 
+	// Working
 	register(account) {
 		return new Promise((resolve, reject) => {
 			axios.post(hostname + '/api/register', account)
@@ -80,7 +81,7 @@ export class AccountRepository {
 
 	getUser(userID) {
 		return new Promise((resolve, reject) => {
-			axios.get(hostname + `/api/user/${userID}`)
+			axios.post(hostname + `/api/users/${userID}`)
 				.then(response => {
 					resolve(response);
 				})
@@ -109,42 +110,42 @@ export class AccountRepository {
 		});
 	}
 
-	getAllRecipes() {
+	getAllRecipes(){
 		return new Promise((resolve, reject) => {
 			axios.get(hostname + '/api/recipes')
-				.then(response => {
-					if (response.data.length > 0) {
-						resolve(response.data)
-					}
-					else {
-						resolve(undefined);
-					}
-				})
-				.catch(err => {
-					error(err);
-					reject(err);
-				});
+			.then(response => {
+				if (response.data.length > 0) {
+					resolve(response.data)
+				}
+				else {
+					resolve(undefined);
+				}
+			})
+			.catch(err => {
+				error(err);
+				reject(err);
+			});
 		});
 
 	}
 
 
 
-	returnIngredientsForRecipe(recipeID) {
+	returnIngredientsForRecipe(recipeID){
 		return new Promise((resolve, reject) => {
 			axios.get(hostname + '/api/recipeIngredients/', recipeID)
-				.then(response => {
-					if (response.data.length > 0) {
-						resolve(response.data)
-					}
-					else {
-						resolve(undefined);
-					}
-				})
-				.catch(err => {
-					error(err);
-					reject(err);
-				});
+			.then(response => {
+				if (response.data.length > 0) {
+					resolve(response.data)
+				}
+				else {
+					resolve(undefined);
+				}
+			})
+			.catch(err => {
+				error(err);
+				reject(err);
+			});
 		});
 
 	}

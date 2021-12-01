@@ -110,13 +110,13 @@ export class ProfileRecipes extends React.Component {
 			{sessionStorage.getItem("isAuthenticated") !== "true" &&
 				(<Navigate to="/login" />)}
 
-			<div id="Profile Page">
-				<h1>{this.state.user.firstName} {this.state.user.lastName}</h1>
-
+			<div className="ms-2" id="Profile Page">
+				<h1 className ="mt-2">{this.state.user.firstName} {this.state.user.lastName}</h1>
+				<hr />
 				<h3>Ingredients Center</h3>
 
 				{this.state.addIngredients === false &&
-					<button onClick={() => this.onAdd()} type="button" className="btn-sm btn-secondary bg-success me-1">Add/Remove Ingredients</button>
+					<button onClick={() => this.onAdd()} type="button" className="btn-sm btn-secondary bg-success me-1 ms-1">Add/Remove Ingredients</button>
 				}
 				{this.state.addIngredients === true &&
 					<form className="form-control">
@@ -158,10 +158,10 @@ export class ProfileRecipes extends React.Component {
 					</form>
 				}
 
-				<br></br>Your Ingredients: <br></br>
+				<br></br><br></br><h4>Your Ingredients: </h4>
 				{this.state.user.ingredients.map((ing, i) =>
-					<span key={i}>{ing}<br></br></span>)}
-
+					<li className="list-group list-group-item" key={i}>{ing}<br></br></li>)}
+				<hr />
 
 
 
