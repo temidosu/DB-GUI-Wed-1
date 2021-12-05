@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Navigate } from 'react-router-dom';
-import './Search.css';
 import { CompactRecipeCard } from '../common/CompactRecipeCard';
 import SearchIcon from "@material-ui/icons/Search";
 import CloseIcon from "@material-ui/icons/Close";
