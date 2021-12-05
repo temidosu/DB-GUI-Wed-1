@@ -1,7 +1,6 @@
 import React from "react";
 import { User } from '../../models/User';
 import { Navigate } from 'react-router-dom';
-import { CompactRecipeCardList } from '../common/CompactCardList';
 import { CreateRecipe } from "../recipe/createRecipe";
 // import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 // import { Link } from 'react-router-dom';
