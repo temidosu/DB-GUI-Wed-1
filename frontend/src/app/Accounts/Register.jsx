@@ -1,158 +1,127 @@
 import React, { useState } from 'react';
 import { Navigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-
 import { AccountRepository } from '../api/accountRepository';
 
-export const Register = () => {
-	const accountRepository = new AccountRepository();
+export class Register extends React.Component {
 
-	const [firstName, setFirstName] = useState("");
-	const [lastName, setLastName] = useState("");
-	const [email, setEmail] = useState("");
-	const [username, setUsername] = useState("");
-	const [password, setPassword] = useState("");
-	const [validFirstName, setValidFirstName] = useState(true);
-	const [validLastName, setValidLastName] = useState(true);
-	const [validEmail, setValidEmail] = useState(true);
-	const [validUsername, setValidUsername] = useState(true);
-	const [validPassword, setValidPassword] = useState(true);
-	const [complete, setComplete] = useState(false);
+	accountRepository = new AccountRepository();
 
-
-	function register() {
-		// event.preventDefault();
-		// event.stopPropagation();
-
-		if (!(firstName && lastName && email && username && password)) {
-			return;
-		}
-
-		let account = {
-			// name: `${firstName} ${lastName}`,
-			userName: username,
-			userEmail: email,
-			userPass: password
+	constructor(props) {
+		super(props)
+		this.state = {
+			username: "",
+			password: "",
+			email: "",
+			validation: true,
+			registered: false
 		};
-
-		accountRepository.register(account);
-		setComplete(true);
 	}
 
-	function validateEmail() {
+	async handleSubmit(event) {
+		console.log("test")
+        event.preventDefault();
+        if(this.validate()){
+			this.setState({validation: true})
+			let account = {
+				userName: this.state.username,
+				userPass: this.state.password,
+				userEmail: this.state.email
+			};
+
+			this.setState({
+				username: "",
+				password: "",
+				email: ""
+			})
+
+			this.accountRepository.register(account).then(res => {
+                this.setState({registered: true})
+            });
+			return (<Navigate to="/login"/>)
+        }
+        else{
+          this.setState({validation: false})
+			console.log("true")
+		}
+	}
+
+	validateEmail() {
 		let emailPattern = /[\w]+@[\w]+\.[\w]{2,}/;
-		if (emailPattern.test(email))
+		if (emailPattern.test(this.state.email))
 			return true;
-		else
+		else if (this.state.email === ""){
+			return true
+		}
 			return false;
 	}
 
-	if (complete) {
-		return (<Navigate to="/login" push />)
-	}
+	validate() {
 
-	return (
-		<>
+		if (this.state.username === "" || this.state.password=== "" || this.state.email === ""){
+			return false
+		}
+		else{
+			return true
+		}
+    }
+
+	render(){
+
+		return (
+			<div>
 			{sessionStorage.getItem("isAuthenticated") === "true" &&
-				(<Navigate to="/" push />)}
-			<form id="account-form" className="container col-sm-9 col-md-7 col-lg-3 mt-5 mx-auto border-0" onSubmit={e => register(e)}>
-				<h1 id="account-header" className="text-center">Create an Account</h1>
-				<div className={`form-label-group required`}>
-					<label htmlFor="username">First name</label>
-					<input
-						type="text"
-						id="username"
-						className={`form-control ${!validFirstName && "is-invalid"}`}
-						value={firstName}
-						onChange={e => setFirstName(e.target.value)}
-						onBlur={() => {
-							if (firstName)
-								setValidFirstName(true);
-							else
-								setValidFirstName(false);
-						}} />
-				</div>
-				<div className="form-label-group required">
-					<label htmlFor="lastName">Last name</label>
-					<input
-						type="text"
-						id="lastName"
-						className={`form-control ${!validLastName && "is-invalid"}`}
-						value={lastName}
-						onChange={e => setLastName(e.target.value)}
-						onBlur={() => {
-							if (lastName)
-								setValidLastName(true);
-							else
-								setValidLastName(false);
-						}} />
-				</div>
-				<div className="form-label-group required">
-					<label htmlFor="username">Username</label>
-					<input
-						type="text"
-						id="username"
-						className={`form-control ${!validUsername && "is-invalid"}`}
-						value={username}
-						onChange={e => setUsername(e.target.value)}
-						onBlur={() => {
-							if (lastName)
-								setValidUsername(true);
-							else
-								setValidUsername(false);
-						}} />
-				</div>
-				<div className="form-label-group required">
-					<label htmlFor="email">Email</label>
-					<input
-						type="text"
-						id="email"
-						className={`form-control ${!validEmail && "is-invalid"}`}
-						value={email}
-						onChange={e => {
-							setEmail(e.target.value);
-							if (!validateEmail())
-								setValidEmail(false);
-							else
-								setValidEmail(true);
-						}}
-						onBlur={() => {
-							if (validateEmail())
-								setValidEmail(true);
-							else
-								setValidEmail(false);
-						}} />
-				</div>
+					(<Navigate to="/"/>)}
+			
+				<form className="container col-sm-9 col-md-7 col-lg-3 mt-5 mx-auto border-0">
+				{ this.state.validation ?  "":<div class="form-control is-invalid">Invalid Registration: Empty Form Field</div> }
+				{ this.state.registered && (<Navigate to="/login"/>)}
+					<h1 class="text-muted" >Create an Account</h1>
+					<div className="form-label-group required">
+						<label label for="exampleFormControlInput1" class="form-label">Username</label>
+						<input
+							type="text"
+							id="username"
+							className="form-control"
+							value={this.state.username}
+							onChange={event => this.setState({ username: event.target.value })} />
+					</div>
+					<div className="form-label-group required">
+						<label htmlFor="email">Email</label>
+						<input
+							 value={this.state.email}
+							 id="email"
+							 type="text"
+							 className={`form-control ${!this.validateEmail() && "is-invalid"}`}
+							 onChange={event => this.setState({ email: event.target.value })} />
+					</div>
 
-				<div className="form-label-group required">
-					<label htmlFor="password">Password</label>
-					<input
-						type="password"
-						id="password"
-						className={`form-control ${!validPassword && "is-invalid"}`}
-						value={password}
-						onChange={e => setPassword(e.target.value)}
-						onBlur={() => {
-							if (password)
-								setValidPassword(true);
-							else
-								setValidPassword(false);
-						}} />
-				</div>
+					<div className="form-label-group required">
+						<label htmlFor="password">Password</label>
+						<input
+							value={this.state.password}
+							id="password"
+							className="form-control"
+							type="password"
+							onChange={event => this.setState({ password: event.target.value })}
+							/>
+					</div>
 
-				<div id="login-button-container" className="text-center">
+					<div  className="text-center mt-5">
 
-					<button
-						type="submit"
-						className="btn btn-info"
-						onClick={() => register()}>
 
-						Submit
-					</button>
-				</div>
-			</form>
-		</>
-	);
+						<button
+                            type="submit"
+                            onClick={event => this.handleSubmit(event)}
+                            className="btn btn-info"
+                        	>Submit
+						</button>
+
+						
+					</div>
+				</form>
+			</div>
+		);
+	}
 }
 
 export default Register;
