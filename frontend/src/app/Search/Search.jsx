@@ -12,7 +12,6 @@ export class Search extends React.Component {
 
 	accountRepository = new AccountRepository();
 
-	// searchRepo = new SearchRepository();
 	state = {
 		data: [],
 		filteredData: [],

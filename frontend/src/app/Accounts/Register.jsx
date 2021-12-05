@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
-import './accounts.css';
 import { AccountRepository } from '../api/accountRepository';
 
 export const Register = () => {
