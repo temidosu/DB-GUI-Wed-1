@@ -1,8 +1,6 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 import './Homestyle.css'
-import { CompactRecipeCard } from '../common/CompactRecipeCard';
-// import { recipes } from '../../DummyData/recipeData';
 import { Search } from '../Search/Search';
 
 

@@ -98,5 +98,5 @@ export class Register extends React.Component {
 	}
 }
 
-
+//Restructred from previous repo
 export default Register;

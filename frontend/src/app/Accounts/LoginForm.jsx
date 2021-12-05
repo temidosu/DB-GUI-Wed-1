@@ -82,5 +82,5 @@ export class LoginForm extends React.Component {
 		);
 	}
 }
-//Restructured code->look commit
+//Restructured from previous repo
 export default LoginForm;
