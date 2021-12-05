@@ -1,12 +1,7 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
-
-import { CompactRecipeCard } from '../common/CompactRecipeCard';
-import { CompactRecipeCardList } from '../common/CompactCardList';
-import { FaStar } from "react-icons/fa"
 import './review.css'
 import { AccountRepository } from '../api/accountRepository';
-import { Recipe } from '../../models/Recipe';
+
 
 export class ViewRecipe extends React.Component {
 	accountRepository = new AccountRepository();
