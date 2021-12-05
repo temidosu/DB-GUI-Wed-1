@@ -1,6 +1,7 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 import { AccountRepository } from '../api/accountRepository';
+import './loginRegister.css'
 
 export class LoginForm extends React.Component {
 	constructor(props) {
@@ -31,8 +32,8 @@ export class LoginForm extends React.Component {
 		if (!this.validation()) {
 			this.setState({ invalidCred: true });
 			return <>
-			<p className="alert alert-danger">Username or password is blank</p>
-		</>;
+				<p className="form-control is-invalid">Username or password is blank</p>
+			</>;
 		}
 
 		const data = await this.accountRepository.login(this.state.username, this.state.password);
@@ -61,46 +62,25 @@ export class LoginForm extends React.Component {
 		}
 		return (
 			<>
-				<form id="account-form" className="col-lg-3 mt-5 mx-auto" onSubmit={e => this.login(e)}>
-					<h1 className="text-center">Sign In</h1>
-					{this.state.invalidCred &&
-						<p className="alert alert-danger">
-							Invalid username or password
-						</p>}
-					<div className="form-label-group">
-						<label >Username</label>
-						<input
-							type="text"
-							id="username"
-							className="form-control"
-							value={this.state.username}
-							onChange={e => this.setState({ username: e.target.value })} />
-					</div>
-					<div className="form-label-group">
-						<label htmlFor="password">Password</label>
-						<input
-							type="password"
-							id="password"
-							className="form-control"
-							value={this.state.password}
-							onChange={e => this.setState({ password: e.target.value })} />
-					</div>
-
-					<div id="login-button-container" className="text-center">
-						<button
-							type="submit"
-							className="btn btn-primary"
-							onClick={e => this.login(e)}>
-							Login
-						</button>
-					</div>
-
-					<div className="col-lg-7 mt-5 mx-auto">
-						<a href="/register">Register For An Account</a>
-					</div>
+				<div className="LogIn">
+				<form className="col-lg-3 mb-2 mt-5 mx-auto" onSubmit={e => this.login(e)}>
+					<h1 className="text-center">Sign In</h1> 
+					{this.state.invalidCred && <p className="form-control is-invalid"> Invalid username or password</p>}
+					<label >Username</label>
+						<input type="text" id="username" className="form-control form-control-lg" value={this.state.username} onChange={e => this.setState({ username: e.target.value })} />
+					<label className="mt-2">Password</label>
+						<input type="password" id="password" className="form-control form-control-lg" value={this.state.password} onChange={e => this.setState({ password: e.target.value })} />
+					<div className="text-center mt-3">
+						<button type="submit" className="btn btn-success" onClick={e => this.login(e)}> Login </button>
+						<div className="text center col-lg-7 mt-2 mx-auto">
+							<a href="/register">Register For An Account</a>
+						</div>
+					</div>	
 				</form>
+				</div>
 			</>
 		);
 	}
 }
+//Restructured code->look commit
 export default LoginForm;

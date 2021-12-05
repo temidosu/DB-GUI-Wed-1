@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { AccountRepository } from '../api/accountRepository';
 
+
 export class Register extends React.Component {
 
 	accountRepository = new AccountRepository();
@@ -78,50 +79,24 @@ export class Register extends React.Component {
 					<h1 class="text-muted" >Create an Account</h1>
 					<div className="form-label-group required">
 						<label label for="exampleFormControlInput1" class="form-label">Username</label>
-						<input
-							type="text"
-							id="username"
-							className="form-control"
-							value={this.state.username}
-							onChange={event => this.setState({ username: event.target.value })} />
+						<input type="text" id="username" className="form-control" value={this.state.username} onChange={event => this.setState({ username: event.target.value })} />
 					</div>
 					<div className="form-label-group required">
 						<label htmlFor="email">Email</label>
-						<input
-							 value={this.state.email}
-							 id="email"
-							 type="text"
-							 className={`form-control ${!this.validateEmail() && "is-invalid"}`}
-							 onChange={event => this.setState({ email: event.target.value })} />
+						<input value={this.state.email} id="email" type="text" className={`form-control ${!this.validateEmail() && "is-invalid"}`} onChange={event => this.setState({ email: event.target.value })} />
 					</div>
-
 					<div className="form-label-group required">
 						<label htmlFor="password">Password</label>
-						<input
-							value={this.state.password}
-							id="password"
-							className="form-control"
-							type="password"
-							onChange={event => this.setState({ password: event.target.value })}
-							/>
+						<input value={this.state.password} id="password" className="form-control" type="password" onChange={event => this.setState({ password: event.target.value })}/>
 					</div>
-
 					<div  className="text-center mt-5">
-
-
-						<button
-                            type="submit"
-                            onClick={event => this.handleSubmit(event)}
-                            className="btn btn-info"
-                        	>Submit
-						</button>
-
-						
+						<button type="submit" onClick={event => this.handleSubmit(event)} className="btn btn-info" >Submit </button>
 					</div>
 				</form>
 			</div>
 		);
 	}
 }
+
 
 export default Register;
