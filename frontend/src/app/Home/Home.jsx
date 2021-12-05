@@ -4,12 +4,8 @@ import './Homestyle.css'
 import { Search } from '../Search/Search';
 
 
-//import { HomeRepository } from '../Api/homeRepository';
-
-
 export class Home extends React.Component {
 
-	//homeRepo = new HomeRepository();
 
 	state = {
 
